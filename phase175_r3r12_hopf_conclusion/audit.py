@@ -14,7 +14,7 @@ import traceback
 
 from phase175_r3r12_hopf_conclusion import install
 
-GATE = "PASS_R3R12R4_VERIFIED_HOPF_ISOMORPHISM_SINGLE_CONCLUSION"
+GATE = "PASS_R3R12R5_VERIFIED_HOPF_MAP_DOMAIN_CODOMAIN"
 TEST_PATHS = (
     "phase175_r3r12_hopf_conclusion/tests",
     "phase175_r3r11_cited_hopf_narrative/tests",
@@ -84,8 +84,8 @@ def _public_gate() -> dict[str, object]:
         r"=H(\nu')E\eta_{5}=\eta_{5}E\eta_{5}=\eta_{5}^{2}$."
     )
     conclusion = r"$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$."
-    surjective = "よって, $H$ は全射."
-    isomorphism = "よって, $H$ は同型."
+    surjective = r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は全射."
+    isomorphism = r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は同型."
     if (body.count(summary) != 1 or body.count(conclusion) != 1
             or body.count("以上より, " + conclusion) != 1
             or body.count(surjective) != 1 or body.count(isomorphism) != 1
@@ -117,7 +117,7 @@ def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
     root = root.resolve()
     checked = preflight(root)
     plan = checked["plan"]
-    label = "PHASE175_R3R12R4_"
+    label = "PHASE175_R3R12R5_"
     print(label + "BRANCH=develop")
     print(label + "HEAD=" + checked["head"])
     print(label + "REVIEWED_BLOB=" + checked["reviewed_blob"])
@@ -125,11 +125,11 @@ def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
     print(label + "NEW_GIVEN=0")
     print(label + "NEW_MATHEMATICAL_RULES=0")
     if dry_run:
-        print(label + "GATE=PASS_R3R12R4_READ_ONLY_DRYRUN")
+        print(label + "GATE=PASS_R3R12R5_READ_ONLY_DRYRUN")
         return 0
 
     folder = (Path(os.environ.get("LOCALAPPDATA") or tempfile.gettempdir())
-              / "EHPProofTracerAudit" / "phase175_r3r12r4_hopf_conclusion")
+              / "EHPProofTracerAudit" / "phase175_r3r12r5_hopf_conclusion")
     folder.mkdir(parents=True, exist_ok=True)
     target = root / install.TARGET
     if plan.status == "PATCH_REQUIRED":
@@ -190,7 +190,7 @@ def main() -> int:
         return run(args.root, args.dry_run, args.timeout_seconds)
     except Exception:
         traceback.print_exc()
-        print("PHASE175_R3R12R4_GATE=FAIL")
+        print("PHASE175_R3R12R5_GATE=FAIL")
         return 1
 
 

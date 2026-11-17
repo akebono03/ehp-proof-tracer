@@ -217,8 +217,9 @@ def project_verified_hopf_lift_conclusion(lines: list[str], model) -> list[str]:
     symbol = map_symbol_tex(injective_step.conclusion.map)
     if not symbol:
         return original
-    surjective = f"よって, ${symbol}$ は全射."
-    isomorphism = f"よって, ${symbol}$ は同型."
+    map_tex = rf"{symbol}: {source_group}\to {target_group}"
+    surjective = f"よって, ${map_tex}$ は全射."
+    isomorphism = f"よって, ${map_tex}$ は同型."
     changed = []
     for index, line in enumerate(original):
         if index == duplicate_at:

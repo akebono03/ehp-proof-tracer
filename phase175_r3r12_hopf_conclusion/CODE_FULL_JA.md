@@ -1,16 +1,15 @@
-# Phase 175 R3R12R4 — 変更コード全文
+# Phase 175 R3R12R5 — コード全文
 
-## 変更対象と追加位置
+## 変更対象
 
-1. `phase175_r3r12_hopf_conclusion/projection.py`：既存の `project_verified_hopf_lift_conclusion()` を関数全文で置換。import は `map_symbol_tex` を追加するため、変更後の import 全文を下記に掲載する。その他の関数・クラスは変更しない。
-2. `phase175_r3r12_hopf_conclusion/tests/test_projection.py`：`test_pi73_single_final_conclusion_and_hopf_isomorphism()`、`test_internal_cyclic_latex_is_not_a_second_proof_requirement()`、`test_injectivity_line_matches_the_real_typed_renderer()`、`test_pi63_old_narrative_remains_unchanged()` の文言期待値のみ更新。新規 `test_concise_consequences_follow_typed_hopf_map()` を `test_partial_or_missing_source_citations_are_unchanged()` の直前に追加。テスト用 import は以下に全文を掲載する。
-3. `phase175_r3r12_hopf_conclusion/audit.py`：`GATE` 定数、`_public_gate()`、`run()`、`main()` を更新。変更後の import 全文・関数全文を下記に掲載する。
-4. `phase175_r3r12_hopf_conclusion/run.ps1`：ファイル全文を下記に掲載する。
-5. README.md（英語）、AUDIT_PLAN_JA.md、TEST_RESULTS_JA.md、CODE_FULL_JA.md（日本語）は全文更新して同梱。
+- `projection.py` の `project_verified_hopf_lift_conclusion()` 全体（import は既存のまま）
+- `tests/test_projection.py` の関連テスト5件（既存 import に新規外部 import は不要）
+- `audit.py` の `GATE`、`_public_gate()`、`run()`、`main()`
+- `run.ps1` の出力識別子
 
-既存の `phase175_r3r11_cited_hopf_narrative/projection.py` は今回変更しない（R3R12R3 の接続済み関数を引き続き使用）。数学的推論規則、出典 GIVEN、ProofStep、プロジェクト基幹5文書に変更なし。
+新規クラス・関数なし。全コードをそのまま置き換えられるファイル単位で収録する。変更対象以外のクラス・関数は維持。
 
-## `projection.py` — import 全文
+## `projection.py`（変更後の全文）
 
 ```python
 """Shared certified finite-cyclic Hopf-lift conclusion presentation.
@@ -32,11 +31,102 @@ from phase175_r3_pi73_hopf_lift.rule import RULE_NAME, hopf_lift_inputs
 from proof import ProofRule, Relation, RelationType
 from toda_human_readable_renderer import render_toda_public_group_generator_latex
 from web_group_proof_common import _group_proof_statement_latex
-```
 
-## `projection.py` — `project_verified_hopf_lift_conclusion()` 全文
+VERIFIED_PRIOR_LIFT_NAME = "verified prior DB Hopf cyclic generator preimage lift"
 
-```python
+
+def _unique_index_by_identity(steps: tuple, wanted: object, scope: frozenset[int]) -> int | None:
+    """Require an actual ProofStep object, not a merely equal fake step."""
+    found = [i for i in scope if steps[i] is wanted]
+    return found[0] if len(found) == 1 else None
+
+
+def _source_numbers(model, step_index: int, scope: frozenset[int]) -> tuple[int, ...]:
+    """Return citation numbers of real GIVEN ancestors of one proved step."""
+    try:
+        ancestry = root_ancestor_step_indices(model.steps, step_index)
+    except ValueError:
+        return ()
+    if not ancestry.issubset(scope):
+        return ()
+    source_numbers = set()
+    for index in ancestry:
+        step = model.steps[index]
+        if step.rule is ProofRule.GIVEN:
+            source_numbers.update(model.step_citation_numbers[index])
+    known = {citation.number for citation in model.citations}
+    if not source_numbers.issubset(known):
+        return ()
+    return tuple(sorted(source_numbers))
+
+
+def _certified_hopf_lift(model):
+    """Identify one consumed instance of the existing general Hopf lift rule."""
+    if (getattr(model, "status", None) is not ProofSearchStatus.COMPLETE
+            or getattr(model, "open_goals", ())):
+        return None
+    steps = getattr(model, "steps", None)
+    citations = getattr(model, "step_citation_numbers", None)
+    registered_citations = getattr(model, "citations", None)
+    root_index = getattr(model, "root_index", None)
+    if (not isinstance(steps, tuple) or not isinstance(citations, tuple)
+            or len(steps) != len(citations)
+            or not isinstance(registered_citations, tuple) or not registered_citations
+            or type(root_index) is not int
+            or not 0 <= root_index < len(steps)):
+        return None
+    try:
+        scope = root_ancestor_step_indices(steps, root_index)
+    except ValueError:
+        return None
+    root = steps[root_index]
+    claim = root.conclusion
+    if (root.rule is not ProofRule.INFERENCE
+            or not isinstance(claim, Relation)
+            or claim.relation_type is not RelationType.EQUALITY
+            or not isinstance(claim.lhs, TodaPrimaryGroup)
+            or not isinstance(claim.rhs, FiniteCyclicGroup)):
+        return None
+    candidates = []
+    for index in scope:
+        step = steps[index]
+        cyclic = step.conclusion
+        name = getattr(getattr(step, "inference_rule", None), "name", None)
+        if (index == root_index or step.rule is not ProofRule.INFERENCE
+                or not isinstance(cyclic, CyclicStructureStatement)
+                or cyclic.group != claim.lhs or cyclic.order != claim.rhs.order
+                or name not in (RULE_NAME, VERIFIED_PRIOR_LIFT_NAME)
+                or len(step.premises) != 3 or citations[index]):
+            continue
+        injectivity, codomain, image = step.premises
+        if (injectivity.rule is not ProofRule.INFERENCE
+                or image.rule is not ProofRule.INFERENCE
+                or not isinstance(injectivity.conclusion, MapInjective)):
+            continue
+        # The original general lift proves the codomain by INFERENCE.
+        # The verified-prior variant explicitly admits a citation-bearing
+        # earlier database GIVEN, validated by its own existing rule/trust gate.
+        if (name == RULE_NAME and codomain.rule is not ProofRule.INFERENCE):
+            continue
+        if (name == VERIFIED_PRIOR_LIFT_NAME
+                and (codomain.rule is not ProofRule.GIVEN
+                     or bool(codomain.premises))):
+            continue
+        required = hopf_lift_inputs(cyclic, codomain.conclusion, image.conclusion)
+        if required is None or tuple(parent.conclusion for parent in step.premises) != required:
+            continue
+        positions = tuple(
+            _unique_index_by_identity(steps, parent, scope)
+            for parent in step.premises
+        )
+        if any(pos is None for pos in positions) or len(set(positions)) != 3:
+            continue
+        # The lift must be on the actual root path; all three certified
+        # premises must be the exact premises consumed by that inference.
+        candidates.append((scope, root, step, positions))
+    return candidates[0] if len(candidates) == 1 else None
+
+
 def project_verified_hopf_lift_conclusion(lines: list[str], model) -> list[str]:
     """Explain generator-surjectivity/isomorphism and hide one duplicate.
 
@@ -141,8 +231,9 @@ def project_verified_hopf_lift_conclusion(lines: list[str], model) -> list[str]:
     symbol = map_symbol_tex(injective_step.conclusion.map)
     if not symbol:
         return original
-    surjective = f"よって, ${symbol}$ は全射."
-    isomorphism = f"よって, ${symbol}$ は同型."
+    map_tex = rf"{symbol}: {source_group}\to {target_group}"
+    surjective = f"よって, ${map_tex}$ は全射."
+    isomorphism = f"よって, ${map_tex}$ は同型."
     changed = []
     for index, line in enumerate(original):
         if index == duplicate_at:
@@ -150,9 +241,10 @@ def project_verified_hopf_lift_conclusion(lines: list[str], model) -> list[str]:
         else:
             changed.append(line)
     return changed
+
 ```
 
-## `tests/test_projection.py` — import 全文
+## `tests/test_projection.py`（変更後の全文）
 
 ```python
 """Live public model and fail-closed cyclic Hopf-lift narrative contracts."""
@@ -173,11 +265,27 @@ from phase175_r3r12_hopf_conclusion.projection import (
     _certified_hopf_lift,
     project_verified_hopf_lift_conclusion,
 )
-```
 
-## テスト `test_pi73_single_final_conclusion_and_hopf_isomorphism` 全文
 
-```python
+@pytest.fixture(scope="module")
+def pi73_verified():
+    bridge = build_shared_typed_bridge()
+    contexts = []
+    result = search_group_from_registered_goal(
+        n=3, k=4, bridge=bridge, context_sink=contexts.append,
+    )
+    assert result.status is ProofSearchStatus.COMPLETE
+    assert not result.open_goals
+    assert len(contexts) == 1
+    citing_id = resolve_specialized_goal_citing_id(bridge, result.conclusion)
+    assert citing_id is not None
+    verify_proof_tree_for_narrative(
+        result, contexts[0], citing_assertion_id=citing_id,
+    )
+    model = build_linked_proof_narrative_model(result, contexts[0])
+    return result, model
+
+
 def test_pi73_single_final_conclusion_and_hopf_isomorphism(pi73_verified) -> None:
     result, model = pi73_verified
     before = tuple(id(step) for step in model.steps)
@@ -196,43 +304,41 @@ def test_pi73_single_final_conclusion_and_hopf_isomorphism(pi73_verified) -> Non
     )
     assert "以上より, " + conclusion in body
     assert "\n" + conclusion + "\n" not in body
-    assert body.count("よって, $H$ は全射.") == 1
-    assert body.count("よって, $H$ は同型.") == 1
+    assert body.count(r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は全射.") == 1
+    assert body.count(r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は同型.") == 1
     assert "の生成元であり" not in body
     assert "すでに $H$ は単射なので" not in body
-    assert (body.index(summary) < body.index("よって, $H$ は全射.")
-            < body.index("よって, $H$ は同型.")
+    assert (body.index(summary) < body.index(r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は全射.")
+            < body.index(r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は同型.")
             < body.index("以上より, " + conclusion))
     assert "**[R2] Lemma 5.7.**" in references
     assert "**[R6] Proposition 2.2.**" in references
     assert len(model.citations) == 7
     assert before == tuple(id(step) for step in model.steps)
-```
 
-## テスト `test_concise_consequences_follow_typed_hopf_map` 全文
 
-```python
-def test_concise_consequences_follow_typed_hopf_map(pi73_verified) -> None:
-    """The same certified map symbol owns both short consequences."""
-    from phase168_r3_27_typed_statement_projection import map_symbol_tex
+def test_public_generator_and_source_anchors_match_verified_image(pi73_verified) -> None:
+    """The public generator is allowed a different internal source spelling."""
+    from phase175_r3r12_hopf_conclusion.projection import _source_numbers
+    from toda_human_readable_renderer import render_toda_public_group_generator_latex
 
     result, model = pi73_verified
     certificate = _certified_hopf_lift(model)
     assert certificate is not None
-    _, _, cyclic_step, _ = certificate
-    map_symbol = map_symbol_tex(cyclic_step.premises[0].conclusion.map)
-    assert map_symbol == "H"
+    scope, _, cyclic_step, positions = certificate
+    codomain = cyclic_step.premises[1].conclusion
+    generator = render_toda_public_group_generator_latex(codomain.rhs.generator)
+    numbers = _source_numbers(model, positions[2], scope)
     markdown = render_model_backed_narrative_markdown(result, model)
     _, body = markdown.split("\n証明\n", 1)
-    sentences = body.splitlines()
-    assert sentences.count(f"よって, ${map_symbol}$ は全射.") == 1
-    assert sentences.count(f"よって, ${map_symbol}$ は同型.") == 1
-    assert all("生成元であり" not in sentence for sentence in sentences)
-```
+    prefix = ", ".join(f"[R{number}]" for number in numbers) + "より, $H("
+    assert len(numbers) >= 2, (numbers, generator)
+    assert any(
+        line.startswith(prefix) and line.endswith(f"={generator}$.")
+        for line in body.splitlines()
+    ), (prefix, generator, body)
 
-## テスト `test_internal_cyclic_latex_is_not_a_second_proof_requirement` 全文
 
-```python
 def test_internal_cyclic_latex_is_not_a_second_proof_requirement(
     pi73_verified, monkeypatch: pytest.MonkeyPatch,
 ) -> None:
@@ -255,12 +361,47 @@ def test_internal_cyclic_latex_is_not_a_second_proof_requirement(
     _, body = content.split("\n証明\n", 1)
     conclusion = r"$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$."
     assert body.count(conclusion) == 1, body
-    assert "よって, $H$ は同型." in body
-```
+    assert r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は同型." in body
 
-## テスト `test_injectivity_line_matches_the_real_typed_renderer` 全文
 
-```python
+def test_concise_consequences_follow_typed_hopf_map(pi73_verified) -> None:
+    """The same certified map symbol owns both short consequences."""
+    from phase168_r3_27_typed_statement_projection import group_tex, map_symbol_tex
+
+    result, model = pi73_verified
+    certificate = _certified_hopf_lift(model)
+    assert certificate is not None
+    _, _, cyclic_step, _ = certificate
+    typed_map = cyclic_step.premises[0].conclusion.map
+    map_symbol = map_symbol_tex(typed_map)
+    assert map_symbol == "H"
+    source = group_tex(typed_map.source_group)
+    target = group_tex(typed_map.target_group)
+    map_text = rf"{map_symbol}: {source}\to {target}"
+    assert map_text == r"H: \pi_{7}^{3}\to \pi_{7}^{5}"
+    markdown = render_model_backed_narrative_markdown(result, model)
+    _, body = markdown.split("\n証明\n", 1)
+    sentences = body.splitlines()
+    assert sentences.count(f"よって, ${map_text}$ は全射.") == 1
+    assert sentences.count(f"よって, ${map_text}$ は同型.") == 1
+    assert all("生成元であり" not in sentence for sentence in sentences)
+
+
+def test_partial_or_missing_source_citations_are_unchanged(pi73_verified) -> None:
+    _, model = pi73_verified
+    text = ["使用する結果", "", "証明", "", "確認済み", "", "□"]
+    assert project_verified_hopf_lift_conclusion(
+        text, replace(model, status=ProofSearchStatus.PARTIAL),
+    ) == text
+    assert project_verified_hopf_lift_conclusion(
+        text, replace(model, citations=()),
+    ) == text
+    assert project_verified_hopf_lift_conclusion(
+        text, replace(model, root_index=None),
+    ) == text
+    assert _certified_hopf_lift(replace(model, citations=())) is None
+
+
 def test_injectivity_line_matches_the_real_typed_renderer(pi73_verified) -> None:
     """The actual renderer emits a space after H:, unlike an old hand-coded guard."""
     from phase168_r3_27_typed_statement_projection import typed_sentence
@@ -276,12 +417,40 @@ def test_injectivity_line_matches_the_real_typed_renderer(pi73_verified) -> None
     markdown = render_model_backed_narrative_markdown(result, model)
     _, body = markdown.split("\n証明\n", 1)
     assert sentence in body.splitlines()
-    assert "よって, $H$ は同型." in body
-```
+    assert r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は同型." in body
 
-## テスト `test_pi63_old_narrative_remains_unchanged` 全文
 
-```python
+def test_missing_injectivity_line_preserves_original(pi73_verified) -> None:
+    """A genuinely missing injectivity display must not invent an isomorphism."""
+    from phase168_r3_27_typed_statement_projection import typed_sentence
+
+    result, model = pi73_verified
+    certificate = _certified_hopf_lift(model)
+    assert certificate is not None
+    injective_step = certificate[2].premises[0]
+    sentence = typed_sentence(injective_step.conclusion, injective_step)
+    assert sentence is not None
+    markdown = render_model_backed_narrative_markdown(result, model)
+    # Drop only the sentence to check the fail-closed presentation contract.
+    before = markdown.splitlines()
+    assert before.count(sentence) == 1
+    damaged = [line for line in before if line != sentence]
+    assert project_verified_hopf_lift_conclusion(damaged, model) == damaged
+
+
+def test_missing_rendered_summary_does_not_infer_surjectivity(pi73_verified) -> None:
+    _, model = pi73_verified
+    text = [
+        "使用する結果", "", "証明", "",
+        r"完全性より, $H:\pi_{7}^{3}\to\pi_{7}^{5}$ は単射.", "",
+        r"[R4]より, $\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}$.", "",
+        r"$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$.", "",
+        r"以上より, $\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$.",
+        "", "□",
+    ]
+    assert project_verified_hopf_lift_conclusion(text, model) == text
+
+
 def test_pi63_old_narrative_remains_unchanged() -> None:
     bridge = build_shared_typed_bridge()
     contexts = []
@@ -300,10 +469,11 @@ def test_pi63_old_narrative_remains_unchanged() -> None:
     assert r"[R3]より, $E(\eta_{5})=\eta_{6}$." in body
     assert "[R4]より, " in body
     assert "[R3], [R4], [R5]より, " in body
-    assert "よって, $H$ は同型." not in body
+    assert r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は同型." not in body
+
 ```
 
-## `audit.py` — import 全文と変更した定数
+## `audit.py`（変更後の全文）
 
 ```python
 """R3R12 read-only preflight, focused tests and public source-bound gate."""
@@ -322,12 +492,55 @@ import traceback
 
 from phase175_r3r12_hopf_conclusion import install
 
-GATE = "PASS_R3R12R4_CONCISE_VERIFIED_HOPF_CONSEQUENCES"
-```
+GATE = "PASS_R3R12R5_VERIFIED_HOPF_MAP_DOMAIN_CODOMAIN"
+TEST_PATHS = (
+    "phase175_r3r12_hopf_conclusion/tests",
+    "phase175_r3r11_cited_hopf_narrative/tests",
+    "phase175_r3r10_generator_zero_narrative/tests/test_public.py",
+    "phase175_r3r10_generator_zero_narrative/tests/test_projection.py",
+    "phase175_r3r9_lemma57_explicit_public/tests/test_public_search.py",
+    "phase171_r20r13_eta_sentence_layout/tests/test_projection.py",
+    "phase172_r3_hopf_chain_display/tests/test_projection.py",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_line_endings_source_guard_and_patch_idempotence",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_source_guard_rejects_unreviewed_change",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_rejects_mixed_eol_and_cr_only",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_body_line_search_does_not_match_reference_text",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_step_index_rejects_ambiguous_value_fallback",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_incomplete_model_has_no_composed_rewrite",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_git_sha_fixture",
+)
 
-## `audit.py` — `_public_gate` 全文
 
-```python
+def _read_git(root: Path, *args: str) -> str:
+    result = subprocess.run(
+        ["git", *args], cwd=root, capture_output=True, text=True,
+        encoding="utf-8", errors="replace", check=False,
+    )
+    if result.returncode:
+        raise RuntimeError("R3R12_GIT_READ_FAILED: " + " ".join(args))
+    return result.stdout.strip()
+
+
+def preflight(root: Path) -> dict[str, object]:
+    if not (root / ".git").exists():
+        raise RuntimeError("R3R12_GIT_REPOSITORY_REQUIRED")
+    if _read_git(root, "branch", "--show-current") != "develop":
+        raise RuntimeError("R3R12_DEVELOP_REQUIRED")
+    if not (root / "phase175_r3r9_lemma57_explicit_public" / "route.py").is_file():
+        raise RuntimeError("R3R12_R3R9_REQUIRED")
+    if not (root / "phase175_r3r11_cited_hopf_narrative" / "run.ps1").is_file():
+        raise RuntimeError("R3R12_R3R11_REQUIRED")
+    prior_projection = (root / "phase175_r3r11_cited_hopf_narrative" / "projection.py")
+    normalized, _ = install._canonical(prior_projection.read_bytes())
+    current_blob = install.git_blob_sha(normalized)
+    plan = install.plan_patch(root)
+    return {
+        "head": _read_git(root, "rev-parse", "HEAD"),
+        "reviewed_blob": current_blob,
+        "plan": plan,
+    }
+
+
 def _public_gate() -> dict[str, object]:
     from phase175_r1_k4_audit.audit import inspect_one_group
     from phase175_r3r9_lemma57_explicit_public.audit import verify_public_result
@@ -349,8 +562,8 @@ def _public_gate() -> dict[str, object]:
         r"=H(\nu')E\eta_{5}=\eta_{5}E\eta_{5}=\eta_{5}^{2}$."
     )
     conclusion = r"$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$."
-    surjective = "よって, $H$ は全射."
-    isomorphism = "よって, $H$ は同型."
+    surjective = r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は全射."
+    isomorphism = r"よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は同型."
     if (body.count(summary) != 1 or body.count(conclusion) != 1
             or body.count("以上より, " + conclusion) != 1
             or body.count(surjective) != 1 or body.count(isomorphism) != 1
@@ -376,16 +589,13 @@ def _public_gate() -> dict[str, object]:
         "final_conclusion_count": body.count(conclusion),
         "markdown_sha256": sha256(markdown.encode("utf-8")).hexdigest(),
     }
-```
 
-## `audit.py` — `run` 全文
 
-```python
 def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
     root = root.resolve()
     checked = preflight(root)
     plan = checked["plan"]
-    label = "PHASE175_R3R12R4_"
+    label = "PHASE175_R3R12R5_"
     print(label + "BRANCH=develop")
     print(label + "HEAD=" + checked["head"])
     print(label + "REVIEWED_BLOB=" + checked["reviewed_blob"])
@@ -393,11 +603,11 @@ def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
     print(label + "NEW_GIVEN=0")
     print(label + "NEW_MATHEMATICAL_RULES=0")
     if dry_run:
-        print(label + "GATE=PASS_R3R12R4_READ_ONLY_DRYRUN")
+        print(label + "GATE=PASS_R3R12R5_READ_ONLY_DRYRUN")
         return 0
 
     folder = (Path(os.environ.get("LOCALAPPDATA") or tempfile.gettempdir())
-              / "EHPProofTracerAudit" / "phase175_r3r12r4_hopf_conclusion")
+              / "EHPProofTracerAudit" / "phase175_r3r12r5_hopf_conclusion")
     folder.mkdir(parents=True, exist_ok=True)
     target = root / install.TARGET
     if plan.status == "PATCH_REQUIRED":
@@ -446,11 +656,8 @@ def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
             else:
                 print(label + "ROLLBACK=MANUAL_INSPECTION_REQUIRED")
         raise
-```
 
-## `audit.py` — `main` 全文
 
-```python
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=Path, required=True)
@@ -461,11 +668,16 @@ def main() -> int:
         return run(args.root, args.dry_run, args.timeout_seconds)
     except Exception:
         traceback.print_exc()
-        print("PHASE175_R3R12R4_GATE=FAIL")
+        print("PHASE175_R3R12R5_GATE=FAIL")
         return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
 ```
 
-## `run.ps1` — 全文
+## `run.ps1`（変更後の全文）
 
 ```powershell
 param(
@@ -484,13 +696,21 @@ if ($DryRun) {
     & python -B -m phase175_r3r12_hopf_conclusion.audit `
         --root $root --dry-run --timeout-seconds $TimeoutSeconds
     $code = $LASTEXITCODE
-    Write-Output "PHASE175_R3R12R4_EXIT_CODE=$code"
+    Write-Output "PHASE175_R3R12R5_EXIT_CODE=$code"
     exit $code
 }
 
 & python -B -m phase175_r3r12_hopf_conclusion.audit `
     --root $root --timeout-seconds $TimeoutSeconds
 $code = $LASTEXITCODE
-Write-Output "PHASE175_R3R12R4_EXIT_CODE=$code"
+Write-Output "PHASE175_R3R12R5_EXIT_CODE=$code"
 exit $code
+
 ```
+
+## 実行する限定 pytest と完了条件
+
+- ZIP 展開後、`phase175_r3r12_hopf_conclusion/run.ps1 -DryRun` を実行する。
+- 正常なら同じ `run.ps1` を本実行する。限定 pytest は監査 `TEST_PATHS` のみ。Phase 175 途中で全体 pytest を実施しない。
+- 期待 Gate：`PASS_R3R12R5_VERIFIED_HOPF_MAP_DOMAIN_CODOMAIN`。
+- 次の Phase の新規 EHP 規則、専用 Narrative、群構造探索は実装しない。

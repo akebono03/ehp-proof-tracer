@@ -1,32 +1,38 @@
-# Phase 175 R3R12R4 — 共通 Hopf lift の短文表示
+# Phase 175 R3R12R5 — Hopf 写像の始域・終域表示統一
 
-## 変更するファイル・関数
+## 変更対象（実装前の列挙）
 
-- `phase175_r3r12_hopf_conclusion/projection.py`：`project_verified_hopf_lift_conclusion()` 全体。`map_symbol_tex` を import に追加。
-- `phase175_r3r12_hopf_conclusion/tests/test_projection.py`：短文表示を確認する既存テスト関数全文の期待値を更新、新規テスト関数を `test_partial_or_missing_source_citations_are_unchanged()` の直前に追加。
-- `audit.py`：`GATE`、`_public_gate()`、`run()`、`main()`。
-- `run.ps1` および4文書：監査 ID と記録を更新。
+- `phase175_r3r12_hopf_conclusion/projection.py`：`project_verified_hopf_lift_conclusion()` 全体。既存 import に変更なし。
+- `phase175_r3r12_hopf_conclusion/tests/test_projection.py`：`test_pi73_single_final_conclusion_and_hopf_isomorphism()`、`test_internal_cyclic_latex_is_not_a_second_proof_requirement()`、`test_concise_consequences_follow_typed_hopf_map()`、`test_injectivity_line_matches_the_real_typed_renderer()`、`test_pi63_old_narrative_remains_unchanged()` の期待文字列等を変更。import と各関数全文は `CODE_FULL_JA.md` を参照。
+- `phase175_r3r12_hopf_conclusion/audit.py`：`GATE` 定数、`_public_gate()`、`run()`、`main()` の Gate 識別子・出力期待値を更新。
+- `phase175_r3r12_hopf_conclusion/run.ps1`：Gate 識別子を更新。
+- `README.md`（英語）、`AUDIT_PLAN_JA.md`、`TEST_RESULTS_JA.md`、`CODE_FULL_JA.md`（日本語）：全文更新。
 
-既存の R3R11R4 接続関数・その他の数学的コードには手を加えない。
+新規クラス・関数なし。`install.py`、既存 R3R11・Phase 172・Proof Search・DB・数学的規則・GIVEN は変更しない。
 
-## 監査済みの現行コード
+## 現行コードと関連テストの事前確認
 
-GitHub `akebono03/ehp-proof-tracer` の `develop` を確認した。R3R11R4 の `projection.py` の blob は `258d22589f92fbebdb9c4516dbe72c1f94a98afd`。関連して Phase 175 R3 Hopf lift の一般規則と verified prior DB variant、共通型付き Renderer、Phase 172 と R3R11 の表示回帰テストを確認した。さらに配布済み R3R12R3 の実行コードと、ユーザーの Windows 実行結果（限定 pytest 51 passed、Gate PASS、結論1件）を確認した。
+GitHub `akebono03/ehp-proof-tracer` の `develop` から、R3R12、R3R11、Phase 168 の型付き表示、R3 の Hopf lift 一般規則と verified prior DB 版の関連コードおよびテストを確認した。出発点は直近の R3R12R4 配布 ZIP（ユーザーが `develop` で正常実行した版）。R3R12R4 は DryRun PASS・限定 pytest **52 passed**・公開 Group query complete・Trust True・Reference 7件・結論1件・最終 Gate PASS。
 
-## 数学的・表示上の境界
+## 実装の境界
 
-検証済みの Hopf lift 前提 `H` の単射性、余域の有限巡回構造、生成元像は既存の Proof Tree からのみ取得する。これらをもとにした共通の帰結を「よって, $H$ は全射.」「よって, $H$ は同型.」と短く表示する。写像名は検証済み `MapInjective` の map object から描画するため、$\nu\prime$、$\eta_5$、`n=3`、`k=4`、参照番号を文章テンプレートに埋め込まない。
+既存の証明木で使われた `MapInjective` の写像から `map_symbol_tex()` で $H$ を得て、証明済みの始域・終域に `group_tex()` を適用する。$n=3$、$k=4$ 等の特定の数字を文章テンプレートへ直接埋め込まない。
 
-新たな `MapSurjective`、`MapIsomorphism` の証明ステップを追加したと宣言しない。既存の一般規則の論理的帰結を文章化するだけである。元の出典つき群構造・Hopf 合成式・単射性の表示が欠ける場合は無変更とする。
+結果は例として以下の2文にする。
 
-## テスト・合格条件
+- `よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は全射.`
+- `よって, $H: \pi_{7}^{3}\to \pi_{7}^{5}$ は同型.`
 
-- DryRun：既存のソース固定検査と作業ツリー検査が PASS。`PATCH_STATUS=ALREADY_APPLIED` を期待。
-- 本実行：R3R12・R3R11R4・R3R10・R3R9・Phase 171・172・R70 の限定 pytest のみ。
-- $\pi_7^3$：公開検索 complete / Trust True / Reference 7件、Hopf 合成式1件、結論1件、短文2件を確認。
-- $\pi_6^3$：Phase 172 の従来表示を維持。
-- 数学的規則追加0、GIVEN 追加0、全体 pytest 未実施。
+前提に関する fail-closed（不明なら無変更）検証、出典、Hopf 等式、最終結論の重複防止をすべて維持する。`MapSurjective` または `MapIsomorphism` の証明ステップを新規に生成しない。
 
-Gate: `PASS_R3R12R4_CONCISE_VERIFIED_HOPF_CONSEQUENCES`。
+## テスト・完了条件
 
-R4 の新しい群探索機能や、将来の一般的な全射・同型 `ProofStep` 生成は導入しない。
+- DryRun：既存版が導入済みなら `PATCH_STATUS=ALREADY_APPLIED` を期待。
+- 本実行：R3R12・R3R11・Phase 172 等の既定の限定 pytest のみ実施。
+- 公開証明：両方の写像文・合成式・最終結論1件、Reference 7件・Trust True、Lemma 5.4 非依存を確認。
+- $n=3,k=3$：既存 Phase 172 の証明表示を維持。
+- 全体 pytest：Phase 175 の最後にのみ実施。
+
+期待 Gate：`PASS_R3R12R5_VERIFIED_HOPF_MAP_DOMAIN_CODOMAIN`。
+
+次の Phase で扱う新しい群構造の推論や専用証明は先取りしない。
