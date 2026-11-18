@@ -1,0 +1,49 @@
+{
+  "phase": "175-R4R12R8",
+  "repository": {
+    "head": "3ec001a59044aeb056ec7190c43c6066eaf5abae",
+    "branch": "develop",
+    "baseline_is_ancestor": true,
+    "r7_commit_is_ancestor": true,
+    "other_tracked_changes_present": false,
+    "modified_evidence": []
+  },
+  "source": {
+    "adopted_tex_path": "sources\\toda\\Toda_05_2.tex",
+    "markers": {
+      "equation_5_8_has_signed_delta_iota9": true,
+      "equation_5_11_has_delta_eta9": true,
+      "proof_uses_prop_2_5": true,
+      "proof_uses_equation_5_8": true,
+      "proof_uses_order_two_reduction": true,
+      "proof_prints_final_image": true
+    },
+    "relation_explicitly_printed": true,
+    "signed_source_equation": true,
+    "sign_disappears_only_after_order_two_argument": true,
+    "source_edition_is_original_print": false,
+    "type_source": "Delta: pi_10^9 -> pi_8^4; eta_9 in pi_10^9",
+    "type_target": "E(nu_prime) o eta_7 in pi_8^4"
+  },
+  "existing_rules": {
+    "existing_rule_requires_signed_image_as_premise": true,
+    "existing_rule_does_not_construct_the_image_equation": true,
+    "r7_explicitly_reports_unproved_obligations": true,
+    "typed_proof_of_equation_5_11": false,
+    "recursive_proof_search_executed": false
+  },
+  "remaining_obligations": [
+    "Admit typed Proposition 2.5 with exact hypotheses and 2-primary equality condition",
+    "Derive signed equation (5.8) without promoting a conclusion to a GIVEN",
+    "Verify order two of eta_7 and E(nu_prime) o eta_7 before dropping signs",
+    "Verify typed composition and additivity rules, including dimension endpoints",
+    "Evaluate shared-provider candidate expansion without asserting completion"
+  ],
+  "new_given": 0,
+  "new_mathematical_rules": 0,
+  "production_changes": false,
+  "full_pytest_executed": false,
+  "group_proof_complete": false,
+  "gate": "PASS_R4R12R8_ADOPTED_SOURCE_FOUND_TYPED_PROOF_PENDING",
+  "dry_run": true
+}

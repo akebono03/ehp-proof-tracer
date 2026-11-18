@@ -1,0 +1,5 @@
+{
+  "gate": "FAIL_R4R12R10R1",
+  "error": "R10R1_CITED_511_NOT_PUBLIC",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase175_r4r12r10r1_cited_511_public\\audit.py\", line 204, in main\n    result = inspect(root, dry_run=args.dry_run)\n  File \"C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase175_r4r12r10r1_cited_511_public\\audit.py\", line 180, in inspect\n    raise RuntimeError(\"R10R1_CITED_511_NOT_PUBLIC\")\nRuntimeError: R10R1_CITED_511_NOT_PUBLIC\n"
+}

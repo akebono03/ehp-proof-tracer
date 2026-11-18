@@ -1,0 +1,40 @@
+{
+  "phase": "phase175_r4r12r9_delta_generator_image_bridge",
+  "dry_run": true,
+  "git": {
+    "head": "3ec001a59044aeb056ec7190c43c6066eaf5abae",
+    "dirty": []
+  },
+  "source": {
+    "adopted_tex_path": "sources\\toda\\Toda_05_2.tex",
+    "markers": {
+      "equation_5_8_has_signed_delta_iota9": true,
+      "equation_5_11_has_delta_eta9": true,
+      "proof_uses_prop_2_5": true,
+      "proof_uses_equation_5_8": true,
+      "proof_uses_order_two_reduction": true,
+      "proof_prints_final_image": true
+    },
+    "relation_explicitly_printed": true,
+    "signed_source_equation": true,
+    "sign_disappears_only_after_order_two_argument": true,
+    "source_edition_is_original_print": false,
+    "type_source": "Delta: pi_10^9 -> pi_8^4; eta_9 in pi_10^9",
+    "type_target": "E(nu_prime) o eta_7 in pi_8^4"
+  },
+  "install": {
+    "target": "phase165_r52_r9_shared_math.py",
+    "patch_required": true,
+    "patch_applied": false,
+    "full_function_output": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase175_r4r12r9_delta_generator_image_bridge\\output\\SHARED_PROVIDER_FULL_AFTER.py"
+  },
+  "shared": null,
+  "generator_image_candidate_count": 1,
+  "equality_subgoal": "Relation(lhs=MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))), rhs=Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "new_given": 0,
+  "new_math_rules_other_than_generic_bridge": 0,
+  "recursive_search_executed": false,
+  "group_proof_complete": false,
+  "full_pytest_executed": false,
+  "gate": "PASS_R4R12R9_GENERIC_BRIDGE_CONNECTED_PROOF_PENDING"
+}

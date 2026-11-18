@@ -1,0 +1,1316 @@
+{
+  "phase": "phase175_r4r12r10r1r3_orientation_type_diagnostic",
+  "head": "bf0d7be3081c61f2feec075a3c82c2004c29bbf2",
+  "source_position": 9500,
+  "routes": [
+    {
+      "orientation": 0,
+      "equation_equals_citation": false,
+      "lhs_equals_citation": false,
+      "rhs_equals_citation": false,
+      "lhs_differences": [
+        {
+          "path": "lhs.expression.name",
+          "left_type": "str",
+          "right_type": "str",
+          "left": "'η₉'",
+          "right": "'η_9'"
+        }
+      ],
+      "rhs_differences": [
+        {
+          "path": "rhs.left",
+          "left_type": "Suspension",
+          "right_type": "HomotopyElement",
+          "left": "Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')))",
+          "right": "HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))"
+        }
+      ],
+      "delta_goal": {
+        "path": "root",
+        "type": "phase165_r14_r6_generic_iso.GeneratorImage",
+        "repr": "GeneratorImage(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=9), target_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4)), source_generator=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)), target_generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))))",
+        "children": [
+          {
+            "path": "root.map",
+            "type": "homotopy_groups.TodaDeltaMap",
+            "repr": "TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=9), target_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4))",
+            "children": [
+              {
+                "path": "root.map.source_group",
+                "type": "homotopy_groups.TodaPrimaryGroup",
+                "repr": "TodaPrimaryGroup(group_dimension=10, sphere_dimension=9)",
+                "children": [
+                  {
+                    "path": "root.map.source_group.group_dimension",
+                    "type": "builtins.int",
+                    "repr": "10"
+                  },
+                  {
+                    "path": "root.map.source_group.sphere_dimension",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  }
+                ]
+              },
+              {
+                "path": "root.map.target_group",
+                "type": "homotopy_groups.TodaPrimaryGroup",
+                "repr": "TodaPrimaryGroup(group_dimension=8, sphere_dimension=4)",
+                "children": [
+                  {
+                    "path": "root.map.target_group.group_dimension",
+                    "type": "builtins.int",
+                    "repr": "8"
+                  },
+                  {
+                    "path": "root.map.target_group.sphere_dimension",
+                    "type": "builtins.int",
+                    "repr": "4"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.source_generator",
+            "type": "expression.HomotopyElement",
+            "repr": "HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))",
+            "children": [
+              {
+                "path": "root.source_generator.name",
+                "type": "builtins.str",
+                "repr": "'η_9'"
+              },
+              {
+                "path": "root.source_generator.dimension",
+                "type": "builtins.int",
+                "repr": "9"
+              },
+              {
+                "path": "root.source_generator.source",
+                "type": "builtins.int",
+                "repr": "10"
+              },
+              {
+                "path": "root.source_generator.target",
+                "type": "builtins.int",
+                "repr": "9"
+              },
+              {
+                "path": "root.source_generator.generator",
+                "type": "expression.GeneratorSymbol",
+                "repr": "GeneratorSymbol(family='η', index=9, decoration=None)",
+                "children": [
+                  {
+                    "path": "root.source_generator.generator.family",
+                    "type": "builtins.str",
+                    "repr": "'η'"
+                  },
+                  {
+                    "path": "root.source_generator.generator.index",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.source_generator.generator.decoration",
+                    "type": "builtins.NoneType",
+                    "repr": "None"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.target_generator",
+            "type": "expression.Composition",
+            "repr": "Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))",
+            "children": [
+              {
+                "path": "root.target_generator.left",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.target_generator.left.name",
+                    "type": "builtins.str",
+                    "repr": "'ν₄'"
+                  },
+                  {
+                    "path": "root.target_generator.left.dimension",
+                    "type": "builtins.int",
+                    "repr": "4"
+                  },
+                  {
+                    "path": "root.target_generator.left.source",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.target_generator.left.target",
+                    "type": "builtins.int",
+                    "repr": "4"
+                  },
+                  {
+                    "path": "root.target_generator.left.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='ν', index=4, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.target_generator.left.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'ν'"
+                      },
+                      {
+                        "path": "root.target_generator.left.generator.index",
+                        "type": "builtins.int",
+                        "repr": "4"
+                      },
+                      {
+                        "path": "root.target_generator.left.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "path": "root.target_generator.right",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.target_generator.right.name",
+                    "type": "builtins.str",
+                    "repr": "'η₇'"
+                  },
+                  {
+                    "path": "root.target_generator.right.dimension",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.target_generator.right.source",
+                    "type": "builtins.int",
+                    "repr": "8"
+                  },
+                  {
+                    "path": "root.target_generator.right.target",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.target_generator.right.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=7, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.target_generator.right.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.target_generator.right.generator.index",
+                        "type": "builtins.int",
+                        "repr": "7"
+                      },
+                      {
+                        "path": "root.target_generator.right.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "actual_equation": {
+        "path": "root",
+        "type": "proof.Relation",
+        "repr": "Relation(lhs=MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))), rhs=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "children": [
+          {
+            "path": "root.lhs",
+            "type": "expression.MapApplication",
+            "repr": "MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)))",
+            "children": [
+              {
+                "path": "root.lhs.map",
+                "type": "expression.MapSymbol",
+                "repr": "MapSymbol(name='Δ')",
+                "children": [
+                  {
+                    "path": "root.lhs.map.name",
+                    "type": "builtins.str",
+                    "repr": "'Δ'"
+                  }
+                ]
+              },
+              {
+                "path": "root.lhs.expression",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.lhs.expression.name",
+                    "type": "builtins.str",
+                    "repr": "'η_9'"
+                  },
+                  {
+                    "path": "root.lhs.expression.dimension",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.lhs.expression.source",
+                    "type": "builtins.int",
+                    "repr": "10"
+                  },
+                  {
+                    "path": "root.lhs.expression.target",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.lhs.expression.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=9, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.lhs.expression.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.lhs.expression.generator.index",
+                        "type": "builtins.int",
+                        "repr": "9"
+                      },
+                      {
+                        "path": "root.lhs.expression.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.rhs",
+            "type": "expression.Composition",
+            "repr": "Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))",
+            "children": [
+              {
+                "path": "root.rhs.left",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.rhs.left.name",
+                    "type": "builtins.str",
+                    "repr": "'ν₄'"
+                  },
+                  {
+                    "path": "root.rhs.left.dimension",
+                    "type": "builtins.int",
+                    "repr": "4"
+                  },
+                  {
+                    "path": "root.rhs.left.source",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.rhs.left.target",
+                    "type": "builtins.int",
+                    "repr": "4"
+                  },
+                  {
+                    "path": "root.rhs.left.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='ν', index=4, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.rhs.left.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'ν'"
+                      },
+                      {
+                        "path": "root.rhs.left.generator.index",
+                        "type": "builtins.int",
+                        "repr": "4"
+                      },
+                      {
+                        "path": "root.rhs.left.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "path": "root.rhs.right",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.rhs.right.name",
+                    "type": "builtins.str",
+                    "repr": "'η₇'"
+                  },
+                  {
+                    "path": "root.rhs.right.dimension",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.rhs.right.source",
+                    "type": "builtins.int",
+                    "repr": "8"
+                  },
+                  {
+                    "path": "root.rhs.right.target",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.rhs.right.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=7, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.rhs.right.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.rhs.right.generator.index",
+                        "type": "builtins.int",
+                        "repr": "7"
+                      },
+                      {
+                        "path": "root.rhs.right.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.relation_type",
+            "type": "proof.RelationType",
+            "repr": "<RelationType.EQUALITY: 'equality'>"
+          },
+          {
+            "path": "root.source",
+            "type": "builtins.NoneType",
+            "repr": "None"
+          },
+          {
+            "path": "root.note",
+            "type": "builtins.NoneType",
+            "repr": "None"
+          }
+        ]
+      },
+      "source_equation": {
+        "path": "root",
+        "type": "proof.Relation",
+        "repr": "Relation(lhs=MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η₉', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))), rhs=Composition(left=Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "children": [
+          {
+            "path": "root.lhs",
+            "type": "expression.MapApplication",
+            "repr": "MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η₉', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)))",
+            "children": [
+              {
+                "path": "root.lhs.map",
+                "type": "expression.MapSymbol",
+                "repr": "MapSymbol(name='Δ')",
+                "children": [
+                  {
+                    "path": "root.lhs.map.name",
+                    "type": "builtins.str",
+                    "repr": "'Δ'"
+                  }
+                ]
+              },
+              {
+                "path": "root.lhs.expression",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η₉', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.lhs.expression.name",
+                    "type": "builtins.str",
+                    "repr": "'η₉'"
+                  },
+                  {
+                    "path": "root.lhs.expression.dimension",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.lhs.expression.source",
+                    "type": "builtins.int",
+                    "repr": "10"
+                  },
+                  {
+                    "path": "root.lhs.expression.target",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.lhs.expression.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=9, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.lhs.expression.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.lhs.expression.generator.index",
+                        "type": "builtins.int",
+                        "repr": "9"
+                      },
+                      {
+                        "path": "root.lhs.expression.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.rhs",
+            "type": "expression.Composition",
+            "repr": "Composition(left=Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))",
+            "children": [
+              {
+                "path": "root.rhs.left",
+                "type": "expression.Suspension",
+                "repr": "Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')))",
+                "children": [
+                  {
+                    "path": "root.rhs.left.expression",
+                    "type": "expression.HomotopyElement",
+                    "repr": "HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))",
+                    "children": [
+                      {
+                        "path": "root.rhs.left.expression.name",
+                        "type": "builtins.str",
+                        "repr": "'ν′'"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.dimension",
+                        "type": "builtins.int",
+                        "repr": "3"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.source",
+                        "type": "builtins.int",
+                        "repr": "6"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.target",
+                        "type": "builtins.int",
+                        "repr": "3"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.generator",
+                        "type": "expression.GeneratorSymbol",
+                        "repr": "GeneratorSymbol(family='ν', index=None, decoration='′')",
+                        "children": [
+                          {
+                            "path": "root.rhs.left.expression.generator.family",
+                            "type": "builtins.str",
+                            "repr": "'ν'"
+                          },
+                          {
+                            "path": "root.rhs.left.expression.generator.index",
+                            "type": "builtins.NoneType",
+                            "repr": "None"
+                          },
+                          {
+                            "path": "root.rhs.left.expression.generator.decoration",
+                            "type": "builtins.str",
+                            "repr": "'′'"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "path": "root.rhs.right",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.rhs.right.name",
+                    "type": "builtins.str",
+                    "repr": "'η₇'"
+                  },
+                  {
+                    "path": "root.rhs.right.dimension",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.rhs.right.source",
+                    "type": "builtins.int",
+                    "repr": "8"
+                  },
+                  {
+                    "path": "root.rhs.right.target",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.rhs.right.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=7, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.rhs.right.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.rhs.right.generator.index",
+                        "type": "builtins.int",
+                        "repr": "7"
+                      },
+                      {
+                        "path": "root.rhs.right.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.relation_type",
+            "type": "proof.RelationType",
+            "repr": "<RelationType.EQUALITY: 'equality'>"
+          },
+          {
+            "path": "root.source",
+            "type": "builtins.NoneType",
+            "repr": "None"
+          },
+          {
+            "path": "root.note",
+            "type": "builtins.NoneType",
+            "repr": "None"
+          }
+        ]
+      },
+      "source_endpoints": [
+        10,
+        9
+      ],
+      "target_endpoints": [
+        8,
+        4
+      ],
+      "subgoal_types": [
+        "Relation",
+        "Relation",
+        "GeneratorImage",
+        "TodaProp42ExactnessStatement",
+        "MapSurjective",
+        "GeneratorImage"
+      ]
+    },
+    {
+      "orientation": 1,
+      "equation_equals_citation": false,
+      "lhs_equals_citation": false,
+      "rhs_equals_citation": false,
+      "lhs_differences": [
+        {
+          "path": "lhs.expression.name",
+          "left_type": "str",
+          "right_type": "str",
+          "left": "'η₉'",
+          "right": "'η_9'"
+        }
+      ],
+      "rhs_differences": [
+        {
+          "path": "rhs.left",
+          "left_type": "Suspension",
+          "right_type": "IteratedSuspension",
+          "left": "Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')))",
+          "right": "IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)"
+        }
+      ],
+      "delta_goal": {
+        "path": "root",
+        "type": "phase165_r14_r6_generic_iso.GeneratorImage",
+        "repr": "GeneratorImage(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=9), target_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4)), source_generator=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)), target_generator=Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))))",
+        "children": [
+          {
+            "path": "root.map",
+            "type": "homotopy_groups.TodaDeltaMap",
+            "repr": "TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=9), target_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4))",
+            "children": [
+              {
+                "path": "root.map.source_group",
+                "type": "homotopy_groups.TodaPrimaryGroup",
+                "repr": "TodaPrimaryGroup(group_dimension=10, sphere_dimension=9)",
+                "children": [
+                  {
+                    "path": "root.map.source_group.group_dimension",
+                    "type": "builtins.int",
+                    "repr": "10"
+                  },
+                  {
+                    "path": "root.map.source_group.sphere_dimension",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  }
+                ]
+              },
+              {
+                "path": "root.map.target_group",
+                "type": "homotopy_groups.TodaPrimaryGroup",
+                "repr": "TodaPrimaryGroup(group_dimension=8, sphere_dimension=4)",
+                "children": [
+                  {
+                    "path": "root.map.target_group.group_dimension",
+                    "type": "builtins.int",
+                    "repr": "8"
+                  },
+                  {
+                    "path": "root.map.target_group.sphere_dimension",
+                    "type": "builtins.int",
+                    "repr": "4"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.source_generator",
+            "type": "expression.HomotopyElement",
+            "repr": "HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))",
+            "children": [
+              {
+                "path": "root.source_generator.name",
+                "type": "builtins.str",
+                "repr": "'η_9'"
+              },
+              {
+                "path": "root.source_generator.dimension",
+                "type": "builtins.int",
+                "repr": "9"
+              },
+              {
+                "path": "root.source_generator.source",
+                "type": "builtins.int",
+                "repr": "10"
+              },
+              {
+                "path": "root.source_generator.target",
+                "type": "builtins.int",
+                "repr": "9"
+              },
+              {
+                "path": "root.source_generator.generator",
+                "type": "expression.GeneratorSymbol",
+                "repr": "GeneratorSymbol(family='η', index=9, decoration=None)",
+                "children": [
+                  {
+                    "path": "root.source_generator.generator.family",
+                    "type": "builtins.str",
+                    "repr": "'η'"
+                  },
+                  {
+                    "path": "root.source_generator.generator.index",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.source_generator.generator.decoration",
+                    "type": "builtins.NoneType",
+                    "repr": "None"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.target_generator",
+            "type": "expression.Composition",
+            "repr": "Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))",
+            "children": [
+              {
+                "path": "root.target_generator.left",
+                "type": "expression.IteratedSuspension",
+                "repr": "IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)",
+                "children": [
+                  {
+                    "path": "root.target_generator.left.expression",
+                    "type": "expression.HomotopyElement",
+                    "repr": "HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))",
+                    "children": [
+                      {
+                        "path": "root.target_generator.left.expression.name",
+                        "type": "builtins.str",
+                        "repr": "\"ν'\""
+                      },
+                      {
+                        "path": "root.target_generator.left.expression.dimension",
+                        "type": "builtins.int",
+                        "repr": "3"
+                      },
+                      {
+                        "path": "root.target_generator.left.expression.source",
+                        "type": "builtins.int",
+                        "repr": "6"
+                      },
+                      {
+                        "path": "root.target_generator.left.expression.target",
+                        "type": "builtins.int",
+                        "repr": "3"
+                      },
+                      {
+                        "path": "root.target_generator.left.expression.generator",
+                        "type": "expression.GeneratorSymbol",
+                        "repr": "GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)",
+                        "children": [
+                          {
+                            "path": "root.target_generator.left.expression.generator.family",
+                            "type": "builtins.str",
+                            "repr": "\"\\\\nu'\""
+                          },
+                          {
+                            "path": "root.target_generator.left.expression.generator.index",
+                            "type": "builtins.NoneType",
+                            "repr": "None"
+                          },
+                          {
+                            "path": "root.target_generator.left.expression.generator.decoration",
+                            "type": "builtins.NoneType",
+                            "repr": "None"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "path": "root.target_generator.left.exponent",
+                    "type": "builtins.int",
+                    "repr": "1"
+                  }
+                ]
+              },
+              {
+                "path": "root.target_generator.right",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.target_generator.right.name",
+                    "type": "builtins.str",
+                    "repr": "'η₇'"
+                  },
+                  {
+                    "path": "root.target_generator.right.dimension",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.target_generator.right.source",
+                    "type": "builtins.int",
+                    "repr": "8"
+                  },
+                  {
+                    "path": "root.target_generator.right.target",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.target_generator.right.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=7, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.target_generator.right.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.target_generator.right.generator.index",
+                        "type": "builtins.int",
+                        "repr": "7"
+                      },
+                      {
+                        "path": "root.target_generator.right.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "actual_equation": {
+        "path": "root",
+        "type": "proof.Relation",
+        "repr": "Relation(lhs=MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))), rhs=Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "children": [
+          {
+            "path": "root.lhs",
+            "type": "expression.MapApplication",
+            "repr": "MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)))",
+            "children": [
+              {
+                "path": "root.lhs.map",
+                "type": "expression.MapSymbol",
+                "repr": "MapSymbol(name='Δ')",
+                "children": [
+                  {
+                    "path": "root.lhs.map.name",
+                    "type": "builtins.str",
+                    "repr": "'Δ'"
+                  }
+                ]
+              },
+              {
+                "path": "root.lhs.expression",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.lhs.expression.name",
+                    "type": "builtins.str",
+                    "repr": "'η_9'"
+                  },
+                  {
+                    "path": "root.lhs.expression.dimension",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.lhs.expression.source",
+                    "type": "builtins.int",
+                    "repr": "10"
+                  },
+                  {
+                    "path": "root.lhs.expression.target",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.lhs.expression.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=9, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.lhs.expression.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.lhs.expression.generator.index",
+                        "type": "builtins.int",
+                        "repr": "9"
+                      },
+                      {
+                        "path": "root.lhs.expression.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.rhs",
+            "type": "expression.Composition",
+            "repr": "Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))",
+            "children": [
+              {
+                "path": "root.rhs.left",
+                "type": "expression.IteratedSuspension",
+                "repr": "IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)",
+                "children": [
+                  {
+                    "path": "root.rhs.left.expression",
+                    "type": "expression.HomotopyElement",
+                    "repr": "HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))",
+                    "children": [
+                      {
+                        "path": "root.rhs.left.expression.name",
+                        "type": "builtins.str",
+                        "repr": "\"ν'\""
+                      },
+                      {
+                        "path": "root.rhs.left.expression.dimension",
+                        "type": "builtins.int",
+                        "repr": "3"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.source",
+                        "type": "builtins.int",
+                        "repr": "6"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.target",
+                        "type": "builtins.int",
+                        "repr": "3"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.generator",
+                        "type": "expression.GeneratorSymbol",
+                        "repr": "GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)",
+                        "children": [
+                          {
+                            "path": "root.rhs.left.expression.generator.family",
+                            "type": "builtins.str",
+                            "repr": "\"\\\\nu'\""
+                          },
+                          {
+                            "path": "root.rhs.left.expression.generator.index",
+                            "type": "builtins.NoneType",
+                            "repr": "None"
+                          },
+                          {
+                            "path": "root.rhs.left.expression.generator.decoration",
+                            "type": "builtins.NoneType",
+                            "repr": "None"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "path": "root.rhs.left.exponent",
+                    "type": "builtins.int",
+                    "repr": "1"
+                  }
+                ]
+              },
+              {
+                "path": "root.rhs.right",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.rhs.right.name",
+                    "type": "builtins.str",
+                    "repr": "'η₇'"
+                  },
+                  {
+                    "path": "root.rhs.right.dimension",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.rhs.right.source",
+                    "type": "builtins.int",
+                    "repr": "8"
+                  },
+                  {
+                    "path": "root.rhs.right.target",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.rhs.right.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=7, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.rhs.right.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.rhs.right.generator.index",
+                        "type": "builtins.int",
+                        "repr": "7"
+                      },
+                      {
+                        "path": "root.rhs.right.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.relation_type",
+            "type": "proof.RelationType",
+            "repr": "<RelationType.EQUALITY: 'equality'>"
+          },
+          {
+            "path": "root.source",
+            "type": "builtins.NoneType",
+            "repr": "None"
+          },
+          {
+            "path": "root.note",
+            "type": "builtins.NoneType",
+            "repr": "None"
+          }
+        ]
+      },
+      "source_equation": {
+        "path": "root",
+        "type": "proof.Relation",
+        "repr": "Relation(lhs=MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η₉', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))), rhs=Composition(left=Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "children": [
+          {
+            "path": "root.lhs",
+            "type": "expression.MapApplication",
+            "repr": "MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η₉', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)))",
+            "children": [
+              {
+                "path": "root.lhs.map",
+                "type": "expression.MapSymbol",
+                "repr": "MapSymbol(name='Δ')",
+                "children": [
+                  {
+                    "path": "root.lhs.map.name",
+                    "type": "builtins.str",
+                    "repr": "'Δ'"
+                  }
+                ]
+              },
+              {
+                "path": "root.lhs.expression",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η₉', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.lhs.expression.name",
+                    "type": "builtins.str",
+                    "repr": "'η₉'"
+                  },
+                  {
+                    "path": "root.lhs.expression.dimension",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.lhs.expression.source",
+                    "type": "builtins.int",
+                    "repr": "10"
+                  },
+                  {
+                    "path": "root.lhs.expression.target",
+                    "type": "builtins.int",
+                    "repr": "9"
+                  },
+                  {
+                    "path": "root.lhs.expression.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=9, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.lhs.expression.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.lhs.expression.generator.index",
+                        "type": "builtins.int",
+                        "repr": "9"
+                      },
+                      {
+                        "path": "root.lhs.expression.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.rhs",
+            "type": "expression.Composition",
+            "repr": "Composition(left=Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))",
+            "children": [
+              {
+                "path": "root.rhs.left",
+                "type": "expression.Suspension",
+                "repr": "Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')))",
+                "children": [
+                  {
+                    "path": "root.rhs.left.expression",
+                    "type": "expression.HomotopyElement",
+                    "repr": "HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))",
+                    "children": [
+                      {
+                        "path": "root.rhs.left.expression.name",
+                        "type": "builtins.str",
+                        "repr": "'ν′'"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.dimension",
+                        "type": "builtins.int",
+                        "repr": "3"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.source",
+                        "type": "builtins.int",
+                        "repr": "6"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.target",
+                        "type": "builtins.int",
+                        "repr": "3"
+                      },
+                      {
+                        "path": "root.rhs.left.expression.generator",
+                        "type": "expression.GeneratorSymbol",
+                        "repr": "GeneratorSymbol(family='ν', index=None, decoration='′')",
+                        "children": [
+                          {
+                            "path": "root.rhs.left.expression.generator.family",
+                            "type": "builtins.str",
+                            "repr": "'ν'"
+                          },
+                          {
+                            "path": "root.rhs.left.expression.generator.index",
+                            "type": "builtins.NoneType",
+                            "repr": "None"
+                          },
+                          {
+                            "path": "root.rhs.left.expression.generator.decoration",
+                            "type": "builtins.str",
+                            "repr": "'′'"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "path": "root.rhs.right",
+                "type": "expression.HomotopyElement",
+                "repr": "HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))",
+                "children": [
+                  {
+                    "path": "root.rhs.right.name",
+                    "type": "builtins.str",
+                    "repr": "'η₇'"
+                  },
+                  {
+                    "path": "root.rhs.right.dimension",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.rhs.right.source",
+                    "type": "builtins.int",
+                    "repr": "8"
+                  },
+                  {
+                    "path": "root.rhs.right.target",
+                    "type": "builtins.int",
+                    "repr": "7"
+                  },
+                  {
+                    "path": "root.rhs.right.generator",
+                    "type": "expression.GeneratorSymbol",
+                    "repr": "GeneratorSymbol(family='η', index=7, decoration=None)",
+                    "children": [
+                      {
+                        "path": "root.rhs.right.generator.family",
+                        "type": "builtins.str",
+                        "repr": "'η'"
+                      },
+                      {
+                        "path": "root.rhs.right.generator.index",
+                        "type": "builtins.int",
+                        "repr": "7"
+                      },
+                      {
+                        "path": "root.rhs.right.generator.decoration",
+                        "type": "builtins.NoneType",
+                        "repr": "None"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "root.relation_type",
+            "type": "proof.RelationType",
+            "repr": "<RelationType.EQUALITY: 'equality'>"
+          },
+          {
+            "path": "root.source",
+            "type": "builtins.NoneType",
+            "repr": "None"
+          },
+          {
+            "path": "root.note",
+            "type": "builtins.NoneType",
+            "repr": "None"
+          }
+        ]
+      },
+      "source_endpoints": [
+        10,
+        9
+      ],
+      "target_endpoints": [
+        8,
+        4
+      ],
+      "subgoal_types": [
+        "Relation",
+        "Relation",
+        "GeneratorImage",
+        "TodaProp42ExactnessStatement",
+        "MapSurjective",
+        "GeneratorImage"
+      ]
+    }
+  ],
+  "new_given": 0,
+  "new_mathematical_rules": 0,
+  "production_files_modified": 0,
+  "recursive_search_run": false,
+  "full_pytest_executed": false,
+  "group_complete": false,
+  "gate": "PASS_R4R12R10R1R3_TYPED_MISMATCH_DIAGNOSED_NOT_COMPLETE"
+}
