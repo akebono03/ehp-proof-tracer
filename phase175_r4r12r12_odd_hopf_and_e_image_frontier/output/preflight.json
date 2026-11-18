@@ -1,0 +1,84 @@
+{
+  "phase": "175-R4R12R12",
+  "dry_run": true,
+  "head": "e13e6c91c7c69b51daa9c4e7ed93390699828ae9",
+  "gate": "PASS_R12_ODD_HOPF_AND_E_IMAGE_FRONTIER_NOT_COMPLETE",
+  "full_pytest_executed": false,
+  "frontier": {
+    "paths": [
+      {
+        "orientation": 0,
+        "delta_image": "GeneratorImage(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=9), target_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4)), source_generator=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)), target_generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))))",
+        "suspension_image": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=5)), source_generator=Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))), target_generator=Composition(left=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None)), right=HomotopyElement(name='η₈', dimension=8, source=9, target=8, generator=GeneratorSymbol(family='η', index=8, decoration=None))))",
+        "suspension_image_candidate_count": 0,
+        "suspension_image_rule_names": [],
+        "component_count": 0,
+        "component_candidates": [],
+        "surjectivity_candidate_count": 1,
+        "surjectivity_rule_names": [
+          "EHP exactness and zero Hopf target imply suspension surjectivity"
+        ],
+        "zero_route_requires_false_diagonal_zero": true,
+        "zero_route_requisites": [
+          "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=9))"
+        ],
+        "group_complete": false
+      },
+      {
+        "orientation": 1,
+        "delta_image": "GeneratorImage(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=9), target_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4)), source_generator=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)), target_generator=Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))))",
+        "suspension_image": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=5)), source_generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))), target_generator=Composition(left=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None)), right=HomotopyElement(name='η₈', dimension=8, source=9, target=8, generator=GeneratorSymbol(family='η', index=8, decoration=None))))",
+        "suspension_image_candidate_count": 1,
+        "suspension_image_rule_names": [
+          "suspension preserves composition of separately proved maps"
+        ],
+        "component_count": 2,
+        "component_candidates": [
+          {
+            "goal": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5)), source_generator=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), target_generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None)))",
+            "candidate_count": 1,
+            "candidate_rules": [
+              "consecutive cited stable-family instances imply generator image"
+            ],
+            "candidate_subgoals": [
+              [
+                "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=4, minimum_n=4, stem=3), index=4, element=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), suspension_exponent=0)",
+                "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=4, minimum_n=4, stem=3), index=5, element=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None)), suspension_exponent=1)"
+              ]
+            ],
+            "proved": false
+          },
+          {
+            "goal": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=7), target_group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=8)), source_generator=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)), target_generator=HomotopyElement(name='η₈', dimension=8, source=9, target=8, generator=GeneratorSymbol(family='η', index=8, decoration=None)))",
+            "candidate_count": 1,
+            "candidate_rules": [
+              "stable representative definitional suspension"
+            ],
+            "candidate_subgoals": [
+              []
+            ],
+            "proved": false
+          }
+        ],
+        "surjectivity_candidate_count": 1,
+        "surjectivity_rule_names": [
+          "EHP exactness and zero Hopf target imply suspension surjectivity"
+        ],
+        "zero_route_requires_false_diagonal_zero": true,
+        "zero_route_requisites": [
+          "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=9))"
+        ],
+        "group_complete": false
+      }
+    ],
+    "odd_sphere_target_dimension": 5,
+    "hopf_target_group": "TodaPrimaryGroup(group_dimension=9, sphere_dimension=9)",
+    "external_odd_hopf_theorem_not_registered": true,
+    "external_math_reference": "Ordinary integral Hopf invariant vanishes for odd-dimensional sphere targets; verify applicability to the EHP H map before implementation",
+    "source_claim_added": false,
+    "new_given": 0,
+    "new_mathematical_rules": 0,
+    "recursive_search_performed": false,
+    "full_pytest_executed": false
+  }
+}
