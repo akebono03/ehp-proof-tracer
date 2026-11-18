@@ -98,6 +98,11 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
         sources = sources + (
             build_cited_lower_delta_sources(Path(__file__).resolve().parent),
         )
+        # Phase 175 R4R10: source-only (5.8) and universal Proposition 2.5.
+        from phase175_r4r10_cited_58_prop25_public.source import (
+            build_cited_58_prop25_sources,
+        )
+        sources = sources + (build_cited_58_prop25_sources(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -188,6 +193,17 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     """Build backward proposals from typed source witnesses and common rules."""
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
+    # Phase 175 R4R10: screened literature claims produce only open subgoals.
+    from phase175_r4r10_cited_58_prop25_public.provider import (
+        build_cited_58_prop25_provider,
+    )
+    extra_providers = (build_cited_58_prop25_provider(bridge),) + tuple(extra_providers)
+    # Phase 175 R4R11: signed two-torsion normalization is conditional.
+    # It requires verified Prop 2.5, order-two and eta-family premises.
+    from phase175_r4r11_signed_eta_torsion_public.provider import (
+        build_signed_eta_torsion_provider,
+    )
+    extra_providers = (build_signed_eta_torsion_provider(bridge),) + tuple(extra_providers)
     # R41: retain DB-prior provenance and the actual cited source boundary.
     # This only proposes an inference; it never registers a proof or GIVEN.
     from phase174_r3_r7_r41_adopted_db_zero_image_public_wiring.provider import (
