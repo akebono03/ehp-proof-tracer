@@ -101,3 +101,34 @@ def test_only_two_entire_functions_are_replaced() -> None:
 def test_readme_does_not_claim_group_completion() -> None:
     assert "pi_9^5" not in provider.RULE_NAME
     assert source.REFERENCE_ID == "toda:(5.11)"
+
+
+def test_orientation1_db_alias_is_only_cited_511_variant() -> None:
+    from phase165_r12_r2_quotient_rules import CyclicStructureStatement
+    from phase169_r10e4_ordered_db_prior.db_prior import exact_prior_database_result
+    from phase175_r4r12_public_two_summand_quotient.provider import expand_public_two_summand_quotient
+    from phase175_r4r12r9_delta_generator_image_bridge.rule import delta_image_equality
+
+    result = exact_prior_database_result(5, 4)
+    assert result is not None
+    goal = CyclicStructureStatement(result.lhs, result.rhs.generator, 2)
+    routes = expand_public_two_summand_quotient(goal, proof_target=result)
+    assert len(routes) == 2
+    wrong = delta_image_equality(routes[0].subgoals[2])
+    correct = delta_image_equality(routes[1].subgoals[2])
+    assert correct is not None
+    assert correct != source.canonical_511()
+    assert provider.same_registered_cited_511(correct)
+    assert not provider.same_registered_cited_511(wrong)
+    citation = source.CitedToda511(source.canonical_511())
+    assert len(provider.expand_cited_511(correct, (citation,))) == 1
+    assert not provider.expand_cited_511(wrong, (citation,))
+
+
+def test_registered_notation_never_accepts_unrelated_symbol() -> None:
+    from dataclasses import replace
+    from expression import GeneratorSymbol, HomotopyElement, MapApplication
+    relation = source.canonical_511()
+    wrong_eta = HomotopyElement("η₉", 9, 10, 9, GeneratorSymbol("ν", index=9))
+    forged = replace(relation, lhs=MapApplication(relation.lhs.map, wrong_eta))
+    assert not provider.same_registered_cited_511(forged)

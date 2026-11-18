@@ -1,0 +1,60 @@
+{
+  "phase": "175-R4R12R10R1R7",
+  "gate": "PASS_R7_PUBLIC_VISIBILITY_DIAGNOSED_NOT_COMPLETE",
+  "dry_run": true,
+  "diagnostic": {
+    "head": "12d2116bc23e96c879d97b043dbc104b31030091",
+    "branch": "develop",
+    "target_dirty": true,
+    "bridge_insert_present": true,
+    "provider_insert_present": true,
+    "source_position": 9500,
+    "full_pytest_executed": false,
+    "group_complete": false,
+    "direct_source": {
+      "count": 1,
+      "links": [
+        {
+          "assertion_id": "toda:175:r4r12r10r1:equation511",
+          "origin": "AssertionOrigin.FIXED_STATEMENT",
+          "fixed_statement": true,
+          "step_given": true,
+          "source_matches_content": true,
+          "reference_id": "toda:(5.11)",
+          "locator": "(5.11)"
+        }
+      ]
+    },
+    "orientation1_registered_match": true,
+    "isolated_count": 1,
+    "shared_source": {
+      "count": 1,
+      "links": [
+        {
+          "assertion_id": "shared:20:toda:175:r4r12r10r1:equation511",
+          "origin": "AssertionOrigin.FIXED_STATEMENT",
+          "fixed_statement": true,
+          "step_given": true,
+          "source_matches_content": true,
+          "reference_id": "shared:20:toda:(5.11)",
+          "locator": "(5.11)"
+        }
+      ]
+    },
+    "screened_citation_count": 1,
+    "direct_provider_count": 1,
+    "shared_relation_count": 1,
+    "shared_image_count": 1,
+    "shared_relation_names": [
+      "read cited Toda (5.11) as verified typed Delta equality",
+      "equality symmetry"
+    ],
+    "shared_image_names": [
+      "proved typed Delta equality implies generator image"
+    ],
+    "raw_provider_wired": true,
+    "raw_source_wired": true,
+    "equation_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='Δ'), expression=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None))), rhs=Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "delta_generator_repr": "GeneratorImage(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=9), target_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4)), source_generator=HomotopyElement(name='η_9', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)), target_generator=Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))))"
+  }
+}

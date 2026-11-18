@@ -103,6 +103,11 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_cited_58_prop25_sources,
         )
         sources = sources + (build_cited_58_prop25_sources(),)
+        # Phase 175 R4R12R10R1: cite Toda (5.11) without re-proving it.
+        from phase175_r4r12r10r1_cited_511_public.source import (
+            build_cited_511_source,
+        )
+        sources = sources + (build_cited_511_source(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -200,6 +205,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     )
     extra_providers = (expand_proved_delta_equality_image,) + tuple(extra_providers)
     # Phase 175 R4R10: screened literature claims produce only open subgoals.
+    # Phase 175 R4R12R10R1: cited (5.11) becomes an inferred typed equality.
+    from phase175_r4r12r10r1_cited_511_public.provider import (
+        build_cited_511_provider,
+    )
+    extra_providers = (build_cited_511_provider(bridge),) + tuple(extra_providers)
     from phase175_r4r10_cited_58_prop25_public.provider import (
         build_cited_58_prop25_provider,
     )
