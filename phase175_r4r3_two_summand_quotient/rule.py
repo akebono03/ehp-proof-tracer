@@ -23,6 +23,7 @@ from phase165_r12_r11_prop42_unified import prop42_exactness_indices
 from phase165_r12_r2_quotient_rules import CyclicStructureStatement
 from phase165_r14_r6_generic_iso import GeneratorImage, MapSurjective
 from phase165_r3_recursive_search import GoalExpansion
+from expression import Composition, HomotopyElement, IteratedSuspension
 from phase169_r10e5_composite_generator_image.rule import _endpoints
 from proof import (
     InferenceRule,
@@ -35,6 +36,30 @@ from toda_rules import TodaProp42ExactnessStatement
 
 
 RULE_NAME = "EHP exact rank-two elementary 2-group quotient by a generated summand"
+
+
+def _rank_two_endpoints(element: object) -> tuple[int, int] | None:
+    """Typed endpoints for rank-two generators, including iterated suspension.
+
+    The inner map must itself have valid endpoints. A suspension exponent must
+    be a nonnegative exact int, not a bool, symbolic value or negative integer.
+    Names alone never certify an expression's endpoints.
+    """
+    if isinstance(element, IteratedSuspension):
+        exponent = element.exponent
+        if type(exponent) is not int or exponent < 0:
+            return None
+        inner = _rank_two_endpoints(element.expression)
+        if inner is None:
+            return None
+        return inner[0] + exponent, inner[1] + exponent
+    if isinstance(element, Composition):
+        left = _rank_two_endpoints(element.left)
+        right = _rank_two_endpoints(element.right)
+        if left is None or right is None or left[0] != right[1]:
+            return None
+        return right[0], left[1]
+    return _endpoints(element)
 
 
 def two_summand_quotient_inputs(
@@ -95,11 +120,11 @@ def two_summand_quotient_inputs(
         return None
 
     # An expression's printed name alone does not type it as a generator.
-    if (_endpoints(first) != (middle.group_dimension, middle.sphere_dimension)
-            or _endpoints(second) != (middle.group_dimension, middle.sphere_dimension)
-            or _endpoints(delta_image.source_generator)
+    if (_rank_two_endpoints(first) != (middle.group_dimension, middle.sphere_dimension)
+            or _rank_two_endpoints(second) != (middle.group_dimension, middle.sphere_dimension)
+            or _rank_two_endpoints(delta_image.source_generator)
             != (source.group_dimension, source.sphere_dimension)
-            or _endpoints(goal.generator)
+            or _rank_two_endpoints(goal.generator)
             != (target.group_dimension, target.sphere_dimension)):
         return None
 
