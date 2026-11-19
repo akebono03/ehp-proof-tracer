@@ -248,6 +248,16 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     extra_providers = (
         build_public_composite_zero_transport_provider(bridge),
     ) + tuple(extra_providers)
+    # Phase 175 R4R14R9: independently cited finite-cyclic zero image.
+    # The R41 DB-specific verification remains unchanged.
+    from phase175_r4r14r9_literature_zero_image.provider import (
+        build_literature_zero_image_provider,
+    )
+    extra_providers = (
+        build_literature_zero_image_provider(
+            bridge=bridge, proof_target=proof_target,
+        ),
+    ) + tuple(extra_providers)
     # R41: retain DB-prior provenance and the actual cited source boundary.
     # This only proposes an inference; it never registers a proof or GIVEN.
     from phase174_r3_r7_r41_adopted_db_zero_image_public_wiring.provider import (
