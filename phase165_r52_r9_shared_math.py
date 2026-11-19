@@ -411,6 +411,12 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         from phase174_r3_r7_r3_ehp_zero_rule.rule import (
             expand_ehp_zero_from_delta_surjectivity,
         )
+        # Phase 175 R4R14R6: generic surjective-zero-image root branch.
+        # All subgoals remain ordinary source-first proof obligations.
+        from phase175_r4r14r6_surjective_zero_codomain.rule import (
+            expand_surjective_zero_codomain,
+        )
+        options.extend(expand_surjective_zero_codomain(goal))
         options.extend(expand_ehp_zero_from_delta_surjectivity(goal))
         from phase166_r3q_hopf_image_relation import expand_hopf_image_relation
         options.extend(expand_hopf_image_relation(goal, tuple(available)))
