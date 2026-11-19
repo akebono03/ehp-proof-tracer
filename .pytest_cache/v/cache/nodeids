@@ -3599,6 +3599,8 @@
   "phase175_r4r12r7_six_obligation_frontier/tests/test_audit.py::test_dirty_allowlist_is_not_broad",
   "phase175_r4r12r7_six_obligation_frontier/tests/test_audit.py::test_git_failure_is_not_silently_accepted",
   "phase175_r4r12r7_six_obligation_frontier/tests/test_audit.py::test_reviewed_commit_pin_and_exact_diff",
+  "phase175_r4r14r10_complete_proof_audit/tests/test_r4r14r10_audit.py::test_live_literature_zero_image_is_part_of_completed_proof",
+  "phase175_r4r14r10_complete_proof_audit/tests/test_r4r14r10_audit.py::test_walk_proof_collects_parent_first_without_duplication",
   "phase175_r4r14r4_general_zero_transport/tests/test_rule.py::test_no_new_sources_or_proof_steps_are_created",
   "phase175_r4r14r4_general_zero_transport/tests/test_rule.py::test_two_premises_prove_zero_image_for_any_factor_count[2]",
   "phase175_r4r14r4_general_zero_transport/tests/test_rule.py::test_two_premises_prove_zero_image_for_any_factor_count[3]",
