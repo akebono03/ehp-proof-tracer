@@ -198,6 +198,18 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     """Build backward proposals from typed source witnesses and common rules."""
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
+    # Phase 175 R4R12R13R4: retain H=0 as a verified intermediate ProofStep.
+    # All subgoals are resolved by the ordinary source-first recursive search.
+    from phase175_r4r12r13r4_hopf_zero_public.provider import (
+        expand_public_hopf_zero_ehp,
+    )
+    extra_providers = (expand_public_hopf_zero_ehp,) + tuple(extra_providers)
+    # Phase 175 R4R12R13R3: conditional Delta injectivity and E surjectivity.
+    # Every parent is independently verified by recursive proof search.
+    from phase175_r4r12r13r3_public_delta_e_bridge.provider import (
+        build_public_delta_e_provider,
+    )
+    extra_providers = (build_public_delta_e_provider(bridge),) + tuple(extra_providers)
     # Phase 175 R4R12R9: infer a generator image from a proved typed
     # Delta equality; the equality itself remains an independent proof goal.
     from phase175_r4r12r9_delta_generator_image_bridge.rule import (

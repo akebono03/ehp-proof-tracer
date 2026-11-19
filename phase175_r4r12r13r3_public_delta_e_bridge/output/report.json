@@ -1,0 +1,33 @@
+{
+  "phase": "175-R4R12R13R3",
+  "dry_run": false,
+  "gate": "PASS_R13R3_E_CONNECTED_DELTA_TYPED_MATCH_PENDING",
+  "full_pytest_executed": false,
+  "preflight": {
+    "head": "d3d287cd2927f4b343f21051c4ccb9621e5e4573",
+    "dirty": [
+      ".pytest_cache/v/cache/nodeids"
+    ]
+  },
+  "installation": {
+    "target": "phase165_r52_r9_shared_math.py",
+    "change_required": true,
+    "installed": true,
+    "full_function_export": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase175_r4r12r13r3_public_delta_e_bridge\\output\\shared_expansion_provider_FULL.py"
+  },
+  "frontier": {
+    "toda58_cited_given_present": true,
+    "delta_injective_candidates": 0,
+    "delta_input_goal_types": [],
+    "e_surjective_candidates": 1,
+    "e_input_goal_types": [
+      "MapInjective",
+      "TodaProp42ExactnessStatement",
+      "TodaProp42ExactnessStatement"
+    ],
+    "parent_proofs_dispatched": false,
+    "new_given": 0,
+    "new_mathematical_rules": 0,
+    "proof_complete": false
+  }
+}
