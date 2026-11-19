@@ -1,0 +1,49 @@
+{
+  "phase": "175-R4R12R13R5",
+  "dry_run": true,
+  "gate": "PASS_R13R5_READ_ONLY_DELTA_GUARD_AUDIT_NOT_COMPLETE",
+  "full_pytest_executed": false,
+  "new_given": 0,
+  "new_mathematical_rules": 0,
+  "target_proof_complete": false,
+  "head": "9b3a14fb2169f7cb30ec6fc4555170a0f342ef64",
+  "diagnostics": {
+    "toda58_citation_screened": true,
+    "direct_provider_candidate_count": 0,
+    "shared_provider_candidate_count": 0,
+    "shared_other_candidate_names": [],
+    "guard": {
+      "target_prior_exists": true,
+      "target_is_relation": true,
+      "target_is_equality": true,
+      "target_lhs_matches_delta": true,
+      "target_rhs_is_direct_sum": true,
+      "target_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=4), rhs=DirectSumGroup(summands=(FreeCyclicGroup(generator=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))), FiniteCyclicGroup(order=4, generator=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "source_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=9), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₉', dimension=9, source=9, target=9, generator=GeneratorSymbol(family='ι', index=9, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "delta_image_repr": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=9), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=4)), element=HomotopyElement(name='ι₉', dimension=9, source=9, target=9, generator=GeneratorSymbol(family='ι', index=9, decoration=None)), positive_value=Sum(left=Multiple(coefficient=2, expression=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))), right=Multiple(coefficient=-1, expression=Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))))))",
+      "summand_count": 2,
+      "summand_types": [
+        "FreeCyclicGroup",
+        "FiniteCyclicGroup"
+      ],
+      "free_summand_count": 1,
+      "finite_summand_count": 1,
+      "summand_generator_reprs": [
+        "HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))",
+        "IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)"
+      ],
+      "source_free_coordinate_expression_repr": "HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))",
+      "source_torsion_coordinate_expression_repr": "Suspension(expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')))",
+      "free_generator_exact_match": true,
+      "torsion_generator_exact_match": false,
+      "linear_coordinates": null,
+      "torsion_order": 4,
+      "delta_guard_accepts": false
+    },
+    "new_given": 0,
+    "new_mathematical_rules": 0,
+    "public_code_modified": false,
+    "recursive_proof_executed": false,
+    "proof_complete": false
+  }
+}
