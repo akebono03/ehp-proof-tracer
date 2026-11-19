@@ -131,7 +131,16 @@ def render_model_backed_narrative_markdown(
             and isinstance(source, (TodaPrimaryGroupZeroStatement,
                                     Toda51BelowDiagonalZeroStatement))
         )
-        if not (is_direct_relation or is_typed_zero):
+        # A verified GIVEN may wrap precisely the typed statement read by
+        # the next inference.  Cite only the actual direct premise, never a
+        # source discovered from locator text or matching display strings.
+        embedded = getattr(source, "statement", None)
+        is_cited_typed_statement = (
+            embedded is not None
+            and type(embedded) is type(target)
+            and embedded == target
+        )
+        if not (is_direct_relation or is_typed_zero or is_cited_typed_statement):
             return ()
         return tuple(dict.fromkeys(
             number
@@ -694,7 +703,23 @@ def render_model_backed_narrative_markdown(
                 prefix = f"{tags}を用いて, " if tags else "以上より, "
             else:
                 if tags:
-                    prefix = f"{tags}を用いて, "
+                    # Treat a cited inference as a direct reading only when
+                    # its actual GIVEN premise owns the very same citation.
+                    matching_direct_given = (
+                        step.rule is ProofRule.INFERENCE
+                        and len(step.premises) == 1
+                        and step.premises[0].rule is ProofRule.GIVEN
+                        and any(
+                            (candidate is step.premises[0] or candidate == step.premises[0])
+                            and tuple(model.step_citation_numbers[source_index])
+                                == tuple(body_line.citation_numbers)
+                            for source_index, candidate in enumerate(model.steps)
+                        )
+                    )
+                    if matching_direct_given:
+                        prefix = f"{tags}より, "
+                    else:
+                        prefix = f"{tags}を用いて, "
                 else:
                     sources = direct_given_premise_citation_numbers(step)
                     prefix = (
