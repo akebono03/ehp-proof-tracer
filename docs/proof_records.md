@@ -7772,3 +7772,28 @@ $$
 $H:\pi_{12}^{7}\to\pi_{12}^{13}$ は単射で、$\pi_{12}^{13}=0$ なので $\pi_{12}^{7}=0$ が従う。公開結果は `generic-complete-proof`。表示中の $E=0$、$H$ 単射の説明は既存の一般零群規則から導かれる Narrative であり、新規独立 ProofStep の追加ではない。
 
 **認定範囲の制限：** 文献一般命題の全数学的証明や未完成群の生成元の決定、証明文章のすべての独立確認を完了したとは扱わない。R73 の終了前記録と旧 Phase 173 の未完成例は履歴として保持し、R74 によって後から時点を改変しない。
+
+<!-- PHASE175_R4R14R12_DOCS_20261119 -->
+
+## 2026-11-19 — Phase 175 k=4 の完成証明と出典の監査
+
+登録6群のうち Phase 175 開始時点の未完成3群 `(n,k)=(3,4),(5,4),(6,4)` は、R4R14R11 実探索時点ですべて `complete`、Open Goal 0 件。旧3群の完成と合わせ、登録された k=4 の6群は完成状態と確認した。各群の具体的証明木について、全件が独立に文献全命題の真偽を証明したという認定ではない。
+
+### $\pi_{10}^{6}=0$（R4R14R10 監査）
+
+出典4件：Proposition 4.2 (4.4)、Toda (5.1)、Proposition 5.8、Toda (5.9)。
+
+$$
+\pi_{10}^{11}=0,\qquad E:\pi_9^5\longrightarrow\pi_{10}^{6}\text{ は全射}.
+$$
+
+$$
+\pi_9^5=\mathbb Z/2\{\nu_5\eta_8\},\qquad
+E(\nu_5\eta_8)=\nu_6\eta_9=0.
+$$
+
+生成元が零に写るので $\operatorname{im}E=0$。一方 E は全射なので $\pi_{10}^{6}=0$。この一般零像推論は文献由来 `GIVEN` と別途証明した `INFERENCE` を両方必要とする。R41 の DB 専用の ProofStep 検証を緩和しない。
+
+実測 R4R14R10：`search_status=complete`、`open_goals=0`、Verified Proof Tree 14ステップ、4件の出典 locator、新規 GIVEN 0、限定 pytest `23 passed`。R4R14R11 でも `(6,4)` は `complete`／Open Goal 0 件を維持。
+
+**検証境界：** 旧 Source Guard 4件の歴史的固定条件は未解決。Phase 175 の全体 pytest と最終 Gate は未実施であり、正式終了はまだ主張しない。

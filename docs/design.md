@@ -1,4 +1,18 @@
 # EHP Proof Tracer 設計
+
+<!-- PHASE175_R4R14R12_DOCS_20261119 -->
+
+## Phase 175 の現行設計境界（2026-11-19・終了文書準備）
+
+k=4 の登録6群について、R4R14R11 時点の実探索で当初未完成だった `(n,k)=(3,4),(5,4),(6,4)` はいずれも `complete`、Open Goal 0 件となった。これは対象登録群の実測であり、任意のホモトピー群への一般化ではない。
+
+R4R14R9 は、文献由来の `FIXED_STATEMENT` に対応するリンク済み `GIVEN` ProofStep と、別途 `INFERENCE` で証明された生成元の零像を前提として有限巡回群上の写像の零像を導く。文献出典の locator、position、Assertion Origin、元の ProofStep の一致を確認する。R40/R41 の DB 専用検証を緩めたり、DB GIVEN を文献 GIVEN に偽装したりしない。共有 Proof Search の First Successful Proof Search と一般規則の境界を維持する。
+
+R4R14R10 は $\pi_{10}^{6}=0$ の実探索で 14 ステップの Verified Proof Tree を確認した。EHP 完全性による $E$ の全射性、Proposition 5.8 の先行巡回群、Toda (5.9) による生成元の零像、`im E=0` から零群への推論は、すべて既存の共通 Renderer へ渡す。新しい専用 Narrative は追加していない。
+
+Phase 174 の旧 Source Guard テスト4件は古い固定 HEAD／関数スナップショットに依存して現在の HEAD では失敗する。R4R14R9R2 はテストの削除・改変や条件緩和を行わず、現行限定テストから明示的に分離した。これらは PASS ではなく既知の未解決履歴として維持する。Phase 175 の全体 pytest および正式終了 Gate は未実施である。
+
+
 
 この文書は EHP Proof Tracer の**現在有効なアーキテクチャ、意味論、不変条件、設計境界**を記録する。
 

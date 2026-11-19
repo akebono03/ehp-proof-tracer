@@ -1,5 +1,17 @@
 # EHP Proof Tracer ロードマップ
 
+<!-- PHASE175_R4R14R12_DOCS_20261119 -->
+
+## Phase 175：R4R14R12 終了文書整備後の工程（2026-11-19）
+
+登録された k=4 の6群について、R4R14R11 により当初未完成の3群 `(3,4),(5,4),(6,4)` もすべて `complete`／Open Goal 0 件であることが確認された。R4R14R10 は $\pi_{10}^{6}=0$ の14ステップ・出典4件の証明木を監査済み。これは Phase 175 の数学的対象に関する到達点であり、Phase の正式終了ではない。
+
+**終了前に残る義務：** (1) 旧 Phase 174 Source Guard 4件の歴史的な固定条件と現行 HEAD でのテスト運用を区別し、既知失敗を隠さない。(2) `.pytest_cache` の追跡差分がある場合は数学的コード変更と混同せず、ユーザーの変更を無断で破棄しない。(3) 主要5文書の全文出力・内容・Git 差分を確認する。(4) Phase 175 の末尾に限り全体 pytest を実行し、失敗時は証拠を保全する。(5) 最終 Gate で実測結果、Reference、出典の属性、変更ファイルを審査して正式 Closeout 可否を決める。
+
+**次 Phase の境界：** k=4 の登録対象外の群、未完成の記名生成元 Goal、文献全件の独立数学検証、Phase 176 の新機能は今回先取りしない。Source-first、共通 Verified Proof Tree → ProofNarrativeModel → Renderer → Web、および First Successful Proof Search を維持する。
+
+
+
 
 
 この文書は**今後の機能依存関係と Phase 順序**を記録する。
