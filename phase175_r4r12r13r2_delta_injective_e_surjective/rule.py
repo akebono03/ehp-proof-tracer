@@ -6,6 +6,9 @@ Every input remains an independently discharged backward proof goal.
 from __future__ import annotations
 
 from expression import Multiple, Sum
+from phase175_r4r12r13r7_typed_nu_prime_notation.notation import (
+    same_typed_generator_notation,
+)
 from homotopy_groups import (
     DirectSumGroup,
     FiniteCyclicGroup,
@@ -29,9 +32,9 @@ E_RULE_NAME = "injective Delta and consecutive EHP exactness imply suspension su
 
 def _linear_coordinates(value: object, free: object, torsion: object) -> tuple[int, int] | None:
     """Accept only a literal linear combination of two listed summand generators."""
-    if value == free:
+    if same_typed_generator_notation(value, free):
         return 1, 0
-    if value == torsion:
+    if same_typed_generator_notation(value, torsion):
         return 0, 1
     if isinstance(value, Multiple) and type(value.coefficient) is int:
         pair = _linear_coordinates(value.expression, free, torsion)
