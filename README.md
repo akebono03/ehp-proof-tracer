@@ -1,5 +1,17 @@
 # EHP Proof Tracer
 
+<!-- PHASE175_R4R14R12_DOCS_20261119 -->
+
+## Current development status — Phase 175 closeout pending (2026-11-19)
+
+Phase 175 has completed the six registered k=4 group proofs (sphere dimensions n=2 through n=7). The latest read-only R4R14R11 preflight observed `complete` and zero open goals for the three formerly unfinished groups `(n,k)=(3,4), (5,4), (6,4)`. This is evidence for these registered targets, **not** for all unstable homotopy groups or all published statements.
+
+For `(6,4)`, the shared source-first search proves $\pi_{10}^{6}=0$. The R4R14R10 audit verified the canonical 14-step proof tree, with four cited locators: Proposition 4.2 (4.4), (5.1), Proposition 5.8, and (5.9). The argument combines the cited $\pi_{9}^{5}=\mathbb Z/2\{\nu_5\eta_8\}$ with the independently inferred $E(\nu_5\eta_8)=0$, then applies surjectivity of $E$ from EHP exactness. The literature GIVEN remains distinct from the adopted DB GIVEN; no conclusion GIVEN or specialized narrative was added.
+
+Focused evidence: R4R14R9R2 `44 passed, 4 deselected`; R4R14R10 `23 passed`; R4R14R11 `9 passed`. Four historically pinned Phase 174 Source Guard tests remain known failures on the modern HEAD; their failures have not been reclassified as passing. **The Phase 175 full pytest and final closeout gate have not run.** Historical Phase 174 closure below remains a separate, dated record.
+
+
+
 EHP Proof Tracer builds proof-backed narratives for homotopy groups using typed mathematical statements, a shared backward-search engine, and a common narrative renderer. The project distinguishes a mathematical proof from a displayed goal, an incomplete search, or an unverified assertion.
 
 <!-- PHASE174_FINAL_CLOSEOUT_20261111 -->
@@ -228,3 +240,11 @@ Phase 168 closure additionally executed focused regression modules and frozen fu
 - [Proof records](docs/proof_records.md)
 
 Previous Phase 165–167 documentation remains historical. In particular, a Phase 166 partial result must not be mistaken for the status verified by later Phase 168 tests.
+
+<!-- PHASE175_R4R14R14_FINAL_CLOSEOUT_20261119 -->
+
+## Phase 175 formally closed — active-suite scope (2026-11-19)
+
+The six registered k=4 groups (n=2–7) were independently rechecked as complete with no open goals at the R4R14R14 gate. The audited proof of $\pi_{10}^{6}=0$ uses 14 linked ProofSteps and four literature locators. The Phase 175 end-of-phase active `tests/` suite passed once. HEAD `90e8025c31841e522b3bb36f002ec44dfd4b89aa`; pytest `3546 passed in 38.52s`; stdout SHA-256 `5b1265843809af137f21982ddf34ddf08e1af08660109185d13c29834dfcb766`; stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+
+**Known unresolved historical policy:** four Phase 174 source-guard tests pinned to an earlier checkout/snapshot are outside the current active suite and remain known failures; they were neither fixed nor counted as passing. Formal closure applies to the registered k=4 proof scope and active suite, not the historical guards or every possible homotopy group.

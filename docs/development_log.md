@@ -8083,3 +8083,24 @@ R74 は Phase 末尾の全体 pytest を1回だけ実行した。結果は **354
 正式終了後の公開完成例は $\pi_{11}^{6}=\mathbb Z\{\Delta(\iota_{13})\}$（Reference 7件）と $\pi_{12}^{7}=0$（Reference 3件）。前者は一般推論規則の連鎖に基づき、後者は先行のデータベース群結果を再証明せず利用する。検証済み Proof Tree の叙述を共通 Renderer で生成し、群専用の証明や新規 GIVEN の結論登録は追加していない。
 
 **Phase 174 正式終了。** 未完成の $\pi_{12}^{4}$、$\pi_{35}^{4}$ を完成と扱わず、数学的に未検証の一般命題を認証したとは記載しない。過去の Phase 173・R73 の未完成時点の記録は履歴として残す。次 Phase の実装とテストは別の計画として監査・実施する。
+
+<!-- PHASE175_R4R14R12_DOCS_20261119 -->
+
+## 2026-11-19 — Phase 175 R4R14R9〜R4R14R12（終了文書準備）
+
+- **R4R14R9：** 文献由来の先行巡回群 `FIXED_STATEMENT` を、出典属性とリンク済み ProofStep の厳密な一致によって認証し、別途証明された生成元の零像と組み合わせて `ImageZeroStatement(E)` を導く一般推論を共有探索に接続。R40/R41 の DB 専用検証条件は維持。新規結論 GIVEN、専用 Narrative は追加なし。
+- **R4R14R9R1：** 複数テストディレクトリで同名の `test_rule.py` 等が衝突する pytest collection error を `--import-mode=importlib` で回避。
+- **R4R14R9R2：** 旧 Source Guard 4件は現在の HEAD と歴史的固定値が異なるため失敗する。条件・テスト本文を変更せず今回の限定テストから明示的に分離。結果 `44 passed, 4 deselected`。この4件を PASS とは見なさない。
+- **R4R14R10：** 実探索の $\pi_{10}^{6}=0$ が `complete`、Open Goal 0 件、証明木14ステップと確認。出典 locator は `(5.1)`, `(5.9)`, `Proposition 4.2 (4.4)`, `Proposition 5.8`。文献 GIVEN と DB GIVEN の区別を証明木で監査。限定 pytest `23 passed`、新規 GIVEN 0。
+- **R4R14R11：** Closeout Preflight の DryRun・本実行 PASS。旧未完成 k=4 群 `(3,4),(5,4),(6,4)` の実探索は全て `complete`、Open Goal 0 件。限定 pytest `9 passed`。Gate `PASS_R4R14R11_CLOSEOUT_PREFLIGHT_WITH_OPEN_POLICY`。確認 HEAD `28dcc4de13580a3f20faffa89353c11f897b1f8d`。旧 Source Guard 4件は未解決履歴として残存。
+- **R4R14R12：** README と主要設計・履歴・ロードマップ・証明記録を、既存本文を保存した全文ファイルとして更新する文書工程。新規数学規則・GIVEN・共有 Provider・Renderer 変更なし。全体 pytest と Phase 最終 Gate はまだ実施していない。
+
+この節は完了前の記録であり、Phase 175 の正式終了を宣言しない。
+
+<!-- PHASE175_R4R14R14_FINAL_CLOSEOUT_20261119 -->
+
+## 2026-11-19 — Phase 175 正式終了（現行アクティブテスト範囲）
+
+k=4 の登録6群（n=2〜7）は R4R14R14 終了監査で全群 `complete`、Open Goals 0。$\pi_{10}^{6}=0$ は文献由来の先行有限巡回群と生成元零像を結合した14段階の証明木で、Proposition 4.2 (4.4)、(5.1)、Proposition 5.8、(5.9) の出典を持つ。Phase 末尾の現行 `tests/` 全体 pytest は一度実施して成功した。HEAD `90e8025c31841e522b3bb36f002ec44dfd4b89aa`; pytest `3546 passed in 38.52s`; stdout SHA-256 `5b1265843809af137f21982ddf34ddf08e1af08660109185d13c29834dfcb766`; stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+
+**未解決の既知の境界：** Phase 174 の古い HEAD／関数スナップショットに固定された Source Guard テスト4件は現行アクティブ `tests/` 範囲外であり、既知の失敗のまま維持する。これらを PASS と見なさない。R4R14R14 は既存の数学的規則、文献 GIVEN、DB Provenance、旧 Source Guard を変更しない。正式終了の認定範囲は k=4 登録群とアクティブテストに限定し、任意の群・全文献命題の独立検証を意味しない。

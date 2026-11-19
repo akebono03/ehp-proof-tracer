@@ -1,5 +1,17 @@
 # EHP Proof Tracer ロードマップ
 
+<!-- PHASE175_R4R14R12_DOCS_20261119 -->
+
+## Phase 175：R4R14R12 終了文書整備後の工程（2026-11-19）
+
+登録された k=4 の6群について、R4R14R11 により当初未完成の3群 `(3,4),(5,4),(6,4)` もすべて `complete`／Open Goal 0 件であることが確認された。R4R14R10 は $\pi_{10}^{6}=0$ の14ステップ・出典4件の証明木を監査済み。これは Phase 175 の数学的対象に関する到達点であり、Phase の正式終了ではない。
+
+**終了前に残る義務：** (1) 旧 Phase 174 Source Guard 4件の歴史的な固定条件と現行 HEAD でのテスト運用を区別し、既知失敗を隠さない。(2) `.pytest_cache` の追跡差分がある場合は数学的コード変更と混同せず、ユーザーの変更を無断で破棄しない。(3) 主要5文書の全文出力・内容・Git 差分を確認する。(4) Phase 175 の末尾に限り全体 pytest を実行し、失敗時は証拠を保全する。(5) 最終 Gate で実測結果、Reference、出典の属性、変更ファイルを審査して正式 Closeout 可否を決める。
+
+**次 Phase の境界：** k=4 の登録対象外の群、未完成の記名生成元 Goal、文献全件の独立数学検証、Phase 176 の新機能は今回先取りしない。Source-first、共通 Verified Proof Tree → ProofNarrativeModel → Renderer → Web、および First Successful Proof Search を維持する。
+
+
+
 
 
 この文書は**今後の機能依存関係と Phase 順序**を記録する。
@@ -3909,3 +3921,11 @@ R74 で Phase 末尾のアクティブ `tests/` 全体 pytest **3546 PASS**（`3
 **次 Phase の作業候補（未実装）**：未完成の $\pi_{12}^{4}$ と $\pi_{35}^{4}$ の記名生成元 Goal や、出典付き数学的推論の不足を個別に監査する。さらに広い範囲の登録群については、群構造の既知性と証明の完成を区別して Scope（範囲）を先に確定する。今回の Closeout に未来 Phase の規則を先取りしない。
 
 将来の Phase でも Source-first、First Successful Proof Search、唯一性検査なし、共通 Verified Proof Tree → `ProofNarrativeModel` → Renderer → Web を維持する。個別群専用 Narrative・結論直接 GIVEN の追加を避け、数学的に妥当な一般規則だけを検討する。全体 pytest はそれぞれの Phase 末尾に実施する。
+
+<!-- PHASE175_R4R14R14_FINAL_CLOSEOUT_20261119 -->
+
+## 2026-11-19 — Phase 175 正式終了（現行アクティブテスト範囲）
+
+k=4 の登録6群（n=2〜7）は R4R14R14 終了監査で全群 `complete`、Open Goals 0。$\pi_{10}^{6}=0$ は文献由来の先行有限巡回群と生成元零像を結合した14段階の証明木で、Proposition 4.2 (4.4)、(5.1)、Proposition 5.8、(5.9) の出典を持つ。Phase 末尾の現行 `tests/` 全体 pytest は一度実施して成功した。HEAD `90e8025c31841e522b3bb36f002ec44dfd4b89aa`; pytest `3546 passed in 38.52s`; stdout SHA-256 `5b1265843809af137f21982ddf34ddf08e1af08660109185d13c29834dfcb766`; stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+
+**未解決の既知の境界：** Phase 174 の古い HEAD／関数スナップショットに固定された Source Guard テスト4件は現行アクティブ `tests/` 範囲外であり、既知の失敗のまま維持する。これらを PASS と見なさない。R4R14R14 は既存の数学的規則、文献 GIVEN、DB Provenance、旧 Source Guard を変更しない。正式終了の認定範囲は k=4 登録群とアクティブテストに限定し、任意の群・全文献命題の独立検証を意味しない。
