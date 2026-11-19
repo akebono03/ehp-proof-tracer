@@ -1,0 +1,1920 @@
+from barratt_hilton_rules import (
+  HomotopyGroupMembershipStatement,
+)
+from expression import (
+  Composition,
+  GeneratorSymbol,
+  HomotopyElement,
+  IteratedSuspension,
+  MapApplication,
+  Multiple,
+  ScalarProduct,
+  ScalarSum,
+  ScalarSymbol,
+  Sum,
+  Suspension,
+  TodaBracket,
+  WhiteheadProduct,
+  Zero,
+)
+from homotopy_groups import (
+  DirectSumGroup,
+  FiniteCyclicGroup,
+  FreeCyclicGroup,
+  TodaEHPExactnessWindow,
+  TodaPrimaryGroup,
+  TodaPrimaryGroupMembershipStatement,
+  TodaProp44DecompositionMap,
+  TodaSuspensionIsomorphismStatement,
+  TodaSuspensionMap,
+)
+from low_dimensional_facts import (
+  pi_6_7_zero_fact,
+)
+from map_facts import (
+  EHP_DELTA_MAP,
+  EHP_E_MAP,
+  EHP_H_MAP,
+)
+from proof import (
+  ProofRule,
+  ProofStep,
+  Relation,
+  RelationType,
+  apply_inference_match,
+  find_inference_match,
+  run_inference_until_stable_with_history,
+)
+from relation_rules import (
+  equality_preserved_under_multiple_inference_rule,
+  equality_symmetry_inference_rule,
+  equality_transitivity_inference_rule,
+  nested_integer_multiple_inference_rule,
+)
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
+)
+from toda_midstream_bootstrap import (
+  build_phase59_hopf_surjective_step,
+  build_phase59_pi5_3_step,
+  build_phase59_prop53_step,
+  build_phase60_pi6_5_step,
+  build_phase62_toda55_step,
+  build_phase63_toda56_step,
+)
+from toda_phase65_bootstrap import (
+  build_toda_prop56_bootstrap_step,
+)
+from toda_rules import (
+  Toda36Lemma54SpecializationStatement,
+  Toda45IsomorphismStatement,
+  Toda54BracketUpToSignStatement,
+  Toda54IndeterminacyGeneratorStatement,
+  Toda56Nu4DecompositionIsomorphismStatement,
+  Toda56Nu4Prop44SpecializationStatement,
+  TodaBracketMembershipStatement,
+  TodaDeltaImageUpToSignStatement,
+  TodaLemma54DoubleSuspensionUpToSignStatement,
+  TodaLemma54Nu4BranchFormula,
+  TodaLemma54Nu4ConstructionStatement,
+  TodaLemma54Statement,
+  TodaLemma54WhiteheadCorrectionDataStatement,
+  TodaProp42ExactnessStatement,
+  TodaProp44IsomorphismStatement,
+  TodaProp44SuspensionInjectiveStatement,
+  TodaPi32WhiteheadSquareUpToSignStatement,
+  TodaProp51FiniteDimensionalStatement,
+  TodaSuspensionSurjectiveStatement,
+  toda_32_phase60_suspension_surjective_inference_rule,
+  toda_36_lemma54_specialization_inference_rule,
+  toda_45_pi4_3_finite_cyclic_transport_inference_rule,
+  toda_53_eta3_twice_zero_inference_rule,
+  toda_53_n3_delta_injective_hopf_zero_inference_rule,
+  toda_53_n3_delta_zero_suspension_injective_inference_rule,
+  toda_53_n3_hopf_eta5_surjective_inference_rule,
+  toda_53_n3_hopf_surjective_delta_zero_inference_rule,
+  toda_53_n3_hopf_zero_suspension_surjective_inference_rule,
+  toda_53_n3_prop51_delta_injective_inference_rule,
+  toda_53_n3_suspension_isomorphism_inference_rule,
+  toda_54_indeterminacy_double_nu_prime_generator_inference_rule,
+  toda_54_n5_t3_specialization_inference_rule,
+  toda_54_nu_prime_bracket_inclusion_inference_rule,
+  toda_54_nu_prime_triple_eta_transport_inference_rule,
+  toda_54_t0_bridge_inference_rule,
+  toda_54_t_ge_1_indeterminacy_eta_cube_inference_rule,
+  toda_54_t_ge_1_up_to_sign_inference_rule,
+  toda_55_nu_family_double_suspension_transport_inference_rule,
+  toda_56_nu4_decomposition_isomorphism_inference_rule,
+  toda_56_nu4_prop44_isomorphism_inference_rule,
+  toda_56_nu4_prop44_specialization_inference_rule,
+  toda_lemma54_double_suspension_up_to_sign_inference_rule,
+  toda_lemma54_eta6_twice_zero_inference_rule,
+  toda_lemma54_integration_inference_rule,
+  toda_lemma54_literature_statements,
+  toda_lemma54_nu4_double_suspension_inference_rule,
+  toda_lemma54_nu4_hopf_inference_rule,
+  toda_lemma54_nu4_membership_inference_rule,
+  toda_lemma54_nu4_piecewise_construction_inference_rule,
+  toda_lemma54_whitehead_correction_data_inference_rule,
+  toda_nu_family_definition_statement,
+  toda_prop44_first_summand_restriction_inference_rule,
+  toda_prop44_isomorphism_inference_rule,
+  toda_prop44_suspension_injective_inference_rule,
+  toda_prop53_eta4_squared_stable_transport_inference_rule,
+  toda_prop53_n4_eta_square_suspension_bridge_inference_rule,
+  toda_prop53_n4_phase48_injectivity_bridge_inference_rule,
+  toda_prop53_n4_pi6_4_finite_cyclic_transport_inference_rule,
+  toda_prop53_n4_suspension_isomorphism_inference_rule,
+  toda_prop53_n4_zero_right_suspension_surjective_inference_rule,
+  toda_delta_iota5_two_eta2_up_to_sign_inference_rule,
+  toda_eta3_suspension_relation_inference_rule,
+  toda_eta_family_definition_statement,
+  toda_higher_eta_family_bridge_inference_rule,
+  toda_higher_eta_finite_cyclic_generator_inference_rule,
+  toda_prop51_finite_dimensional_integration_inference_rule,
+)
+from toda_upstream_bootstrap import (
+  _build_phase49_result,
+  _build_phase50_result,
+  build_toda_45_stable_isomorphism_step,
+  build_toda_prop56_upstream_core,
+)
+
+
+def _find_unique_step(
+  steps: tuple[ProofStep, ...],
+  predicate,
+  description: str,
+) -> ProofStep:
+  matches = tuple(
+    step
+    for step in steps
+    if predicate(step)
+  )
+
+  if len(matches) != 1:
+    raise ValueError(
+      "expected exactly one "
+      f"{description} step, "
+      f"found {len(matches)}"
+    )
+
+  return matches[0]
+
+
+def _require_match(
+  rule,
+  premises,
+) -> ProofStep:
+  match = find_inference_match(
+    rule,
+    premises,
+  )
+
+  if match is None:
+    raise ValueError(
+      "expected inference rule to match"
+    )
+
+  return apply_inference_match(
+    match
+  )
+
+
+def _build_pi4_2_step(
+  pi4_3_step: ProofStep,
+  toda52_step: ProofStep,
+) -> ProofStep:
+  eta_2 = HomotopyElement(
+    name="η₂",
+    dimension=2,
+    source=3,
+    target=2,
+    generator=GeneratorSymbol(
+      family="η",
+      index=2,
+    ),
+  )
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+
+  expected = Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=4,
+      sphere_dimension=2,
+    ),
+    rhs=FiniteCyclicGroup(
+      order=2,
+      generator=Composition(
+        left=eta_2,
+        right=eta_3,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  from toda_rules import (
+    toda_52_pi4_2_finite_cyclic_transport_inference_rule,
+  )
+
+  result = run_inference_until_stable_with_history(
+    toda_52_pi4_2_finite_cyclic_transport_inference_rule(),
+    (
+      pi4_3_step,
+      toda52_step,
+    ),
+  )
+
+  return _find_unique_step(
+    result.steps,
+    lambda step: step.conclusion == expected,
+    "pi_4^2",
+  )
+
+
+def _build_prop51_step() -> ProofStep:
+  phase49 = _build_phase49_result()
+  phase50 = _build_phase50_result()
+
+  pi3_2_step = _find_unique_step(
+    phase49[
+      "result"
+    ].steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == TodaPrimaryGroup(
+        group_dimension=3,
+        sphere_dimension=2,
+      )
+      and isinstance(
+        step.conclusion.rhs,
+        FreeCyclicGroup,
+      )
+    ),
+    "pi_3^2",
+  )
+
+  eta2_hopf_step = _find_unique_step(
+    phase49[
+      "result"
+    ].steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        MapApplication,
+      )
+      and step.conclusion.lhs.map
+      == EHP_H_MAP
+      and getattr(
+        step.conclusion.lhs.expression,
+        "name",
+        None,
+      )
+      == "η₂"
+    ),
+    "H(eta_2)",
+  )
+
+  delta_whitehead_step = _find_unique_step(
+    phase50[
+      "result"
+    ].steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        TodaDeltaImageUpToSignStatement,
+      )
+      and isinstance(
+        step.conclusion.positive_value,
+        WhiteheadProduct,
+      )
+    ),
+    "Delta(iota_5)=+-Whitehead square",
+  )
+
+  whitehead_two_eta2_step = _find_unique_step(
+    phase50[
+      "result"
+    ].steps,
+    lambda step: isinstance(
+      step.conclusion,
+      TodaPi32WhiteheadSquareUpToSignStatement,
+    ),
+    "Whitehead square=+-2eta_2",
+  )
+
+  delta_result = run_inference_until_stable_with_history(
+    toda_delta_iota5_two_eta2_up_to_sign_inference_rule(),
+    (
+      delta_whitehead_step,
+      whitehead_two_eta2_step,
+    ),
+  )
+
+  delta_step = _find_unique_step(
+    delta_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        TodaDeltaImageUpToSignStatement,
+      )
+      and isinstance(
+        step.conclusion.positive_value,
+        Multiple,
+      )
+      and step.conclusion.positive_value.coefficient
+      == 2
+    ),
+    "Delta(iota_5)=+-2eta_2",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  stable_step = build_toda_45_stable_isomorphism_step(
+    n=3,
+    k=1,
+    m=n,
+  )
+
+  transported_result = (
+    run_inference_until_stable_with_history(
+      toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+      (
+        phase50[
+          "final_group_step"
+        ],
+        stable_step,
+      ),
+    )
+  )
+
+  transported_step = _find_unique_step(
+    transported_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=1,
+        ),
+        sphere_dimension=n,
+      )
+    ),
+    "higher eta transported group",
+  )
+
+  eta_n_definition_step = ProofStep(
+    conclusion=toda_eta_family_definition_statement(
+      n
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  eta3_definition_step = ProofStep(
+    conclusion=toda_eta_family_definition_statement(
+      3
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  eta3_result = run_inference_until_stable_with_history(
+    toda_eta3_suspension_relation_inference_rule(),
+    (
+      eta3_definition_step,
+    ),
+  )
+
+  eta3_relation_step = _find_unique_step(
+    eta3_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == eta3_definition_step.conclusion.element
+    ),
+    "eta_3 suspension relation",
+  )
+
+  higher_bridge_result = (
+    run_inference_until_stable_with_history(
+      toda_higher_eta_family_bridge_inference_rule(),
+      (
+        eta_n_definition_step,
+        eta3_relation_step,
+      ),
+    )
+  )
+
+  higher_bridge_step = _find_unique_step(
+    higher_bridge_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.rhs
+      == eta_n_definition_step.conclusion.element
+    ),
+    "higher eta bridge",
+  )
+
+  higher_result = run_inference_until_stable_with_history(
+    toda_higher_eta_finite_cyclic_generator_inference_rule(),
+    (
+      transported_step,
+      higher_bridge_step,
+    ),
+  )
+
+  higher_step = _find_unique_step(
+    higher_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == transported_step.conclusion.lhs
+      and isinstance(
+        step.conclusion.rhs,
+        FiniteCyclicGroup,
+      )
+      and step.conclusion.rhs.generator
+      == eta_n_definition_step.conclusion.element
+    ),
+    "higher eta group",
+  )
+
+  expected = TodaProp51FiniteDimensionalStatement(
+    pi3_2_group_relation=pi3_2_step.conclusion,
+    eta2_hopf_relation=eta2_hopf_step.conclusion,
+    delta_iota5_relation=delta_step.conclusion,
+    higher_eta_group_relation=higher_step.conclusion,
+  )
+
+  result = run_inference_until_stable_with_history(
+    toda_prop51_finite_dimensional_integration_inference_rule(),
+    (
+      pi3_2_step,
+      eta2_hopf_step,
+      delta_step,
+      higher_step,
+    ),
+  )
+
+  return _find_unique_step(
+    result.steps,
+    lambda step: step.conclusion == expected,
+    "Toda Proposition 5.1",
+  )
+
+
+def _build_n3_suspension_isomorphism_step(
+  prop51_step: ProofStep,
+  hopf_eta5_step: ProofStep,
+) -> ProofStep:
+  pi_4_2 = TodaPrimaryGroup(
+    group_dimension=4,
+    sphere_dimension=2,
+  )
+  pi_5_3 = TodaPrimaryGroup(
+    group_dimension=5,
+    sphere_dimension=3,
+  )
+  pi_5_5 = TodaPrimaryGroup(
+    group_dimension=5,
+    sphere_dimension=5,
+  )
+  pi_6_3 = TodaPrimaryGroup(
+    group_dimension=6,
+    sphere_dimension=3,
+  )
+  pi_6_5 = TodaPrimaryGroup(
+    group_dimension=6,
+    sphere_dimension=5,
+  )
+  pi_3_2 = TodaPrimaryGroup(
+    group_dimension=3,
+    sphere_dimension=2,
+  )
+
+  exactness_steps = (
+    ProofStep(
+      conclusion=TodaProp42ExactnessStatement(
+        window=TodaEHPExactnessWindow(
+          source_term=pi_5_3,
+          middle_term=pi_5_5,
+          target_term=pi_3_2,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        ),
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=TodaProp42ExactnessStatement(
+        window=TodaEHPExactnessWindow(
+          source_term=pi_4_2,
+          middle_term=pi_5_3,
+          target_term=pi_5_5,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        ),
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=TodaProp42ExactnessStatement(
+        window=TodaEHPExactnessWindow(
+          source_term=pi_6_3,
+          middle_term=pi_6_5,
+          target_term=pi_4_2,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        ),
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=TodaProp42ExactnessStatement(
+        window=TodaEHPExactnessWindow(
+          source_term=pi_6_5,
+          middle_term=pi_4_2,
+          target_term=pi_5_3,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        ),
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      toda_53_n3_prop51_delta_injective_inference_rule(),
+      toda_53_n3_delta_injective_hopf_zero_inference_rule(),
+      toda_53_n3_hopf_zero_suspension_surjective_inference_rule(),
+      toda_53_n3_hopf_eta5_surjective_inference_rule(),
+      toda_53_n3_hopf_surjective_delta_zero_inference_rule(),
+      toda_53_n3_delta_zero_suspension_injective_inference_rule(),
+      toda_53_n3_suspension_isomorphism_inference_rule(),
+    ),
+    (
+      prop51_step,
+      hopf_eta5_step,
+      *exactness_steps,
+    ),
+  )
+
+  expected = TodaSuspensionIsomorphismStatement(
+    map=TodaSuspensionMap(
+      source_group=pi_4_2,
+      target_group=pi_5_3,
+    ),
+  )
+
+  return _find_unique_step(
+    result.steps,
+    lambda step: step.conclusion == expected,
+    "E: pi_4^2 -> pi_5^3 isomorphism",
+  )
+
+
+def _build_phase48_injectivity_step() -> ProofStep:
+  i = 6
+  n = 4
+  i_minus_one = ScalarSum(
+    left=i,
+    right=-1,
+  )
+  n_minus_one = ScalarSum(
+    left=n,
+    right=-1,
+  )
+  two_n_minus_one = ScalarSum(
+    left=ScalarProduct(
+      left=2,
+      right=n,
+    ),
+    right=-1,
+  )
+
+  alpha = HomotopyElement(
+    name="α",
+    dimension=two_n_minus_one,
+  )
+  beta = HomotopyElement(
+    name="β",
+    dimension=i_minus_one,
+  )
+  gamma = HomotopyElement(
+    name="γ",
+    dimension=i,
+  )
+  iota = HomotopyElement(
+    name="ι_(2n-1)",
+    dimension=two_n_minus_one,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=two_n_minus_one,
+    ),
+  )
+
+  first_summand = TodaPrimaryGroup(
+    group_dimension=i_minus_one,
+    sphere_dimension=n_minus_one,
+  )
+  second_summand = TodaPrimaryGroup(
+    group_dimension=i,
+    sphere_dimension=two_n_minus_one,
+  )
+  target_group = TodaPrimaryGroup(
+    group_dimension=i,
+    sphere_dimension=n,
+  )
+
+  decomposition_map = TodaProp44DecompositionMap(
+    source_group=DirectSumGroup(
+      summands=(
+        first_summand,
+        second_summand,
+      ),
+    ),
+    target_group=target_group,
+    alpha=alpha,
+    beta=beta,
+    gamma=gamma,
+    formula=Sum(
+      left=Suspension(
+        expression=beta,
+      ),
+      right=Composition(
+        left=alpha,
+        right=gamma,
+      ),
+    ),
+  )
+
+  suspension_map = TodaSuspensionMap(
+    source_group=first_summand,
+    target_group=target_group,
+  )
+
+  premise_steps = (
+    ProofStep(
+      conclusion=TodaPrimaryGroupMembershipStatement(
+        element=alpha,
+        group=TodaPrimaryGroup(
+          group_dimension=two_n_minus_one,
+          sphere_dimension=n,
+        ),
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=Relation(
+        lhs=MapApplication(
+          map=EHP_H_MAP,
+          expression=alpha,
+        ),
+        rhs=iota,
+        relation_type=RelationType.EQUALITY,
+      ),
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=decomposition_map,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+    ProofStep(
+      conclusion=suspension_map,
+      premises=(),
+      rule=ProofRule.GIVEN,
+    ),
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      toda_prop44_isomorphism_inference_rule(),
+      toda_prop44_first_summand_restriction_inference_rule(),
+      toda_prop44_suspension_injective_inference_rule(),
+    ),
+    premise_steps,
+  )
+
+  return _find_unique_step(
+    result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      TodaProp44SuspensionInjectiveStatement,
+    ),
+    "Phase 48 suspension injectivity",
+  )
+
+
+def _build_n4_suspension_isomorphism_step() -> ProofStep:
+  pi_5_3 = TodaPrimaryGroup(
+    group_dimension=5,
+    sphere_dimension=3,
+  )
+  pi_6_4 = TodaPrimaryGroup(
+    group_dimension=6,
+    sphere_dimension=4,
+  )
+  pi_6_7 = TodaPrimaryGroup(
+    group_dimension=6,
+    sphere_dimension=7,
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      toda_prop53_n4_phase48_injectivity_bridge_inference_rule(),
+      toda_prop53_n4_zero_right_suspension_surjective_inference_rule(),
+      toda_prop53_n4_suspension_isomorphism_inference_rule(),
+    ),
+    (
+      _build_phase48_injectivity_step(),
+      ProofStep(
+        conclusion=pi_6_7_zero_fact(),
+        premises=(),
+        rule=ProofRule.GIVEN,
+      ),
+      ProofStep(
+        conclusion=TodaProp42ExactnessStatement(
+          window=TodaEHPExactnessWindow(
+            source_term=pi_5_3,
+            middle_term=pi_6_4,
+            target_term=pi_6_7,
+            first_map=EHP_E_MAP,
+            second_map=EHP_H_MAP,
+          ),
+        ),
+        premises=(),
+        rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  expected = TodaSuspensionIsomorphismStatement(
+    map=TodaSuspensionMap(
+      source_group=pi_5_3,
+      target_group=pi_6_4,
+    ),
+  )
+
+  return _find_unique_step(
+    result.steps,
+    lambda step: step.conclusion == expected,
+    "E: pi_5^3 -> pi_6^4 isomorphism",
+  )
+
+
+def _build_pi6_4_step(
+  pi5_3_step: ProofStep,
+) -> ProofStep:
+  eta_4 = HomotopyElement(
+    name="η₄",
+    dimension=4,
+    source=5,
+    target=4,
+    generator=GeneratorSymbol(
+      family="η",
+      index=4,
+    ),
+  )
+  eta_5 = HomotopyElement(
+    name="η₅",
+    dimension=5,
+    source=6,
+    target=5,
+    generator=GeneratorSymbol(
+      family="η",
+      index=5,
+    ),
+  )
+
+  expected = Relation(
+    lhs=TodaPrimaryGroup(
+      group_dimension=6,
+      sphere_dimension=4,
+    ),
+    rhs=FiniteCyclicGroup(
+      order=2,
+      generator=Composition(
+        left=eta_4,
+        right=eta_5,
+      ),
+    ),
+    relation_type=RelationType.EQUALITY,
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      toda_prop53_n4_eta_square_suspension_bridge_inference_rule(),
+      toda_prop53_n4_pi6_4_finite_cyclic_transport_inference_rule(),
+    ),
+    (
+      pi5_3_step,
+      _build_n4_suspension_isomorphism_step(),
+      ProofStep(
+        conclusion=toda_eta_family_definition_statement(
+          4
+        ),
+        premises=(),
+        rule=ProofRule.GIVEN,
+      ),
+      ProofStep(
+        conclusion=toda_eta_family_definition_statement(
+          5
+        ),
+        premises=(),
+        rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  return _find_unique_step(
+    result.steps,
+    lambda step: step.conclusion == expected,
+    "pi_6^4",
+  )
+
+
+def _build_higher_eta_transport(
+  pi6_4_step: ProofStep,
+) -> tuple[
+  ProofStep,
+  ProofStep,
+]:
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  stable_step = build_toda_45_stable_isomorphism_step(
+    n=4,
+    k=2,
+    m=n,
+  )
+
+  higher_range_step = ProofStep(
+    conclusion=ScalarGreaterEqualStatement(
+      left=n,
+      right=5,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  result = run_inference_until_stable_with_history(
+    toda_prop53_eta4_squared_stable_transport_inference_rule(),
+    (
+      pi6_4_step,
+      stable_step,
+      higher_range_step,
+    ),
+  )
+
+  higher_step = _find_unique_step(
+    result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == TodaPrimaryGroup(
+        group_dimension=ScalarSum(
+          left=n,
+          right=2,
+        ),
+        sphere_dimension=n,
+      )
+    ),
+    "higher eta-square transport",
+  )
+
+  return (
+    higher_step,
+    higher_range_step,
+  )
+
+
+def _build_phase60_toda54(
+  prop53_step: ProofStep,
+  nu_prime_double_step: ProofStep,
+) -> tuple[
+  ProofStep,
+  ProofStep,
+]:
+  n = ScalarSymbol(
+    name="n",
+  )
+  t = ScalarSymbol(
+    name="t",
+  )
+  n_plus_one = ScalarSum(
+    left=n,
+    right=1,
+  )
+  n_plus_two = ScalarSum(
+    left=n,
+    right=2,
+  )
+
+  eta_n = HomotopyElement(
+    name="η_n",
+    dimension=n,
+    source=n_plus_one,
+    target=n,
+    generator=GeneratorSymbol(
+      family="η",
+      index=n,
+    ),
+  )
+  eta_n_plus_one = HomotopyElement(
+    name="η_(n+1)",
+    dimension=n_plus_one,
+    source=n_plus_two,
+    target=n_plus_one,
+    generator=GeneratorSymbol(
+      family="η",
+      index=n_plus_one,
+    ),
+  )
+  eta_n_plus_two = HomotopyElement(
+    name="η_(n+2)",
+    dimension=n_plus_two,
+    source=ScalarSum(
+      left=n,
+      right=3,
+    ),
+    target=n_plus_two,
+    generator=GeneratorSymbol(
+      family="η",
+      index=n_plus_two,
+    ),
+  )
+  iota_n_plus_one = HomotopyElement(
+    name="ι_(n+1)",
+    dimension=n_plus_one,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=n_plus_one,
+    ),
+  )
+
+  bracket = TodaBracket(
+    first=eta_n,
+    second=Multiple(
+      coefficient=2,
+      expression=iota_n_plus_one,
+    ),
+    third=eta_n_plus_one,
+    index=t,
+  )
+
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    source=6,
+    target=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  suspended_nu_prime = IteratedSuspension(
+    expression=nu_prime,
+    exponent=ScalarSum(
+      left=n,
+      right=ScalarProduct(
+        left=-1,
+        right=3,
+      ),
+    ),
+  )
+
+  indeterminacy_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_54_t_ge_1_indeterminacy_eta_cube_inference_rule(),
+        toda_54_nu_prime_triple_eta_transport_inference_rule(),
+        toda_54_indeterminacy_double_nu_prime_generator_inference_rule(),
+      ),
+      (
+        prop53_step,
+        nu_prime_double_step,
+        ProofStep(
+          conclusion=ScalarGreaterEqualStatement(
+            left=n,
+            right=3,
+          ),
+          premises=(),
+          rule=ProofRule.GIVEN,
+        ),
+        ProofStep(
+          conclusion=ScalarGreaterEqualStatement(
+            left=t,
+            right=1,
+          ),
+          premises=(),
+          rule=ProofRule.GIVEN,
+        ),
+      ),
+    )
+  )
+
+  indeterminacy_step = _find_unique_step(
+    indeterminacy_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Toda54IndeterminacyGeneratorStatement,
+      )
+      and step.conclusion.bracket
+      == bracket
+      and step.conclusion.generator
+      == Multiple(
+        coefficient=2,
+        expression=suspended_nu_prime,
+      )
+    ),
+    "Toda (5.4) indeterminacy",
+  )
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+  iota_4 = HomotopyElement(
+    name="ι_4",
+    dimension=4,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=4,
+    ),
+  )
+  eta_4 = HomotopyElement(
+    name="η₄",
+    dimension=4,
+    source=5,
+    target=4,
+    generator=GeneratorSymbol(
+      family="η",
+      index=4,
+    ),
+  )
+
+  source_membership_step = ProofStep(
+    conclusion=TodaBracketMembershipStatement(
+      element=nu_prime,
+      bracket=TodaBracket(
+        first=eta_3,
+        second=Multiple(
+          coefficient=2,
+          expression=iota_4,
+        ),
+        third=eta_4,
+        index=1,
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  from toda_rules import (
+    toda_53_nu_prime_bracket_specialization_inference_rule,
+  )
+
+  inclusion_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_53_nu_prime_bracket_specialization_inference_rule(),
+        toda_54_nu_prime_bracket_inclusion_inference_rule(),
+      ),
+      (
+        source_membership_step,
+        ProofStep(
+          conclusion=ScalarGreaterEqualStatement(
+            left=n,
+            right=3,
+          ),
+          premises=(),
+          rule=ProofRule.GIVEN,
+        ),
+        ProofStep(
+          conclusion=ScalarGreaterEqualStatement(
+            left=t,
+            right=1,
+          ),
+          premises=(),
+          rule=ProofRule.GIVEN,
+        ),
+        ProofStep(
+          conclusion=ScalarGreaterEqualStatement(
+            left=ScalarSum(
+              left=n,
+              right=-2,
+            ),
+            right=t,
+          ),
+          premises=(),
+          rule=ProofRule.GIVEN,
+        ),
+      ),
+    )
+  )
+
+  membership_step = _find_unique_step(
+    inclusion_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        TodaBracketMembershipStatement,
+      )
+      and step.conclusion.element
+      == suspended_nu_prime
+      and step.conclusion.bracket
+      == bracket
+    ),
+    "Toda (5.4) inclusion",
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      toda_54_t_ge_1_up_to_sign_inference_rule(),
+      toda_32_phase60_suspension_surjective_inference_rule(),
+      toda_54_t0_bridge_inference_rule(),
+    ),
+    (
+      indeterminacy_step,
+      membership_step,
+      ProofStep(
+        conclusion=ScalarGreaterEqualStatement(
+          left=n,
+          right=3,
+        ),
+        premises=(),
+        rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  indexed_step = _find_unique_step(
+    result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Toda54BracketUpToSignStatement,
+      )
+      and step.conclusion.bracket
+      == bracket
+    ),
+    "Toda (5.4) indexed up-to-sign",
+  )
+
+  return (
+    indexed_step,
+    indeterminacy_step,
+  )
+
+
+def _build_lemma54_step(
+  prop51_step: ProofStep,
+  prop53_step: ProofStep,
+  nu_prime_hopf_step: ProofStep,
+  nu_prime_double_step: ProofStep,
+  pi4_3_step: ProofStep,
+) -> tuple[
+  ProofStep,
+  ProofStep,
+]:
+  two_eta3_result = run_inference_until_stable_with_history(
+    toda_53_eta3_twice_zero_inference_rule(),
+    (
+      pi4_3_step,
+    ),
+  )
+
+  two_eta3_step = _find_unique_step(
+    two_eta3_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.relation_type
+      == RelationType.ZERO
+    ),
+    "2 eta_3 zero",
+  )
+
+  indexed_toda54_step, _ = _build_phase60_toda54(
+    prop53_step,
+    nu_prime_double_step,
+  )
+
+  phase60_6_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_lemma54_eta6_twice_zero_inference_rule(),
+        toda_36_lemma54_specialization_inference_rule(),
+        toda_54_n5_t3_specialization_inference_rule(),
+        toda_lemma54_double_suspension_up_to_sign_inference_rule(),
+      ),
+      (
+        prop51_step,
+        two_eta3_step,
+        indexed_toda54_step,
+      ),
+    )
+  )
+
+  theorem36_step = _find_unique_step(
+    phase60_6_result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      Toda36Lemma54SpecializationStatement,
+    ),
+    "Toda (3.6) Lemma 5.4 specialization",
+  )
+
+  final_double_step = _find_unique_step(
+    phase60_6_result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      TodaLemma54DoubleSuspensionUpToSignStatement,
+    ),
+    "Lemma 5.4 double suspension",
+  )
+
+  pi6_5_step = build_phase60_pi6_5_step(
+    prop51_step,
+    theorem36_step,
+    final_double_step,
+    nu_prime_hopf_step,
+  )
+
+  from toda_rules import (
+    toda_48_lemma54_hopf_odd_multiple_inference_rule,
+    toda_lemma54_pi6_5_finite_cyclic_inference_rule,
+  )
+
+  phase60_7_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_lemma54_pi6_5_finite_cyclic_inference_rule(),
+        toda_48_lemma54_hopf_odd_multiple_inference_rule(),
+      ),
+      (
+        prop51_step,
+        theorem36_step,
+        final_double_step,
+        nu_prime_hopf_step,
+      ),
+    )
+  )
+
+  hopf_odd_step = _find_unique_step(
+    phase60_7_result.steps,
+    lambda step: (
+      step.rule
+      == ProofRule.INFERENCE
+      and step is not pi6_5_step
+      and not isinstance(
+        step.conclusion,
+        Relation,
+      )
+    ),
+    "Lemma 5.4 Hopf odd multiple",
+  )
+
+  alpha_star = theorem36_step.conclusion.alpha_star
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    source=6,
+    target=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+  iota_4 = HomotopyElement(
+    name="ι_4",
+    dimension=4,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=4,
+    ),
+  )
+  iota_7 = HomotopyElement(
+    name="ι_7",
+    dimension=7,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=7,
+    ),
+  )
+  whitehead_square = WhiteheadProduct(
+    left=iota_4,
+    right=iota_4,
+  )
+  whitehead_step = ProofStep(
+    conclusion=whitehead_square,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+  s = ScalarSymbol(
+    name="s",
+  )
+  u = ScalarSymbol(
+    name="u",
+  )
+
+  expected_whitehead_data = (
+    TodaLemma54WhiteheadCorrectionDataStatement(
+      whitehead_square=whitehead_square,
+      sign_parameter=u,
+      hopf_positive_value=Multiple(
+        coefficient=2,
+        expression=iota_7,
+      ),
+      suspension_zero_relation=Relation(
+        lhs=Suspension(
+          expression=whitehead_square,
+        ),
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      ),
+    )
+  )
+
+  nu4 = HomotopyElement(
+    name="ν₄",
+    dimension=4,
+    source=7,
+    target=4,
+    generator=GeneratorSymbol(
+      family="ν",
+      index=4,
+    ),
+  )
+
+  expected_construction = (
+    TodaLemma54Nu4ConstructionStatement(
+      alpha_star=alpha_star,
+      nu4=nu4,
+      parameter=s,
+      whitehead_data=expected_whitehead_data,
+      double_suspension_value=(
+        IteratedSuspension(
+          expression=nu_prime,
+          exponent=2,
+        )
+      ),
+      positive_branch=TodaLemma54Nu4BranchFormula(
+        double_suspension_sign=1,
+        alpha_star_sign=1,
+        whitehead_coefficient_sign=-1,
+        parameter_offset=0,
+      ),
+      negative_branch=TodaLemma54Nu4BranchFormula(
+        double_suspension_sign=-1,
+        alpha_star_sign=-1,
+        whitehead_coefficient_sign=1,
+        parameter_offset=1,
+      ),
+    )
+  )
+
+  phase60_8_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_lemma54_whitehead_correction_data_inference_rule(),
+        toda_lemma54_nu4_piecewise_construction_inference_rule(),
+        toda_lemma54_nu4_membership_inference_rule(),
+        toda_lemma54_nu4_hopf_inference_rule(),
+        toda_lemma54_nu4_double_suspension_inference_rule(),
+      ),
+      (
+        hopf_odd_step,
+        final_double_step,
+        whitehead_step,
+      ),
+    )
+  )
+
+  construction_step = _find_unique_step(
+    phase60_8_result.steps,
+    lambda step: step.conclusion == expected_construction,
+    "nu_4 construction",
+  )
+
+  membership_step = _find_unique_step(
+    phase60_8_result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      HomotopyGroupMembershipStatement,
+    ),
+    "nu_4 membership",
+  )
+
+  hopf_step = _find_unique_step(
+    phase60_8_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        MapApplication,
+      )
+      and step.conclusion.lhs.expression
+      == nu4
+    ),
+    "H(nu_4)",
+  )
+
+  double_step = _find_unique_step(
+    phase60_8_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        Multiple,
+      )
+      and step.conclusion.lhs.expression
+      == Suspension(
+        expression=nu4,
+      )
+    ),
+    "2E nu_4",
+  )
+
+  expected_lemma54 = TodaLemma54Statement(
+    nu4=nu4,
+    membership=membership_step.conclusion,
+    hopf_relation=hopf_step.conclusion,
+    double_suspension_relation=double_step.conclusion,
+    literature_statements=toda_lemma54_literature_statements(),
+  )
+
+  integration_result = (
+    run_inference_until_stable_with_history(
+      toda_lemma54_integration_inference_rule(),
+      (
+        membership_step,
+        hopf_step,
+        double_step,
+      ),
+    )
+  )
+
+  lemma54_step = _find_unique_step(
+    integration_result.steps,
+    lambda step: (
+      step.conclusion
+      == expected_lemma54
+    ),
+    "Toda Lemma 5.4",
+  )
+
+  return (
+    lemma54_step,
+    pi6_5_step,
+  )
+
+
+def _build_toda55_step(
+  lemma54_step: ProofStep,
+  triple_eta_step: ProofStep,
+) -> ProofStep:
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  definition_step = ProofStep(
+    conclusion=toda_nu_family_definition_statement(
+      n
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  n_range_step = ProofStep(
+    conclusion=ScalarGreaterEqualStatement(
+      left=n,
+      right=5,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  double_result = run_inference_until_stable_with_history(
+    toda_55_nu_family_double_suspension_transport_inference_rule(),
+    (
+      lemma54_step,
+      definition_step,
+      n_range_step,
+    ),
+  )
+
+  double_step = _find_unique_step(
+    double_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        Multiple,
+      )
+      and step.conclusion.lhs.coefficient
+      == 2
+    ),
+    "2 nu_n",
+  )
+
+  doubled_step = _require_match(
+    equality_preserved_under_multiple_inference_rule(
+      coefficient=2,
+    ),
+    (
+      double_step,
+    ),
+  )
+
+  nu_n = definition_step.conclusion.element
+
+  nested_step = _require_match(
+    nested_integer_multiple_inference_rule(
+      outer_coefficient=2,
+      inner_coefficient=2,
+      expression=nu_n,
+    ),
+    (),
+  )
+
+  nested_symmetry_step = _require_match(
+    equality_symmetry_inference_rule(),
+    (
+      nested_step,
+    ),
+  )
+
+  four_to_double_step = _require_match(
+    equality_transitivity_inference_rule(),
+    (
+      nested_symmetry_step,
+      doubled_step,
+    ),
+  )
+
+  quadruple_step = _require_match(
+    equality_transitivity_inference_rule(),
+    (
+      four_to_double_step,
+      triple_eta_step,
+    ),
+  )
+
+  return build_phase62_toda55_step(
+    lemma54_step,
+    definition_step,
+    n_range_step,
+    double_step,
+    quadruple_step,
+  )
+
+
+def _build_toda56_step(
+  lemma54_step: ProofStep,
+) -> ProofStep:
+  specialization_result = (
+    run_inference_until_stable_with_history(
+      toda_56_nu4_prop44_specialization_inference_rule(),
+      (
+        lemma54_step,
+      ),
+    )
+  )
+
+  specialization_step = _find_unique_step(
+    specialization_result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      Toda56Nu4Prop44SpecializationStatement,
+    ),
+    "nu_4 Prop.4.4 specialization",
+  )
+
+  nu_4 = specialization_step.conclusion.alpha
+  i = ScalarSymbol(
+    name="i",
+  )
+  first_variable = HomotopyElement(
+    name="α",
+    dimension=3,
+    source=ScalarSum(
+      left=i,
+      right=-1,
+    ),
+    target=3,
+  )
+  second_variable = HomotopyElement(
+    name="β",
+    dimension=7,
+    source=i,
+    target=7,
+  )
+
+  decomposition_map = TodaProp44DecompositionMap(
+    source_group=DirectSumGroup(
+      summands=(
+        TodaPrimaryGroup(
+          group_dimension=ScalarSum(
+            left=i,
+            right=-1,
+          ),
+          sphere_dimension=3,
+        ),
+        TodaPrimaryGroup(
+          group_dimension=i,
+          sphere_dimension=7,
+        ),
+      ),
+    ),
+    target_group=TodaPrimaryGroup(
+      group_dimension=i,
+      sphere_dimension=4,
+    ),
+    alpha=nu_4,
+    beta=first_variable,
+    gamma=second_variable,
+    formula=Sum(
+      left=Suspension(
+        expression=first_variable,
+      ),
+      right=Composition(
+        left=nu_4,
+        right=second_variable,
+      ),
+    ),
+  )
+
+  prop44_result = run_inference_until_stable_with_history(
+    toda_56_nu4_prop44_isomorphism_inference_rule(),
+    (
+      specialization_step,
+      ProofStep(
+        conclusion=decomposition_map,
+        premises=(),
+        rule=ProofRule.GIVEN,
+      ),
+    ),
+  )
+
+  prop44_step = _find_unique_step(
+    prop44_result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      TodaProp44IsomorphismStatement,
+    ),
+    "nu_4 Prop.4.4 isomorphism",
+  )
+
+  semantics_result = (
+    run_inference_until_stable_with_history(
+      toda_56_nu4_decomposition_isomorphism_inference_rule(),
+      (
+        prop44_step,
+      ),
+    )
+  )
+
+  decomposition_step = _find_unique_step(
+    semantics_result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      Toda56Nu4DecompositionIsomorphismStatement,
+    ),
+    "Toda (5.6) semantics",
+  )
+
+  return build_phase63_toda56_step(
+    decomposition_step,
+    lemma54_step,
+  )
+
+
+def build_toda_prop56_zero_argument_step() -> ProofStep:
+  core = build_toda_prop56_upstream_core()
+
+  phase50 = _build_phase50_result()
+  pi4_3_step = phase50[
+    "final_group_step"
+  ]
+
+  pi4_2_step = _build_pi4_2_step(
+    pi4_3_step,
+    core[
+      "toda52_step"
+    ],
+  )
+
+  prop51_step = _build_prop51_step()
+
+  n3_isomorphism_step = (
+    _build_n3_suspension_isomorphism_step(
+      prop51_step,
+      core[
+        "hopf_nu_prime_step"
+      ],
+    )
+  )
+
+  pi5_3_step = build_phase59_pi5_3_step(
+    pi4_2_step,
+    n3_isomorphism_step,
+  )
+
+  pi6_4_step = _build_pi6_4_step(
+    pi5_3_step
+  )
+
+  (
+    higher_transport_step,
+    higher_range_step,
+  ) = _build_higher_eta_transport(
+    pi6_4_step
+  )
+
+  prop53_step = build_phase59_prop53_step(
+    pi4_2_step,
+    pi5_3_step,
+    pi6_4_step,
+    higher_transport_step,
+    higher_range_step,
+  )
+
+  hopf_surjective_step = (
+    build_phase59_hopf_surjective_step(
+      prop51_step,
+      core[
+        "hopf_nu_prime_step"
+      ],
+    )
+  )
+
+  lemma54_step, pi6_5_step = (
+    _build_lemma54_step(
+      prop51_step,
+      prop53_step,
+      core[
+        "hopf_nu_prime_step"
+      ],
+      core[
+        "double_step"
+      ],
+      pi4_3_step,
+    )
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  phase60_3_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_54_t_ge_1_indeterminacy_eta_cube_inference_rule(),
+        toda_54_nu_prime_triple_eta_transport_inference_rule(),
+        toda_54_indeterminacy_double_nu_prime_generator_inference_rule(),
+      ),
+      (
+        prop53_step,
+        core[
+          "double_step"
+        ],
+        ProofStep(
+          conclusion=ScalarGreaterEqualStatement(
+            left=n,
+            right=3,
+          ),
+          premises=(),
+          rule=ProofRule.GIVEN,
+        ),
+        ProofStep(
+          conclusion=ScalarGreaterEqualStatement(
+            left=t,
+            right=1,
+          ),
+          premises=(),
+          rule=ProofRule.GIVEN,
+        ),
+      ),
+    )
+  )
+
+  triple_eta_step = _find_unique_step(
+    phase60_3_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        Multiple,
+      )
+      and step.conclusion.lhs.coefficient
+      == 2
+      and isinstance(
+        step.conclusion.lhs.expression,
+        IteratedSuspension,
+      )
+    ),
+    "triple eta transport",
+  )
+
+  toda55_step = _build_toda55_step(
+    lemma54_step,
+    triple_eta_step,
+  )
+
+  toda56_step = _build_toda56_step(
+    lemma54_step
+  )
+
+  return build_toda_prop56_bootstrap_step(
+    core[
+      "toda52_step"
+    ],
+    pi5_3_step,
+    core[
+      "hopf_nu_prime_step"
+    ],
+    prop53_step,
+    core[
+      "double_step"
+    ],
+    core[
+      "membership_step"
+    ],
+    hopf_surjective_step,
+    pi6_5_step,
+    toda55_step,
+    toda56_step,
+    core[
+      "stable_isomorphism_step"
+    ],
+  )

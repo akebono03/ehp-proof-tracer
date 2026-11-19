@@ -1,0 +1,2730 @@
+from barratt_hilton_rules import (
+  HomotopyGroupMembershipStatement,
+  barratt_hilton_first_inference_rule,
+  barratt_hilton_second_inference_rule,
+)
+from expression import (
+  Composition,
+  GeneratorSymbol,
+  HomotopyElement,
+  IteratedSuspension,
+  MapApplication,
+  Multiple,
+  ScalarSum,
+  ScalarSymbol,
+  Sum,
+  Suspension,
+  WhiteheadProduct,
+  Zero,
+)
+from homotopy_groups import (
+  DirectSumGroup,
+  FiniteCyclicGroup,
+  FreeCyclicGroup,
+  HomotopyEHPExactnessWindow,
+  HomotopyGroup,
+  TodaDeltaMap,
+  TodaEHPExactnessWindow,
+  TodaHopfInvariantMap,
+  TodaPrimaryGroup,
+  TodaPrimaryGroupMembershipStatement,
+  TodaPrimaryGroupZeroStatement,
+  TodaProp44DecompositionMap,
+  TodaSuspensionIsomorphismStatement,
+  TodaSuspensionMap,
+)
+from map_facts import (
+  EHP_DELTA_MAP,
+  EHP_E_MAP,
+  EHP_H_MAP,
+)
+from proof import (
+  ProofRule,
+  ProofStep,
+  Relation,
+  RelationType,
+  apply_inference_match,
+  find_inference_match,
+)
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
+)
+from toda_prop56_zero_bootstrap import (
+  _build_phase60_toda54,
+)
+from toda_prop58_zero_bootstrap import (
+  _build_delta_eta9_step,
+  _build_equation57_steps,
+  _build_eta2_nu_prime_zero_step,
+  _build_higher_eta_nu_zero_step,
+  _build_nu6_eta9_zero_step,
+  _build_phase66_step,
+  _build_pi6_2_step,
+  _build_pi7_3_steps,
+  _build_pi8_4_step,
+  _build_pi9_5_step,
+  _build_support,
+  _build_toda59_step,
+  build_toda_prop58_zero_argument_step,
+)
+from toda_rules import (
+  TodaDeltaImageUpToSignStatement,
+  TodaDeltaInjectiveStatement,
+  TodaDeltaKernelFreeCyclicStatement,
+  TodaDeltaSurjectiveStatement,
+  TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantIsomorphismStatement,
+  TodaHopfInvariantSurjectiveStatement,
+  TodaHopfInvariantZeroStatement,
+  TodaLemma510BracketModuloStatement,
+  TodaLemma54BracketUpToSignStatement,
+  TodaProp27HopfInvariantUpToSignStatement,
+  TodaProp42ExactnessStatement,
+  TodaProp44IsomorphismStatement,
+  TodaProp511FiniteDimensionalStatement,
+  TodaProp511NuSquaredFiniteDimensionalStatement,
+  TodaProp59DeltaKernelStatement,
+  TodaProp59FiniteDimensionalStatement,
+  TodaSuspensionInjectiveStatement,
+  TodaSuspensionSurjectiveStatement,
+  TodaSuspensionZeroStatement,
+  serre_42_finite_homotopy_group_inference_rule,
+  toda_211_ordinary_ehp_applicability_inference_rule,
+  toda_211_ordinary_ehp_exactness_inference_rule,
+  toda_32_phase60_suspension_surjective_inference_rule,
+  toda_54_t0_bridge_inference_rule,
+  toda_512_n4_delta_injective_inference_rule,
+  toda_512_n5_delta_injective_inference_rule,
+  toda_512_n6_delta_injective_inference_rule,
+  toda_eq510_concrete_delta_e_exactness_inference_rule,
+  toda_eq510_delta_iota11_inference_rule,
+  toda_eq510_delta_surjective_inference_rule,
+  toda_eta_family_definition_statement,
+  toda_lemma510_corrected_exactness_core_inference_rule,
+  toda_lemma510_corrected_modulo_integration_inference_rule,
+  toda_lemma510_eta8_two_iota9_zero_inference_rule,
+  toda_lemma510_eta9_two_iota10_zero_inference_rule,
+  toda_lemma510_hopf_from_split_inference_rule,
+  toda_lemma510_nu6_ordinary_composition_reduction_inference_rule,
+  toda_lemma510_nu6_ordinary_composition_zero_inference_rule,
+  toda_lemma510_ordinary_indeterminacy_double_inference_rule,
+  toda_lemma510_ordinary_suspension_image_finite_inference_rule,
+  toda_lemma510_ordinary_suspension_image_in_double_inference_rule,
+  toda_lemma510_ordinary_suspension_image_two_primary_zero_inference_rule,
+  toda_lemma510_prop26_indexed_hopf_inference_rule,
+  toda_lemma510_split_115_inference_rule,
+  toda_lemma57_concrete_delta_e_exactness_inference_rule,
+  toda_lemma57_delta_nu5_generator_inference_rule,
+  toda_lemma57_delta_surjective_inference_rule,
+  toda_nu_family_definition_statement,
+  toda_prop44_first_summand_restriction_inference_rule,
+  toda_prop44_isomorphism_inference_rule,
+  toda_prop44_suspension_injective_inference_rule,
+  toda_prop58_e_nu4_eta7_bridge_inference_rule,
+  toda_prop58_pi10_6_concrete_exactness_inference_rule,
+  toda_prop58_pi10_6_suspension_surjective_inference_rule,
+  toda_prop58_pi10_6_zero_inference_rule,
+  toda_prop59_concrete_e_h_exactness_inference_rule,
+  toda_prop59_concrete_h_delta_exactness_inference_rule,
+  toda_prop59_delta_eta11_inference_rule,
+  toda_prop59_delta_eta9_squared_inference_rule,
+  toda_prop59_delta_iota13_hopf_inference_rule,
+  toda_prop59_delta_nu5_kernel_inference_rule,
+  toda_prop59_e_nu4_eta7_squared_bridge_inference_rule,
+  toda_prop59_e_nu5_eta8_squared_zero_inference_rule,
+  toda_prop59_e_nu_prime_eta6_squared_bridge_inference_rule,
+  toda_prop59_finite_dimensional_integration_inference_rule,
+  toda_prop59_finite_dimensional_literature_statements,
+  toda_prop59_higher_five_stem_zero_transport_inference_rule,
+  toda_prop59_nu_prime_eta6_squared_hopf_inference_rule,
+  toda_prop59_pi10_5_concrete_exactness_inference_rule,
+  toda_prop59_pi10_5_delta_e_exactness_inference_rule,
+  toda_prop59_pi10_5_finite_cyclic_inference_rule,
+  toda_prop59_pi10_5_hopf_zero_inference_rule,
+  toda_prop59_pi10_5_suspension_surjective_inference_rule,
+  toda_prop59_pi10_9_delta_injective_inference_rule,
+  toda_prop59_pi11_11_delta_kernel_inference_rule,
+  toda_prop59_pi11_6_concrete_exactness_inference_rule,
+  toda_prop59_pi11_6_free_cyclic_inference_rule,
+  toda_prop59_pi11_6_hopf_injective_inference_rule,
+  toda_prop59_pi12_7_concrete_exactness_inference_rule,
+  toda_prop59_pi12_7_suspension_surjective_inference_rule,
+  toda_prop59_pi12_7_zero_inference_rule,
+  toda_prop59_pi13_13_delta_surjective_inference_rule,
+  toda_prop59_pi7_2_eta2_nu_prime_eta6_inference_rule,
+  toda_prop59_pi7_2_suspension_zero_inference_rule,
+  toda_prop59_pi8_3_finite_cyclic_inference_rule,
+  toda_prop59_pi8_3_hopf_injective_inference_rule,
+  toda_prop59_pi9_4_decomposition_inference_rule,
+  toda_prop511_513_delta_eta11_squared_zero_inference_rule,
+  toda_prop511_513_delta_eta13_zero_inference_rule,
+  toda_prop511_513_delta_nu9_inference_rule,
+  toda_prop511_finite_dimensional_integration_inference_rule,
+  toda_prop511_finite_dimensional_literature_statements,
+  toda_prop511_higher_six_stem_nu_squared_transport_inference_rule,
+  toda_prop511_nu_squared_finite_dimensional_integration_inference_rule,
+  toda_prop511_nu_squared_finite_dimensional_literature_statements,
+  toda_prop511_pi10_4_nu4_squared_inference_rule,
+  toda_prop511_pi10_7_nu7_inference_rule,
+  toda_prop511_pi11_5_concrete_exactness_inference_rule,
+  toda_prop511_pi11_5_hopf_zero_inference_rule,
+  toda_prop511_pi11_5_nu5_squared_inference_rule,
+  toda_prop511_pi11_5_suspension_surjective_inference_rule,
+  toda_prop511_pi12_6_concrete_exactness_inference_rule,
+  toda_prop511_pi12_6_hopf_zero_inference_rule,
+  toda_prop511_pi12_6_nu6_squared_inference_rule,
+  toda_prop511_pi12_6_suspension_injective_inference_rule,
+  toda_prop511_pi12_6_suspension_isomorphism_inference_rule,
+  toda_prop511_pi12_6_suspension_surjective_inference_rule,
+  toda_prop511_pi12_9_nu9_inference_rule,
+  toda_prop511_pi13_11_eta11_squared_inference_rule,
+  toda_prop511_pi13_7_concrete_exactness_inference_rule,
+  toda_prop511_pi13_7_hopf_zero_inference_rule,
+  toda_prop511_pi13_7_nu7_squared_inference_rule,
+  toda_prop511_pi13_7_suspension_injective_inference_rule,
+  toda_prop511_pi13_7_suspension_isomorphism_inference_rule,
+  toda_prop511_pi13_7_suspension_surjective_inference_rule,
+  toda_prop511_pi14_13_eta13_inference_rule,
+  toda_prop511_pi14_8_nu8_squared_inference_rule,
+  toda_prop511_pi14_8_prop44_zero_second_summand_suspension_isomorphism_inference_rule,
+  toda_prop511_pi7_2_suspension_zero_inference_rule,
+  toda_prop511_pi8_2_eta2_nu_prime_eta6_squared_inference_rule,
+  toda_prop511_pi8_2_suspension_zero_inference_rule,
+  toda_prop511_pi9_3_concrete_exactness_inference_rule,
+  toda_prop511_pi9_3_zero_inference_rule,
+  toda_prop511_pi9_5_to_pi7_2_delta_injective_inference_rule,
+  toda_prop511_zero_suspension_left_implies_hopf_injective_inference_rule,
+  toda_prop511_zero_suspension_right_implies_delta_surjective_inference_rule,
+)
+from toda_upstream_bootstrap import (
+  build_toda_45_stable_isomorphism_step,
+)
+
+
+def _apply(
+  rule,
+  premises: tuple[ProofStep, ...],
+  description: str,
+) -> ProofStep:
+  match = find_inference_match(
+    rule,
+    premises,
+  )
+
+  if match is None:
+    raise ValueError(
+      f"expected {description} inference match"
+    )
+
+  return apply_inference_match(
+    match
+  )
+
+
+def _find_unique_step(
+  root: ProofStep,
+  predicate,
+  description: str,
+) -> ProofStep:
+  found = []
+  visited = set()
+  stack = [root]
+
+  while stack:
+    step = stack.pop()
+
+    if id(step) in visited:
+      continue
+
+    visited.add(
+      id(step)
+    )
+
+    if predicate(step):
+      found.append(
+        step
+      )
+
+    stack.extend(
+      step.premises
+    )
+
+  if len(found) != 1:
+    raise ValueError(
+      "expected exactly one "
+      f"{description} provenance step, "
+      f"found {len(found)}"
+    )
+
+  return found[0]
+
+
+def _given(
+  conclusion,
+) -> ProofStep:
+  return ProofStep(
+    conclusion=conclusion,
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+
+def _build_phase68_context() -> dict[
+  str,
+  ProofStep,
+]:
+  support = _build_support()
+
+  equation57_step, hopf_surjective_step = (
+    _build_equation57_steps(
+      support
+    )
+  )
+
+  eta2_nu_prime_zero_step = (
+    _build_eta2_nu_prime_zero_step(
+      support
+    )
+  )
+
+  pi6_2_step = _build_pi6_2_step(
+    support
+  )
+
+  pi7_3_step, hopf_isomorphism_step = (
+    _build_pi7_3_steps(
+      support,
+      equation57_step,
+      hopf_surjective_step,
+      eta2_nu_prime_zero_step,
+      pi6_2_step,
+    )
+  )
+
+  pi8_4_step = _build_pi8_4_step(
+    support,
+    pi7_3_step,
+  )
+
+  phase66_step = _build_phase66_step(
+    support
+  )
+
+  delta_eta9_step = _build_delta_eta9_step(
+    phase66_step,
+    pi8_4_step,
+  )
+
+  pi9_5_step = _build_pi9_5_step(
+    support,
+    phase66_step,
+    pi8_4_step,
+    delta_eta9_step,
+  )
+
+  toda59_step = _build_toda59_step(
+    support,
+    equation57_step,
+    hopf_isomorphism_step,
+  )
+
+  higher_eta_nu_zero_step = (
+    _build_higher_eta_nu_zero_step(
+      support,
+      pi9_5_step,
+      toda59_step,
+    )
+  )
+
+  nu6_eta9_zero_step = (
+    _build_nu6_eta9_zero_step(
+      support,
+      higher_eta_nu_zero_step,
+    )
+  )
+
+  prop58_step = (
+    build_toda_prop58_zero_argument_step()
+  )
+
+  return {
+    **support,
+    "prop58_step": prop58_step,
+    "equation57_step": equation57_step,
+    "eta2_nu_prime_zero_step": (
+      eta2_nu_prime_zero_step
+    ),
+    "pi6_2_step": pi6_2_step,
+    "pi7_3_step": pi7_3_step,
+    "hopf_isomorphism_step": (
+      hopf_isomorphism_step
+    ),
+    "pi8_4_step": pi8_4_step,
+    "phase66_step": phase66_step,
+    "delta_eta9_step": delta_eta9_step,
+    "pi9_5_step": pi9_5_step,
+    "toda59_step": toda59_step,
+    "nu6_eta9_zero_step": (
+      nu6_eta9_zero_step
+    ),
+  }
+
+
+def _build_phase68_generator_bridge(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+) -> ProofStep:
+  pi8_4_step = context[
+    "pi8_4_step"
+  ]
+
+  nu5_definition_step = _given(
+    toda_nu_family_definition_statement(
+      5
+    )
+  )
+
+  rule = (
+    toda_prop58_e_nu4_eta7_bridge_inference_rule()
+  )
+
+  match = find_inference_match(
+    rule,
+    (
+      pi8_4_step,
+      nu5_definition_step,
+    ),
+  )
+
+  if match is not None:
+    return apply_inference_match(
+      match
+    )
+
+  pi10_9 = TodaPrimaryGroup(
+    group_dimension=10,
+    sphere_dimension=9,
+  )
+  pi8_4 = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=4,
+  )
+  pi9_5 = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+  pi9_9 = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=9,
+  )
+  pi7_4 = TodaPrimaryGroup(
+    group_dimension=7,
+    sphere_dimension=4,
+  )
+
+  from toda_rules import (
+    toda_prop58_pi9_5_concrete_exactness_inference_rule,
+    toda_prop58_pi9_5_finite_cyclic_inference_rule,
+    toda_prop58_pi9_5_hopf_zero_inference_rule,
+    toda_prop58_pi9_5_suspension_surjective_inference_rule,
+    toda_prop58_pi9_9_delta_injective_inference_rule,
+  )
+  from proof import (
+    run_inference_until_stable_with_history,
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      toda_prop58_pi9_5_concrete_exactness_inference_rule(),
+      toda_prop58_pi9_9_delta_injective_inference_rule(),
+      toda_prop58_pi9_5_hopf_zero_inference_rule(),
+      toda_prop58_pi9_5_suspension_surjective_inference_rule(),
+      toda_prop58_e_nu4_eta7_bridge_inference_rule(),
+      toda_prop58_pi9_5_finite_cyclic_inference_rule(),
+    ),
+    (
+      context[
+        "prop56_step"
+      ],
+      context[
+        "phase66_step"
+      ],
+      pi8_4_step,
+      context[
+        "prop51_step"
+      ],
+      context[
+        "delta_eta9_step"
+      ],
+      nu5_definition_step,
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi10_9,
+          middle_term=pi8_4,
+          target_term=pi9_5,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        )
+      ),
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi8_4,
+          middle_term=pi9_5,
+          target_term=pi9_9,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi9_5,
+          middle_term=pi9_9,
+          target_term=pi7_4,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        )
+      ),
+    ),
+  )
+
+  nu4_eta7 = (
+    pi8_4_step
+    .conclusion
+    .rhs
+    .summands[0]
+    .generator
+  )
+
+  return next(
+    step
+    for step in result.steps
+    if (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == Suspension(
+        expression=nu4_eta7,
+      )
+    )
+  )
+
+
+def _build_pi10_6_zero_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+) -> ProofStep:
+  from proof import (
+    run_inference_until_stable_with_history,
+  )
+
+  pi9_5 = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+  pi10_6 = TodaPrimaryGroup(
+    group_dimension=10,
+    sphere_dimension=6,
+  )
+  pi10_11 = TodaPrimaryGroup(
+    group_dimension=10,
+    sphere_dimension=11,
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      toda_prop58_pi10_6_concrete_exactness_inference_rule(),
+      toda_prop58_pi10_6_suspension_surjective_inference_rule(),
+      toda_prop58_pi10_6_zero_inference_rule(),
+    ),
+    (
+      context[
+        "pi9_5_step"
+      ],
+      context[
+        "nu6_eta9_zero_step"
+      ],
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi9_5,
+          middle_term=pi10_6,
+          target_term=pi10_11,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+      _given(
+        TodaPrimaryGroupZeroStatement(
+          group=pi10_11,
+        )
+      ),
+    ),
+  )
+
+  expected = TodaPrimaryGroupZeroStatement(
+    group=pi10_6,
+  )
+
+  return next(
+    step
+    for step in result.steps
+    if step.conclusion
+    == expected
+  )
+
+
+def _build_delta_iota11_context(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+) -> dict[
+  str,
+  ProofStep,
+]:
+  from proof import (
+    run_inference_until_stable_with_history,
+  )
+
+  pi10_6_zero_step = (
+    _build_pi10_6_zero_step(
+      context
+    )
+  )
+
+  pi11_11 = TodaPrimaryGroup(
+    group_dimension=11,
+    sphere_dimension=11,
+  )
+  pi9_5 = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+  pi10_6 = TodaPrimaryGroup(
+    group_dimension=10,
+    sphere_dimension=6,
+  )
+
+  delta_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_eq510_concrete_delta_e_exactness_inference_rule(),
+        toda_eq510_delta_surjective_inference_rule(),
+      ),
+      (
+        pi10_6_zero_step,
+        _given(
+          TodaEHPExactnessWindow(
+            source_term=pi11_11,
+            middle_term=pi9_5,
+            target_term=pi10_6,
+            first_map=EHP_DELTA_MAP,
+            second_map=EHP_E_MAP,
+          )
+        ),
+      ),
+    )
+  )
+
+  delta_surjective_step = next(
+    step
+    for step in delta_result.steps
+    if isinstance(
+      step.conclusion,
+      TodaDeltaSurjectiveStatement,
+    )
+  )
+
+  iota_11 = HomotopyElement(
+    name="ι_11",
+    dimension=11,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=11,
+    ),
+  )
+
+  pi11_11_step = _given(
+    Relation(
+      lhs=pi11_11,
+      rhs=FreeCyclicGroup(
+        generator=iota_11,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  delta_iota11_step = _apply(
+    toda_eq510_delta_iota11_inference_rule(),
+    (
+      delta_surjective_step,
+      pi11_11_step,
+      context[
+        "pi9_5_step"
+      ],
+    ),
+    "Delta(iota_11)",
+  )
+
+  return {
+    "pi10_6_zero_step": (
+      pi10_6_zero_step
+    ),
+    "pi11_11_step": (
+      pi11_11_step
+    ),
+    "delta_surjective_step": (
+      delta_surjective_step
+    ),
+    "delta_iota11_step": (
+      delta_iota11_step
+    ),
+  }
+
+
+def _build_delta_nu5_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+) -> ProofStep:
+  from proof import (
+    run_inference_until_stable_with_history,
+  )
+
+  pi8_5 = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+  pi6_2 = TodaPrimaryGroup(
+    group_dimension=6,
+    sphere_dimension=2,
+  )
+  pi7_3 = TodaPrimaryGroup(
+    group_dimension=7,
+    sphere_dimension=3,
+  )
+
+  result = run_inference_until_stable_with_history(
+    (
+      toda_lemma57_concrete_delta_e_exactness_inference_rule(),
+      toda_lemma57_delta_surjective_inference_rule(),
+      toda_lemma57_delta_nu5_generator_inference_rule(),
+    ),
+    (
+      context[
+        "prop56_step"
+      ],
+      context[
+        "eta2_nu_prime_zero_step"
+      ],
+      context[
+        "pi6_2_step"
+      ],
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi8_5,
+          middle_term=pi6_2,
+          target_term=pi7_3,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        )
+      ),
+    ),
+  )
+
+  return next(
+    step
+    for step in result.steps
+    if (
+      isinstance(
+        step.conclusion,
+        TodaDeltaImageUpToSignStatement,
+      )
+      and step.conclusion.map.source_group
+      == pi8_5
+    )
+  )
+
+
+def _build_prop59_context(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  delta_iota11_context: dict[
+    str,
+    ProofStep,
+  ],
+) -> dict[
+  str,
+  ProofStep,
+]:
+  toda52_step = context[
+    "toda52_step"
+  ]
+
+  pi7_2_step = _apply(
+    toda_prop59_pi7_2_eta2_nu_prime_eta6_inference_rule(),
+    (
+      context[
+        "pi7_3_step"
+      ],
+      toda52_step,
+    ),
+    "pi_7^2",
+  )
+
+  pi8_5_step = _find_unique_step(
+    context[
+      "prop56_step"
+    ],
+    lambda step: (
+      step.conclusion
+      == (
+        context[
+          "prop56_step"
+        ]
+        .conclusion
+        .pi8_5_group_relation
+      )
+    ),
+    "pi_8^5",
+  )
+
+  delta_nu5_step = _build_delta_nu5_step(
+    context
+  )
+
+  pi7_2_generator = (
+    pi7_2_step
+    .conclusion
+    .rhs
+    .generator
+  )
+
+  suspension_zero_step = _apply(
+    toda_prop59_pi7_2_suspension_zero_inference_rule(),
+    (
+      pi7_2_step,
+      context[
+        "eta2_nu_prime_zero_step"
+      ],
+    ),
+    "E(pi_7^2 generator)=0",
+  )
+
+  pi7_2 = TodaPrimaryGroup(
+    group_dimension=7,
+    sphere_dimension=2,
+  )
+  pi8_3 = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=3,
+  )
+  pi8_5 = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=5,
+  )
+  pi6_2 = TodaPrimaryGroup(
+    group_dimension=6,
+    sphere_dimension=2,
+  )
+
+  e_h_exactness_step = _apply(
+    toda_prop59_concrete_e_h_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi7_2,
+          middle_term=pi8_3,
+          target_term=pi8_5,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+    ),
+    "pi_8^3 E-H exactness",
+  )
+
+  hopf_injective_step = _apply(
+    toda_prop59_pi8_3_hopf_injective_inference_rule(),
+    (
+      suspension_zero_step,
+      pi7_2_step,
+      e_h_exactness_step,
+    ),
+    "pi_8^3 Hopf injective",
+  )
+
+  h_delta_exactness_step = _apply(
+    toda_prop59_concrete_h_delta_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi8_3,
+          middle_term=pi8_5,
+          target_term=pi6_2,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        )
+      ),
+    ),
+    "pi_8^3 H-Delta exactness",
+  )
+
+  delta_kernel_step = _apply(
+    toda_prop59_delta_nu5_kernel_inference_rule(),
+    (
+      delta_nu5_step,
+      pi8_5_step,
+      context[
+        "pi6_2_step"
+      ],
+    ),
+    "Delta nu_5 kernel",
+  )
+
+  eta7_definition_step = _given(
+    toda_eta_family_definition_statement(
+      7
+    )
+  )
+
+  hopf_value_step = _apply(
+    toda_prop59_nu_prime_eta6_squared_hopf_inference_rule(),
+    (
+      context[
+        "equation57_step"
+      ],
+      context[
+        "toda55_step"
+      ],
+      pi8_5_step,
+      eta7_definition_step,
+    ),
+    "H(nu-prime eta_6^2)",
+  )
+
+  pi8_3_step = _apply(
+    toda_prop59_pi8_3_finite_cyclic_inference_rule(),
+    (
+      hopf_injective_step,
+      h_delta_exactness_step,
+      delta_kernel_step,
+      hopf_value_step,
+    ),
+    "pi_8^3",
+  )
+
+  bridge_step = _apply(
+    toda_prop59_e_nu_prime_eta6_squared_bridge_inference_rule(),
+    (
+      pi8_3_step,
+      context[
+        "prop53_step"
+      ],
+    ),
+    "E(nu-prime eta_6^2)",
+  )
+
+  pi9_4_step = _apply(
+    toda_prop59_pi9_4_decomposition_inference_rule(),
+    (
+      context[
+        "toda56_step"
+      ],
+      pi8_3_step,
+      context[
+        "prop53_step"
+      ],
+      bridge_step,
+    ),
+    "pi_9^4",
+  )
+
+  delta_eta9_squared_step = _apply(
+    toda_prop59_delta_eta9_squared_inference_rule(),
+    (
+      context[
+        "delta_eta9_step"
+      ],
+      pi9_4_step,
+    ),
+    "Delta(eta_9^2)",
+  )
+
+  pi10_9 = TodaPrimaryGroup(
+    group_dimension=10,
+    sphere_dimension=9,
+  )
+  pi10_5 = TodaPrimaryGroup(
+    group_dimension=10,
+    sphere_dimension=5,
+  )
+  pi9_4 = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=4,
+  )
+  pi8_4 = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=4,
+  )
+
+  delta_injective_step = _apply(
+    toda_prop59_pi10_9_delta_injective_inference_rule(),
+    (
+      context[
+        "delta_eta9_step"
+      ],
+      context[
+        "pi8_4_step"
+      ],
+      context[
+        "prop51_step"
+      ],
+    ),
+    "pi_10^9 Delta injective",
+  )
+
+  pi10_5_eh_step = _apply(
+    toda_prop59_pi10_5_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi9_4,
+          middle_term=pi10_5,
+          target_term=pi10_9,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+    ),
+    "pi_10^5 E-H exactness",
+  )
+
+  pi10_5_hd_step = _apply(
+    toda_prop59_pi10_5_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi10_5,
+          middle_term=pi10_9,
+          target_term=pi8_4,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        )
+      ),
+    ),
+    "pi_10^5 H-Delta exactness",
+  )
+
+  hopf_zero_step = _apply(
+    toda_prop59_pi10_5_hopf_zero_inference_rule(),
+    (
+      delta_injective_step,
+      pi10_5_hd_step,
+    ),
+    "pi_10^5 Hopf zero",
+  )
+
+  suspension_surjective_step = _apply(
+    toda_prop59_pi10_5_suspension_surjective_inference_rule(),
+    (
+      hopf_zero_step,
+      pi10_5_eh_step,
+    ),
+    "pi_10^5 suspension surjective",
+  )
+
+  delta_e_exactness_step = _apply(
+    toda_prop59_pi10_5_delta_e_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=TodaPrimaryGroup(
+            group_dimension=11,
+            sphere_dimension=9,
+          ),
+          middle_term=pi9_4,
+          target_term=pi10_5,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        )
+      ),
+    ),
+    "pi_10^5 Delta-E exactness",
+  )
+
+  phase68_generator_bridge_step = (
+    _build_phase68_generator_bridge(
+      context
+    )
+  )
+
+  generator_bridge_step = _apply(
+    toda_prop59_e_nu4_eta7_squared_bridge_inference_rule(),
+    (
+      pi9_4_step,
+      phase68_generator_bridge_step,
+    ),
+    "E(nu_4 eta_7^2)",
+  )
+
+  pi10_5_step = _apply(
+    toda_prop59_pi10_5_finite_cyclic_inference_rule(),
+    (
+      pi9_4_step,
+      delta_eta9_squared_step,
+      context[
+        "prop53_step"
+      ],
+      delta_e_exactness_step,
+      suspension_surjective_step,
+      generator_bridge_step,
+    ),
+    "pi_10^5",
+  )
+
+  suspension_zero_pi10_step = _apply(
+    toda_prop59_e_nu5_eta8_squared_zero_inference_rule(),
+    (
+      pi10_5_step,
+      context[
+        "nu6_eta9_zero_step"
+      ],
+    ),
+    "E(nu_5 eta_8^2)=0",
+  )
+
+  delta_eta11_step = _apply(
+    toda_prop59_delta_eta11_inference_rule(),
+    (
+      delta_iota11_context[
+        "delta_iota11_step"
+      ],
+      pi10_5_step,
+    ),
+    "Delta(eta_11)",
+  )
+
+  pi11_6 = TodaPrimaryGroup(
+    group_dimension=11,
+    sphere_dimension=6,
+  )
+  pi11_11 = TodaPrimaryGroup(
+    group_dimension=11,
+    sphere_dimension=11,
+  )
+  pi9_5 = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+
+  pi11_6_eh_step = _apply(
+    toda_prop59_pi11_6_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi10_5,
+          middle_term=pi11_6,
+          target_term=pi11_11,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+    ),
+    "pi_11^6 E-H exactness",
+  )
+
+  pi11_6_hd_step = _apply(
+    toda_prop59_pi11_6_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi11_6,
+          middle_term=pi11_11,
+          target_term=pi9_5,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        )
+      ),
+    ),
+    "pi_11^6 H-Delta exactness",
+  )
+
+  pi11_hopf_injective_step = _apply(
+    toda_prop59_pi11_6_hopf_injective_inference_rule(),
+    (
+      suspension_zero_pi10_step,
+      pi10_5_step,
+      pi11_6_eh_step,
+    ),
+    "pi_11^6 Hopf injective",
+  )
+
+  delta_kernel_free_step = _apply(
+    toda_prop59_pi11_11_delta_kernel_inference_rule(),
+    (
+      delta_iota11_context[
+        "pi11_11_step"
+      ],
+      context[
+        "pi9_5_step"
+      ],
+      delta_iota11_context[
+        "delta_iota11_step"
+      ],
+    ),
+    "pi_11^11 Delta kernel",
+  )
+
+  iota_13 = HomotopyElement(
+    name="ι_13",
+    dimension=13,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=13,
+    ),
+  )
+  pi13_13_step = _given(
+    Relation(
+      lhs=TodaPrimaryGroup(
+        group_dimension=13,
+        sphere_dimension=13,
+      ),
+      rhs=FreeCyclicGroup(
+        generator=iota_13,
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+  )
+
+  hopf_delta_iota13_step = _apply(
+    toda_prop59_delta_iota13_hopf_inference_rule(),
+    (
+      pi13_13_step,
+    ),
+    "H(Delta iota_13)",
+  )
+
+  pi11_6_step = _apply(
+    toda_prop59_pi11_6_free_cyclic_inference_rule(),
+    (
+      pi11_hopf_injective_step,
+      pi11_6_hd_step,
+      delta_kernel_free_step,
+      hopf_delta_iota13_step,
+    ),
+    "pi_11^6",
+  )
+
+  pi12_7 = TodaPrimaryGroup(
+    group_dimension=12,
+    sphere_dimension=7,
+  )
+  pi12_13 = TodaPrimaryGroup(
+    group_dimension=12,
+    sphere_dimension=13,
+  )
+
+  pi12_delta_e_step = _apply(
+    toda_prop59_pi12_7_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=TodaPrimaryGroup(
+            group_dimension=13,
+            sphere_dimension=13,
+          ),
+          middle_term=pi11_6,
+          target_term=pi12_7,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        )
+      ),
+    ),
+    "pi_12^7 Delta-E exactness",
+  )
+
+  pi12_eh_step = _apply(
+    toda_prop59_pi12_7_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi11_6,
+          middle_term=pi12_7,
+          target_term=pi12_13,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+    ),
+    "pi_12^7 E-H exactness",
+  )
+
+  delta_surjective_13_step = _apply(
+    toda_prop59_pi13_13_delta_surjective_inference_rule(),
+    (
+      pi13_13_step,
+      pi11_6_step,
+    ),
+    "pi_13^13 Delta surjective",
+  )
+
+  suspension_surjective_12_step = _apply(
+    toda_prop59_pi12_7_suspension_surjective_inference_rule(),
+    (
+      _given(
+        TodaPrimaryGroupZeroStatement(
+          group=pi12_13,
+        )
+      ),
+      pi12_eh_step,
+    ),
+    "pi_12^7 suspension surjective",
+  )
+
+  pi12_7_zero_step = _apply(
+    toda_prop59_pi12_7_zero_inference_rule(),
+    (
+      delta_surjective_13_step,
+      pi12_delta_e_step,
+      suspension_surjective_12_step,
+    ),
+    "pi_12^7 zero",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+  n_ge_7_step = _given(
+    ScalarGreaterEqualStatement(
+      left=n,
+      right=7,
+    )
+  )
+
+  higher_zero_step = _apply(
+    toda_prop59_higher_five_stem_zero_transport_inference_rule(),
+    (
+      pi12_7_zero_step,
+      build_toda_45_stable_isomorphism_step(
+        n=7,
+        k=5,
+        m=n,
+      ),
+      n_ge_7_step,
+    ),
+    "higher five-stem zero",
+  )
+
+  expected = TodaProp59FiniteDimensionalStatement(
+    pi7_2_group_relation=(
+      pi7_2_step.conclusion
+    ),
+    pi8_3_group_relation=(
+      pi8_3_step.conclusion
+    ),
+    pi9_4_group_relation=(
+      pi9_4_step.conclusion
+    ),
+    pi10_5_group_relation=(
+      pi10_5_step.conclusion
+    ),
+    pi11_6_group_relation=(
+      pi11_6_step.conclusion
+    ),
+    higher_five_stem_zero=(
+      higher_zero_step.conclusion
+    ),
+    higher_range=(
+      n_ge_7_step.conclusion
+    ),
+    literature_statements=(
+      toda_prop59_finite_dimensional_literature_statements()
+    ),
+  )
+
+  prop59_step = _apply(
+    toda_prop59_finite_dimensional_integration_inference_rule(),
+    (
+      pi7_2_step,
+      pi8_3_step,
+      pi9_4_step,
+      pi10_5_step,
+      pi11_6_step,
+      higher_zero_step,
+      n_ge_7_step,
+    ),
+    "Toda Proposition 5.9",
+  )
+
+  if prop59_step.conclusion != expected:
+    raise ValueError(
+      "unexpected Toda Proposition 5.9 conclusion"
+    )
+
+  return {
+    "prop59_step": prop59_step,
+    "pi7_2_step": pi7_2_step,
+    "pi8_3_step": pi8_3_step,
+    "pi9_4_step": pi9_4_step,
+    "pi10_5_step": pi10_5_step,
+    "pi11_6_step": pi11_6_step,
+    "delta_eta9_squared_step": (
+      delta_eta9_squared_step
+    ),
+    "delta_eta11_step": (
+      delta_eta11_step
+    ),
+    "suspension_zero_pi10_step": (
+      suspension_zero_pi10_step
+    ),
+    "pi13_13_step": (
+      pi13_13_step
+    ),
+    "hopf_delta_iota13_step": (
+      hopf_delta_iota13_step
+    ),
+  }
+
+
+def _build_delta_injectivity_steps(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  prop59_context: dict[
+    str,
+    ProofStep,
+  ],
+) -> tuple[
+  ProofStep,
+  ProofStep,
+  ProofStep,
+]:
+  n4_step = _apply(
+    toda_512_n4_delta_injective_inference_rule(),
+    (
+      prop59_context[
+        "delta_eta9_squared_step"
+      ],
+      prop59_context[
+        "pi9_4_step"
+      ],
+      context[
+        "prop53_step"
+      ],
+    ),
+    "Toda (5.12) n=4",
+  )
+
+  n5_step = _apply(
+    toda_512_n5_delta_injective_inference_rule(),
+    (
+      prop59_context[
+        "delta_eta11_step"
+      ],
+      prop59_context[
+        "pi10_5_step"
+      ],
+      context[
+        "prop51_step"
+      ],
+    ),
+    "Toda (5.12) n=5",
+  )
+
+  n6_step = _apply(
+    toda_512_n6_delta_injective_inference_rule(),
+    (
+      prop59_context[
+        "pi13_13_step"
+      ],
+      prop59_context[
+        "pi11_6_step"
+      ],
+    ),
+    "Toda (5.12) n=6",
+  )
+
+  return (
+    n4_step,
+    n5_step,
+    n6_step,
+  )
+
+
+def _build_pi8_2_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  prop59_step: ProofStep,
+) -> ProofStep:
+  return _apply(
+    toda_prop511_pi8_2_eta2_nu_prime_eta6_squared_inference_rule(),
+    (
+      prop59_step,
+      context[
+        "toda52_step"
+      ],
+    ),
+    "pi_8^2",
+  )
+
+
+def _build_pi9_3_zero_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  prop59_step: ProofStep,
+  pi8_2_step: ProofStep,
+) -> ProofStep:
+  pi8_zero_step = _apply(
+    toda_prop511_pi8_2_suspension_zero_inference_rule(),
+    (
+      pi8_2_step,
+      context[
+        "eta2_nu_prime_zero_step"
+      ],
+    ),
+    "E(pi_8^2)=0",
+  )
+
+  pi7_zero_step = _apply(
+    toda_prop511_pi7_2_suspension_zero_inference_rule(),
+    (
+      prop59_step,
+      context[
+        "eta2_nu_prime_zero_step"
+      ],
+    ),
+    "E(pi_7^2)=0",
+  )
+
+  pi8_2 = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=2,
+  )
+  pi9_3 = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=3,
+  )
+  pi9_5 = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=5,
+  )
+  pi7_2 = TodaPrimaryGroup(
+    group_dimension=7,
+    sphere_dimension=2,
+  )
+  pi8_3 = TodaPrimaryGroup(
+    group_dimension=8,
+    sphere_dimension=3,
+  )
+
+  e_h_step = _apply(
+    toda_prop511_pi9_3_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi8_2,
+          middle_term=pi9_3,
+          target_term=pi9_5,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+    ),
+    "pi_9^3 E-H exactness",
+  )
+
+  h_delta_step = _apply(
+    toda_prop511_pi9_3_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi9_3,
+          middle_term=pi9_5,
+          target_term=pi7_2,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        )
+      ),
+    ),
+    "pi_9^3 H-Delta exactness",
+  )
+
+  delta_e_step = _apply(
+    toda_prop511_pi9_3_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi9_5,
+          middle_term=pi7_2,
+          target_term=pi8_3,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        )
+      ),
+    ),
+    "pi_9^3 Delta-E exactness",
+  )
+
+  hopf_injective_step = _apply(
+    toda_prop511_zero_suspension_left_implies_hopf_injective_inference_rule(),
+    (
+      pi8_zero_step,
+      e_h_step,
+    ),
+    "pi_9^3 Hopf injective",
+  )
+
+  delta_surjective_step = _apply(
+    toda_prop511_zero_suspension_right_implies_delta_surjective_inference_rule(),
+    (
+      pi7_zero_step,
+      delta_e_step,
+    ),
+    "pi_9^5 Delta surjective",
+  )
+
+  delta_injective_step = _apply(
+    toda_prop511_pi9_5_to_pi7_2_delta_injective_inference_rule(),
+    (
+      delta_surjective_step,
+      context[
+        "prop58_step"
+      ],
+      prop59_step,
+    ),
+    "pi_9^5 Delta injective",
+  )
+
+  return _apply(
+    toda_prop511_pi9_3_zero_inference_rule(),
+    (
+      hopf_injective_step,
+      delta_injective_step,
+      h_delta_step,
+    ),
+    "pi_9^3 zero",
+  )
+
+
+def _build_pi10_4_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  pi9_3_zero_step: ProofStep,
+) -> ProofStep:
+  pi10_7_step = _apply(
+    toda_prop511_pi10_7_nu7_inference_rule(),
+    (
+      context[
+        "prop56_step"
+      ],
+    ),
+    "pi_10^7",
+  )
+
+  return _apply(
+    toda_prop511_pi10_4_nu4_squared_inference_rule(),
+    (
+      pi9_3_zero_step,
+      pi10_7_step,
+      context[
+        "toda56_step"
+      ],
+    ),
+    "pi_10^4",
+  )
+
+
+def _build_delta_nu9_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  pi9_3_zero_step: ProofStep,
+  pi10_4_step: ProofStep,
+) -> ProofStep:
+  return _apply(
+    toda_prop511_513_delta_nu9_inference_rule(),
+    (
+      context[
+        "phase66_step"
+      ],
+      pi9_3_zero_step,
+      pi10_4_step,
+    ),
+    "Delta(nu_9)",
+  )
+
+
+def _build_delta_eta11_squared_zero_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  delta_iota11_step: ProofStep,
+  delta_nu9_step: ProofStep,
+) -> ProofStep:
+  return _apply(
+    toda_prop511_513_delta_eta11_squared_zero_inference_rule(),
+    (
+      delta_iota11_step,
+      context[
+        "toda55_step"
+      ],
+      delta_nu9_step,
+    ),
+    "Delta(eta_11^2)=0",
+  )
+
+
+def _build_toda54_t0_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+) -> ProofStep:
+  indexed_step, _ = (
+    _build_phase60_toda54(
+      context[
+        "prop53_step"
+      ],
+      context[
+        "double_nu_prime_step"
+      ],
+    )
+  )
+
+  n = (
+    indexed_step
+    .conclusion
+    .bracket
+    .first
+    .dimension
+  )
+
+  n_range_step = _given(
+    ScalarGreaterEqualStatement(
+      left=n,
+      right=3,
+    )
+  )
+
+  suspension_step = _apply(
+    toda_32_phase60_suspension_surjective_inference_rule(),
+    (
+      n_range_step,
+    ),
+    "Toda (3.2) suspension surjectivity",
+  )
+
+  return _apply(
+    toda_54_t0_bridge_inference_rule(),
+    (
+      indexed_step,
+      suspension_step,
+      n_range_step,
+    ),
+    "Toda (5.4) t=0",
+  )
+
+
+def _build_corrected_lemma510_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  prop59_context: dict[
+    str,
+    ProofStep,
+  ],
+  delta_iota11_step: ProofStep,
+) -> ProofStep:
+  ordinary_window = HomotopyEHPExactnessWindow(
+    source_term=HomotopyGroup(
+      group_dimension=10,
+      sphere_dimension=5,
+    ),
+    middle_term=HomotopyGroup(
+      group_dimension=11,
+      sphere_dimension=6,
+    ),
+    target_term=HomotopyGroup(
+      group_dimension=11,
+      sphere_dimension=11,
+    ),
+    first_map=EHP_E_MAP,
+    second_map=EHP_H_MAP,
+  )
+
+  applicability_step = _apply(
+    toda_211_ordinary_ehp_applicability_inference_rule(),
+    (
+      _given(
+        ordinary_window
+      ),
+    ),
+    "ordinary EHP applicability",
+  )
+
+  ordinary_exactness_step = _apply(
+    toda_211_ordinary_ehp_exactness_inference_rule(),
+    (
+      applicability_step,
+    ),
+    "ordinary EHP exactness",
+  )
+
+  finite_pi10_s5_step = _apply(
+    serre_42_finite_homotopy_group_inference_rule(),
+    (
+      _given(
+        HomotopyGroup(
+          group_dimension=10,
+          sphere_dimension=5,
+        )
+      ),
+    ),
+    "Serre finiteness pi_10(S^5)",
+  )
+
+  finite_image_step = _apply(
+    toda_lemma510_ordinary_suspension_image_finite_inference_rule(),
+    (
+      finite_pi10_s5_step,
+    ),
+    "ordinary suspension image finite",
+  )
+
+  two_primary_zero_step = _apply(
+    toda_lemma510_ordinary_suspension_image_two_primary_zero_inference_rule(),
+    (
+      prop59_context[
+        "pi10_5_step"
+      ],
+      prop59_context[
+        "suspension_zero_pi10_step"
+      ],
+    ),
+    "ordinary suspension image two-primary zero",
+  )
+
+  ordinary_image_double_step = _apply(
+    toda_lemma510_ordinary_suspension_image_in_double_inference_rule(),
+    (
+      finite_image_step,
+      two_primary_zero_step,
+    ),
+    "ordinary suspension image in double",
+  )
+
+  finite_pi11_s9_step = _apply(
+    serre_42_finite_homotopy_group_inference_rule(),
+    (
+      _given(
+        HomotopyGroup(
+          group_dimension=11,
+          sphere_dimension=9,
+        )
+      ),
+    ),
+    "Serre finiteness pi_11(S^9)",
+  )
+
+  reduction_step = _apply(
+    toda_lemma510_nu6_ordinary_composition_reduction_inference_rule(),
+    (
+      context[
+        "prop56_step"
+      ],
+      finite_pi11_s9_step,
+    ),
+    "nu_6 ordinary composition reduction",
+  )
+
+  ordinary_zero_step = _apply(
+    toda_lemma510_nu6_ordinary_composition_zero_inference_rule(),
+    (
+      reduction_step,
+      context[
+        "prop53_step"
+      ],
+      context[
+        "nu6_eta9_zero_step"
+      ],
+    ),
+    "nu_6 ordinary composition zero",
+  )
+
+  eta9_two_iota10_step = _apply(
+    toda_lemma510_eta9_two_iota10_zero_inference_rule(),
+    (
+      context[
+        "prop51_step"
+      ],
+    ),
+    "eta_9 2 iota_10 zero",
+  )
+
+  ordinary_indeterminacy_step = _apply(
+    toda_lemma510_ordinary_indeterminacy_double_inference_rule(),
+    (
+      ordinary_zero_step,
+      context[
+        "nu6_eta9_zero_step"
+      ],
+      eta9_two_iota10_step,
+    ),
+    "ordinary indeterminacy double",
+  )
+
+  eta8_zero_step = _apply(
+    toda_lemma510_eta8_two_iota9_zero_inference_rule(),
+    (
+      context[
+        "prop51_step"
+      ],
+    ),
+    "eta_8 2 iota_9 zero",
+  )
+
+  indexed_hopf_step = _apply(
+    toda_lemma510_prop26_indexed_hopf_inference_rule(),
+    (
+      context[
+        "nu6_eta9_zero_step"
+      ],
+      eta8_zero_step,
+      delta_iota11_step,
+    ),
+    "Lemma 5.10 indexed Hopf",
+  )
+
+  split_step = _apply(
+    toda_lemma510_split_115_inference_rule(),
+    (
+      indexed_hopf_step,
+    ),
+    "Lemma 5.10 split",
+  )
+
+  ordinary_hopf_step = _apply(
+    toda_lemma510_hopf_from_split_inference_rule(),
+    (
+      indexed_hopf_step,
+      split_step,
+    ),
+    "Lemma 5.10 ordinary Hopf",
+  )
+
+  core_step = _apply(
+    toda_lemma510_corrected_exactness_core_inference_rule(),
+    (
+      ordinary_hopf_step,
+      prop59_context[
+        "hopf_delta_iota13_step"
+      ],
+      ordinary_exactness_step,
+    ),
+    "corrected Lemma 5.10 exactness core",
+  )
+
+  return _apply(
+    toda_lemma510_corrected_modulo_integration_inference_rule(),
+    (
+      core_step,
+      ordinary_indeterminacy_step,
+      ordinary_image_double_step,
+    ),
+    "corrected Lemma 5.10",
+  )
+
+
+def _build_delta_eta13_zero_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  corrected_lemma510_step: ProofStep,
+  delta_nu9_step: ProofStep,
+) -> ProofStep:
+  return _apply(
+    toda_prop511_513_delta_eta13_zero_inference_rule(),
+    (
+      corrected_lemma510_step,
+      context[
+        "prop51_step"
+      ],
+      _build_toda54_t0_step(
+        context
+      ),
+      context[
+        "toda55_step"
+      ],
+      delta_nu9_step,
+    ),
+    "Delta(eta_13)=0",
+  )
+
+
+def _build_pi11_5_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  n4_delta_injective_step: ProofStep,
+  pi10_4_step: ProofStep,
+  delta_nu9_step: ProofStep,
+) -> ProofStep:
+  pi12_9_step = _apply(
+    toda_prop511_pi12_9_nu9_inference_rule(),
+    (
+      context[
+        "prop56_step"
+      ],
+    ),
+    "pi_12^9",
+  )
+
+  pi10_4 = TodaPrimaryGroup(
+    group_dimension=10,
+    sphere_dimension=4,
+  )
+  pi11_5 = TodaPrimaryGroup(
+    group_dimension=11,
+    sphere_dimension=5,
+  )
+  pi11_9 = TodaPrimaryGroup(
+    group_dimension=11,
+    sphere_dimension=9,
+  )
+  pi9_4 = TodaPrimaryGroup(
+    group_dimension=9,
+    sphere_dimension=4,
+  )
+
+  delta_e_step = _apply(
+    toda_prop511_pi11_5_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=TodaPrimaryGroup(
+            group_dimension=12,
+            sphere_dimension=9,
+          ),
+          middle_term=pi10_4,
+          target_term=pi11_5,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        )
+      ),
+    ),
+    "pi_11^5 Delta-E exactness",
+  )
+
+  e_h_step = _apply(
+    toda_prop511_pi11_5_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi10_4,
+          middle_term=pi11_5,
+          target_term=pi11_9,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+    ),
+    "pi_11^5 E-H exactness",
+  )
+
+  h_delta_step = _apply(
+    toda_prop511_pi11_5_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi11_5,
+          middle_term=pi11_9,
+          target_term=pi9_4,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        )
+      ),
+    ),
+    "pi_11^5 H-Delta exactness",
+  )
+
+  hopf_zero_step = _apply(
+    toda_prop511_pi11_5_hopf_zero_inference_rule(),
+    (
+      n4_delta_injective_step,
+      h_delta_step,
+    ),
+    "pi_11^5 Hopf zero",
+  )
+
+  suspension_surjective_step = _apply(
+    toda_prop511_pi11_5_suspension_surjective_inference_rule(),
+    (
+      hopf_zero_step,
+      e_h_step,
+    ),
+    "pi_11^5 suspension surjective",
+  )
+
+  return _apply(
+    toda_prop511_pi11_5_nu5_squared_inference_rule(),
+    (
+      pi12_9_step,
+      pi10_4_step,
+      delta_nu9_step,
+      delta_e_step,
+      suspension_surjective_step,
+    ),
+    "pi_11^5",
+  )
+
+
+def _build_pi12_6_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  n5_delta_injective_step: ProofStep,
+  delta_eta11_squared_zero_step: ProofStep,
+  pi11_5_step: ProofStep,
+) -> ProofStep:
+  pi13_11_step = _apply(
+    toda_prop511_pi13_11_eta11_squared_inference_rule(),
+    (
+      context[
+        "prop53_step"
+      ],
+    ),
+    "pi_13^11",
+  )
+
+  pi11_5 = TodaPrimaryGroup(
+    group_dimension=11,
+    sphere_dimension=5,
+  )
+  pi12_6 = TodaPrimaryGroup(
+    group_dimension=12,
+    sphere_dimension=6,
+  )
+  pi12_11 = TodaPrimaryGroup(
+    group_dimension=12,
+    sphere_dimension=11,
+  )
+  pi10_5 = TodaPrimaryGroup(
+    group_dimension=10,
+    sphere_dimension=5,
+  )
+
+  delta_e_step = _apply(
+    toda_prop511_pi12_6_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=TodaPrimaryGroup(
+            group_dimension=13,
+            sphere_dimension=11,
+          ),
+          middle_term=pi11_5,
+          target_term=pi12_6,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        )
+      ),
+    ),
+    "pi_12^6 Delta-E exactness",
+  )
+
+  e_h_step = _apply(
+    toda_prop511_pi12_6_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi11_5,
+          middle_term=pi12_6,
+          target_term=pi12_11,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+    ),
+    "pi_12^6 E-H exactness",
+  )
+
+  h_delta_step = _apply(
+    toda_prop511_pi12_6_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi12_6,
+          middle_term=pi12_11,
+          target_term=pi10_5,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        )
+      ),
+    ),
+    "pi_12^6 H-Delta exactness",
+  )
+
+  injective_step = _apply(
+    toda_prop511_pi12_6_suspension_injective_inference_rule(),
+    (
+      pi13_11_step,
+      delta_eta11_squared_zero_step,
+      delta_e_step,
+    ),
+    "pi_12^6 suspension injective",
+  )
+
+  hopf_zero_step = _apply(
+    toda_prop511_pi12_6_hopf_zero_inference_rule(),
+    (
+      n5_delta_injective_step,
+      h_delta_step,
+    ),
+    "pi_12^6 Hopf zero",
+  )
+
+  surjective_step = _apply(
+    toda_prop511_pi12_6_suspension_surjective_inference_rule(),
+    (
+      hopf_zero_step,
+      e_h_step,
+    ),
+    "pi_12^6 suspension surjective",
+  )
+
+  isomorphism_step = _apply(
+    toda_prop511_pi12_6_suspension_isomorphism_inference_rule(),
+    (
+      injective_step,
+      surjective_step,
+    ),
+    "pi_12^6 suspension isomorphism",
+  )
+
+  return _apply(
+    toda_prop511_pi12_6_nu6_squared_inference_rule(),
+    (
+      pi11_5_step,
+      isomorphism_step,
+    ),
+    "pi_12^6",
+  )
+
+
+def _build_pi13_7_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  n6_delta_injective_step: ProofStep,
+  delta_eta13_zero_step: ProofStep,
+  pi12_6_step: ProofStep,
+) -> ProofStep:
+  pi14_13_step = _apply(
+    toda_prop511_pi14_13_eta13_inference_rule(),
+    (
+      context[
+        "prop51_step"
+      ],
+    ),
+    "pi_14^13",
+  )
+
+  pi12_6 = TodaPrimaryGroup(
+    group_dimension=12,
+    sphere_dimension=6,
+  )
+  pi13_7 = TodaPrimaryGroup(
+    group_dimension=13,
+    sphere_dimension=7,
+  )
+  pi13_13 = TodaPrimaryGroup(
+    group_dimension=13,
+    sphere_dimension=13,
+  )
+  pi11_6 = TodaPrimaryGroup(
+    group_dimension=11,
+    sphere_dimension=6,
+  )
+
+  delta_e_step = _apply(
+    toda_prop511_pi13_7_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=TodaPrimaryGroup(
+            group_dimension=14,
+            sphere_dimension=13,
+          ),
+          middle_term=pi12_6,
+          target_term=pi13_7,
+          first_map=EHP_DELTA_MAP,
+          second_map=EHP_E_MAP,
+        )
+      ),
+    ),
+    "pi_13^7 Delta-E exactness",
+  )
+
+  e_h_step = _apply(
+    toda_prop511_pi13_7_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi12_6,
+          middle_term=pi13_7,
+          target_term=pi13_13,
+          first_map=EHP_E_MAP,
+          second_map=EHP_H_MAP,
+        )
+      ),
+    ),
+    "pi_13^7 E-H exactness",
+  )
+
+  h_delta_step = _apply(
+    toda_prop511_pi13_7_concrete_exactness_inference_rule(),
+    (
+      _given(
+        TodaEHPExactnessWindow(
+          source_term=pi13_7,
+          middle_term=pi13_13,
+          target_term=pi11_6,
+          first_map=EHP_H_MAP,
+          second_map=EHP_DELTA_MAP,
+        )
+      ),
+    ),
+    "pi_13^7 H-Delta exactness",
+  )
+
+  injective_step = _apply(
+    toda_prop511_pi13_7_suspension_injective_inference_rule(),
+    (
+      pi14_13_step,
+      delta_eta13_zero_step,
+      delta_e_step,
+    ),
+    "pi_13^7 suspension injective",
+  )
+
+  hopf_zero_step = _apply(
+    toda_prop511_pi13_7_hopf_zero_inference_rule(),
+    (
+      n6_delta_injective_step,
+      h_delta_step,
+    ),
+    "pi_13^7 Hopf zero",
+  )
+
+  surjective_step = _apply(
+    toda_prop511_pi13_7_suspension_surjective_inference_rule(),
+    (
+      hopf_zero_step,
+      e_h_step,
+    ),
+    "pi_13^7 suspension surjective",
+  )
+
+  isomorphism_step = _apply(
+    toda_prop511_pi13_7_suspension_isomorphism_inference_rule(),
+    (
+      injective_step,
+      surjective_step,
+    ),
+    "pi_13^7 suspension isomorphism",
+  )
+
+  return _apply(
+    toda_prop511_pi13_7_nu7_squared_inference_rule(),
+    (
+      pi12_6_step,
+      isomorphism_step,
+    ),
+    "pi_13^7",
+  )
+
+
+def _build_pi14_8_suspension_isomorphism_step() -> ProofStep:
+  pi13_7 = TodaPrimaryGroup(
+    group_dimension=13,
+    sphere_dimension=7,
+  )
+  pi14_15 = TodaPrimaryGroup(
+    group_dimension=14,
+    sphere_dimension=15,
+  )
+  pi14_8 = TodaPrimaryGroup(
+    group_dimension=14,
+    sphere_dimension=8,
+  )
+
+  beta = HomotopyElement(
+    name="β",
+    dimension=13,
+    source=13,
+    target=7,
+    generator=GeneratorSymbol(
+      family="β",
+    ),
+  )
+  gamma = HomotopyElement(
+    name="γ",
+    dimension=14,
+    source=14,
+    target=15,
+    generator=GeneratorSymbol(
+      family="γ",
+    ),
+  )
+  sigma_8 = HomotopyElement(
+    name="σ₈",
+    dimension=8,
+    source=15,
+    target=8,
+    generator=GeneratorSymbol(
+      family="σ",
+      index=8,
+    ),
+  )
+  iota_15 = HomotopyElement(
+    name="ι_15",
+    dimension=15,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=15,
+    ),
+  )
+
+  decomposition_map = TodaProp44DecompositionMap(
+    source_group=DirectSumGroup(
+      summands=(
+        pi13_7,
+        pi14_15,
+      ),
+    ),
+    target_group=pi14_8,
+    alpha=sigma_8,
+    beta=beta,
+    gamma=gamma,
+    formula=Sum(
+      left=Suspension(
+        expression=beta,
+      ),
+      right=Composition(
+        left=sigma_8,
+        right=gamma,
+      ),
+    ),
+  )
+
+  prop44_step = _apply(
+    toda_prop44_isomorphism_inference_rule(),
+    (
+      _given(
+        TodaPrimaryGroupMembershipStatement(
+          element=sigma_8,
+          group=TodaPrimaryGroup(
+            group_dimension=15,
+            sphere_dimension=8,
+          ),
+        )
+      ),
+      _given(
+        Relation(
+          lhs=MapApplication(
+            map=EHP_H_MAP,
+            expression=sigma_8,
+          ),
+          rhs=iota_15,
+          relation_type=RelationType.EQUALITY,
+        )
+      ),
+      _given(
+        decomposition_map
+      ),
+    ),
+    "Prop.4.4 sigma_8 isomorphism",
+  )
+
+  return _apply(
+    toda_prop511_pi14_8_prop44_zero_second_summand_suspension_isomorphism_inference_rule(),
+    (
+      prop44_step,
+      _given(
+        TodaPrimaryGroupZeroStatement(
+          group=pi14_15,
+        )
+      ),
+    ),
+    "pi_14^8 suspension isomorphism",
+  )
+
+
+def _build_nu_squared_aggregate_step(
+  context: dict[
+    str,
+    ProofStep,
+  ],
+  delta_injectivity_steps: tuple[
+    ProofStep,
+    ProofStep,
+    ProofStep,
+  ],
+  pi10_4_step: ProofStep,
+  delta_nu9_step: ProofStep,
+  delta_eta11_squared_zero_step: ProofStep,
+  delta_eta13_zero_step: ProofStep,
+) -> ProofStep:
+  n4_step, n5_step, n6_step = (
+    delta_injectivity_steps
+  )
+
+  pi11_5_step = _build_pi11_5_step(
+    context,
+    n4_step,
+    pi10_4_step,
+    delta_nu9_step,
+  )
+
+  pi12_6_step = _build_pi12_6_step(
+    context,
+    n5_step,
+    delta_eta11_squared_zero_step,
+    pi11_5_step,
+  )
+
+  pi13_7_step = _build_pi13_7_step(
+    context,
+    n6_step,
+    delta_eta13_zero_step,
+    pi12_6_step,
+  )
+
+  pi14_8_step = _apply(
+    toda_prop511_pi14_8_nu8_squared_inference_rule(),
+    (
+      pi13_7_step,
+      _build_pi14_8_suspension_isomorphism_step(),
+    ),
+    "pi_14^8",
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+  n_ge_9_step = _given(
+    ScalarGreaterEqualStatement(
+      left=n,
+      right=9,
+    )
+  )
+
+  higher_step = _apply(
+    toda_prop511_higher_six_stem_nu_squared_transport_inference_rule(),
+    (
+      pi14_8_step,
+      build_toda_45_stable_isomorphism_step(
+        n=8,
+        k=6,
+        m=n,
+      ),
+      n_ge_9_step,
+    ),
+    "higher six-stem nu squared",
+  )
+
+  expected = (
+    TodaProp511NuSquaredFiniteDimensionalStatement(
+      pi11_5_group_relation=(
+        pi11_5_step.conclusion
+      ),
+      pi12_6_group_relation=(
+        pi12_6_step.conclusion
+      ),
+      pi13_7_group_relation=(
+        pi13_7_step.conclusion
+      ),
+      pi14_8_group_relation=(
+        pi14_8_step.conclusion
+      ),
+      higher_six_stem_relation=(
+        higher_step.conclusion
+      ),
+      higher_range=(
+        n_ge_9_step.conclusion
+      ),
+      literature_statements=(
+        toda_prop511_nu_squared_finite_dimensional_literature_statements()
+      ),
+    )
+  )
+
+  final_step = _apply(
+    toda_prop511_nu_squared_finite_dimensional_integration_inference_rule(),
+    (
+      pi11_5_step,
+      pi12_6_step,
+      pi13_7_step,
+      pi14_8_step,
+      higher_step,
+      n_ge_9_step,
+    ),
+    "Prop.5.11 nu-squared aggregate",
+  )
+
+  if final_step.conclusion != expected:
+    raise ValueError(
+      "unexpected nu-squared aggregate conclusion"
+    )
+
+  return final_step
+
+
+def build_toda_prop511_zero_argument_step() -> ProofStep:
+  context = _build_phase68_context()
+
+  delta_iota11_context = (
+    _build_delta_iota11_context(
+      context
+    )
+  )
+
+  prop59_context = (
+    _build_prop59_context(
+      context,
+      delta_iota11_context,
+    )
+  )
+
+  delta_injectivity_steps = (
+    _build_delta_injectivity_steps(
+      context,
+      prop59_context,
+    )
+  )
+
+  pi8_2_step = _build_pi8_2_step(
+    context,
+    prop59_context[
+      "prop59_step"
+    ],
+  )
+
+  pi9_3_zero_step = (
+    _build_pi9_3_zero_step(
+      context,
+      prop59_context[
+        "prop59_step"
+      ],
+      pi8_2_step,
+    )
+  )
+
+  pi10_4_step = _build_pi10_4_step(
+    context,
+    pi9_3_zero_step,
+  )
+
+  delta_nu9_step = _build_delta_nu9_step(
+    context,
+    pi9_3_zero_step,
+    pi10_4_step,
+  )
+
+  delta_eta11_squared_zero_step = (
+    _build_delta_eta11_squared_zero_step(
+      context,
+      delta_iota11_context[
+        "delta_iota11_step"
+      ],
+      delta_nu9_step,
+    )
+  )
+
+  corrected_lemma510_step = (
+    _build_corrected_lemma510_step(
+      context,
+      prop59_context,
+      delta_iota11_context[
+        "delta_iota11_step"
+      ],
+    )
+  )
+
+  delta_eta13_zero_step = (
+    _build_delta_eta13_zero_step(
+      context,
+      corrected_lemma510_step,
+      delta_nu9_step,
+    )
+  )
+
+  nu_squared_step = (
+    _build_nu_squared_aggregate_step(
+      context,
+      delta_injectivity_steps,
+      pi10_4_step,
+      delta_nu9_step,
+      delta_eta11_squared_zero_step,
+      delta_eta13_zero_step,
+    )
+  )
+
+  expected = TodaProp511FiniteDimensionalStatement(
+    pi8_2_group_relation=(
+      pi8_2_step.conclusion
+    ),
+    pi9_3_zero_statement=(
+      pi9_3_zero_step.conclusion
+    ),
+    pi10_4_group_relation=(
+      pi10_4_step.conclusion
+    ),
+    nu_squared_statement=(
+      nu_squared_step.conclusion
+    ),
+    literature_statements=(
+      toda_prop511_finite_dimensional_literature_statements()
+    ),
+  )
+
+  final_step = _apply(
+    toda_prop511_finite_dimensional_integration_inference_rule(),
+    (
+      pi8_2_step,
+      pi9_3_zero_step,
+      pi10_4_step,
+      nu_squared_step,
+    ),
+    "Toda Proposition 5.11",
+  )
+
+  if final_step.conclusion != expected:
+    raise ValueError(
+      "unexpected Toda Proposition 5.11 conclusion"
+    )
+
+  return final_step

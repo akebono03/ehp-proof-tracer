@@ -1,0 +1,196 @@
+from dataclasses import dataclass
+
+from expression import GeneratorSymbol
+from generator_input import (
+  resolve_generator_input,
+)
+from proof_repository import ProofRepository
+from repository_proof_scope import (
+  RepositoryProofScopeResult,
+  build_repository_proof_scope,
+)
+from repository_proof_scope_exploration import (
+  RepositoryProofScopeGeneratorOccurrence,
+  RepositoryProofScopeMapRelationOccurrence,
+  RepositoryProofScopeTodaMembershipOccurrence,
+  find_repository_proof_scope_generator_occurrences,
+  find_repository_proof_scope_map_relation_occurrences,
+  find_repository_proof_scope_toda_membership_occurrences,
+)
+from standard_production_repository import (
+  build_standard_production_proof_repository,
+)
+
+
+@dataclass(frozen=True)
+class RepositoryProofScopeExplorationResult:
+  generator: GeneratorSymbol
+  scope: RepositoryProofScopeResult
+  occurrences: tuple[
+    RepositoryProofScopeGeneratorOccurrence,
+    ...,
+  ]
+  toda_memberships: tuple[
+    RepositoryProofScopeTodaMembershipOccurrence,
+    ...,
+  ]
+  map_relations: tuple[
+    RepositoryProofScopeMapRelationOccurrence,
+    ...,
+  ]
+
+  def __post_init__(
+    self,
+  ) -> None:
+    if not isinstance(
+      self.generator,
+      GeneratorSymbol,
+    ):
+      raise TypeError(
+        "generator must be a GeneratorSymbol"
+      )
+
+    if not isinstance(
+      self.scope,
+      RepositoryProofScopeResult,
+    ):
+      raise TypeError(
+        "scope must be a RepositoryProofScopeResult"
+      )
+
+    fields = (
+      (
+        "occurrences",
+        self.occurrences,
+        RepositoryProofScopeGeneratorOccurrence,
+      ),
+      (
+        "toda_memberships",
+        self.toda_memberships,
+        RepositoryProofScopeTodaMembershipOccurrence,
+      ),
+      (
+        "map_relations",
+        self.map_relations,
+        RepositoryProofScopeMapRelationOccurrence,
+      ),
+    )
+
+    for (
+      name,
+      values,
+      expected_type,
+    ) in fields:
+      if not isinstance(
+        values,
+        tuple,
+      ):
+        raise TypeError(
+          f"{name} must be a tuple"
+        )
+
+      for value in values:
+        if not isinstance(
+          value,
+          expected_type,
+        ):
+          raise TypeError(
+            f"{name} must contain only "
+            f"{expected_type.__name__} values"
+          )
+
+    occurrence_ids = {
+      id(
+        occurrence
+      )
+      for occurrence in self.occurrences
+    }
+
+    for membership in self.toda_memberships:
+      if id(
+        membership.source_occurrence
+      ) not in occurrence_ids:
+        raise ValueError(
+          "Toda membership source occurrence "
+          "must belong to occurrences"
+        )
+
+    for map_relation in self.map_relations:
+      if id(
+        map_relation.source_occurrence
+      ) not in occurrence_ids:
+        raise ValueError(
+          "map relation source occurrence "
+          "must belong to occurrences"
+        )
+
+
+def explore_repository_generator_proof_scope(
+  repository: ProofRepository,
+  generator: GeneratorSymbol,
+) -> RepositoryProofScopeExplorationResult:
+  if not isinstance(
+    repository,
+    ProofRepository,
+  ):
+    raise TypeError(
+      "repository must be a ProofRepository"
+    )
+
+  if not isinstance(
+    generator,
+    GeneratorSymbol,
+  ):
+    raise TypeError(
+      "generator must be a GeneratorSymbol"
+    )
+
+  scope = build_repository_proof_scope(
+    repository
+  )
+
+  occurrences = (
+    find_repository_proof_scope_generator_occurrences(
+      scope,
+      generator,
+    )
+  )
+
+  toda_memberships = (
+    find_repository_proof_scope_toda_membership_occurrences(
+      scope,
+      generator,
+    )
+  )
+
+  map_relations = (
+    find_repository_proof_scope_map_relation_occurrences(
+      scope,
+      generator,
+    )
+  )
+
+  return RepositoryProofScopeExplorationResult(
+    generator=generator,
+    scope=scope,
+    occurrences=occurrences,
+    toda_memberships=toda_memberships,
+    map_relations=map_relations,
+  )
+
+
+def explore_standard_repository_generator_proof_scope_input(
+  generator_input: str,
+) -> RepositoryProofScopeExplorationResult:
+  generator = resolve_generator_input(
+    generator_input
+  )
+
+  repository = (
+    build_standard_production_proof_repository()
+  )
+
+  return explore_repository_generator_proof_scope(
+    repository,
+    generator,
+  )
