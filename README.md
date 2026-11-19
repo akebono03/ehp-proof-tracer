@@ -240,3 +240,11 @@ Phase 168 closure additionally executed focused regression modules and frozen fu
 - [Proof records](docs/proof_records.md)
 
 Previous Phase 165–167 documentation remains historical. In particular, a Phase 166 partial result must not be mistaken for the status verified by later Phase 168 tests.
+
+<!-- PHASE175_R4R14R14_FINAL_CLOSEOUT_20261119 -->
+
+## Phase 175 formally closed — active-suite scope (2026-11-19)
+
+The six registered k=4 groups (n=2–7) were independently rechecked as complete with no open goals at the R4R14R14 gate. The audited proof of $\pi_{10}^{6}=0$ uses 14 linked ProofSteps and four literature locators. The Phase 175 end-of-phase active `tests/` suite passed once. HEAD `90e8025c31841e522b3bb36f002ec44dfd4b89aa`; pytest `3546 passed in 38.52s`; stdout SHA-256 `5b1265843809af137f21982ddf34ddf08e1af08660109185d13c29834dfcb766`; stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+
+**Known unresolved historical policy:** four Phase 174 source-guard tests pinned to an earlier checkout/snapshot are outside the current active suite and remain known failures; they were neither fixed nor counted as passing. Formal closure applies to the registered k=4 proof scope and active suite, not the historical guards or every possible homotopy group.
