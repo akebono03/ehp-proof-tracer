@@ -240,6 +240,14 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     extra_providers = (
         build_public_two_summand_quotient_provider(proof_target=proof_target),
     ) + tuple(extra_providers)
+    # Phase 175 R4R14R5: source-screened composite-value zero transport.
+    # Each premise is still proved by the shared source-first DFS.
+    from phase175_r4r14r5_public_zero_transport.provider import (
+        build_public_composite_zero_transport_provider,
+    )
+    extra_providers = (
+        build_public_composite_zero_transport_provider(bridge),
+    ) + tuple(extra_providers)
     # R41: retain DB-prior provenance and the actual cited source boundary.
     # This only proposes an inference; it never registers a proof or GIVEN.
     from phase174_r3_r7_r41_adopted_db_zero_image_public_wiring.provider import (
