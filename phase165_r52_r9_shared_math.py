@@ -108,6 +108,13 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_cited_511_source,
         )
         sources = sources + (build_cited_511_source(),)
+        # Phase 176 R3R16: cited particular clause, not a direct image GIVEN.
+        from phase175_r3r9_lemma57_explicit_public.source import (
+            build_explicit_lemma57_source,
+        )
+        sources = sources + (
+            build_explicit_lemma57_source(Path(__file__).resolve().parent),
+        )
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -198,6 +205,14 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     """Build backward proposals from typed source witnesses and common rules."""
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
+    # Phase 176 R3R16: source-screened Lemma 5.7 and generic typed
+    # right-composition zero-image inference; both remain open DFS subgoals.
+    from phase176_r3r16_public_connection.provider import (
+        build_public_lemma57_right_provider,
+    )
+    extra_providers = (
+        build_public_lemma57_right_provider(bridge),
+    ) + tuple(extra_providers)
     # Phase 175 R4R12R13R4: retain H=0 as a verified intermediate ProofStep.
     # All subgoals are resolved by the ordinary source-first recursive search.
     from phase175_r4r12r13r4_hopf_zero_public.provider import (
