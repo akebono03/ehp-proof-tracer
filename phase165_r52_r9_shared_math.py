@@ -464,6 +464,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_cited_prop22_right_formula,
         )
         options.extend(expand_cited_prop22_right_formula(goal, tuple(available)))
+        # Phase 176 R3R31: general Hopf substitution with two open proof obligations.
+        from phase176_r3r30_generic_hopf_substitution_isolated.source import (
+            expand_generic_hopf_substitution,
+        )
+        options.extend(expand_generic_hopf_substitution(goal, tuple(available)))
         from phase171_r2i_eta_hopf_bridge.source import (
             expand_cited_eta_hopf_power,
         )
