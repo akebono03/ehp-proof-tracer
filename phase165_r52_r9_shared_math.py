@@ -115,6 +115,13 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
         sources = sources + (
             build_explicit_lemma57_source(Path(__file__).resolve().parent),
         )
+    # Phase 176 R3R28: append a separate source-checked (5.5) quadruple clause.
+    # Existing source indices remain unchanged; no target group is GIVEN.
+    if default_sources:
+        from phase176_r3r27r1_toda55_quadruple_isolated.source import (
+            build_cited_toda55_quadruple_source,
+        )
+        sources = sources + (build_cited_toda55_quadruple_source(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -337,6 +344,14 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         if assertion.origin is AssertionOrigin.FIXED_STATEMENT:
             available.append(link.step.conclusion)
 
+    # Phase 176 R3R28: conditional general right-hand side of Toda (5.5).
+    # The source and both definitions must survive source-first screening.
+    from phase176_r3r27r1_toda55_quadruple_isolated.source import (
+        expand_cited_quadruple,
+    )
+    def expand_public_toda55_quadruple(goal: object):
+        return expand_cited_quadruple(goal, tuple(available))
+    extra_providers = (expand_public_toda55_quadruple,) + tuple(extra_providers)
     from phase165_r12_r15_toda51 import expand_cited_toda51_zero
     from phase165_r12_r24_web_search_connection import expand_finite_cyclic_relation
     from phase165_r12_r20_eta_definition import expand_cited_eta_definition
