@@ -107,8 +107,14 @@ def build_cited_prop22_right_reference(source_bridge: RegistryBridgeResult) -> R
     )
 
 
-def _formula_parts(goal: object) -> tuple[HomotopyElement, HomotopyElement] | None:
-    """Recognize only the literal right-formula shape with compatible degrees."""
+def _formula_parts(goal: object) -> tuple[object, HomotopyElement] | None:
+    """Recognize the cited right-Hopf formula for explicitly typed maps.
+
+    The left factor may be a typed composite. Neither a symbolic display
+    name nor associativity alone is evidence of a valid sphere-map type.
+    """
+    from phase174_r3_r7_r7_composite_zero_audit.rule import expression_endpoints
+
     if not isinstance(goal, Relation) or goal.relation_type is not RelationType.EQUALITY:
         return None
     if not isinstance(goal.lhs, MapApplication) or goal.lhs.map != EHP_H_MAP:
@@ -117,17 +123,17 @@ def _formula_parts(goal: object) -> tuple[HomotopyElement, HomotopyElement] | No
     if not isinstance(product, Composition):
         return None
     alpha, right = product.left, product.right
-    if (not isinstance(alpha, HomotopyElement)
-            or not isinstance(right, Suspension)
-            or not isinstance(right.expression, HomotopyElement)
-            or not product.is_type_compatible()):
+    if not isinstance(alpha, (HomotopyElement, Composition)):
+        return None
+    if not isinstance(right, Suspension) or not isinstance(right.expression, HomotopyElement):
         return None
     beta = right.expression
-    if (type(alpha.dimension) is not int or type(beta.dimension) is not int
-            or type(alpha.source) is not int or type(alpha.target) is not int
-            or type(beta.source) is not int or type(beta.target) is not int
-            or alpha.dimension != alpha.target or beta.dimension != beta.target
-            or alpha.source != beta.target + 1):
+    alpha_endpoints = expression_endpoints(alpha)
+    beta_endpoints = expression_endpoints(beta)
+    if alpha_endpoints is None or beta_endpoints is None:
+        return None
+    suspended_endpoints = (beta_endpoints[0] + 1, beta_endpoints[1] + 1)
+    if alpha_endpoints[0] != suspended_endpoints[1]:
         return None
     expected = Composition(MapApplication(EHP_H_MAP, alpha), right)
     return (alpha, beta) if goal.rhs == expected else None
