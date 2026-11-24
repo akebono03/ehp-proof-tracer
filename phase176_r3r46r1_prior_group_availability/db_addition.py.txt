@@ -1,0 +1,27 @@
+def admitted_prior_group_step(
+    group: object, *, proof_target: object,
+    bridge: object | None = None,
+    csv_path: str | Path | None = None,
+    generator_csv: str | Path | None = None,
+) -> ProofStep | None:
+    """Discover an earlier group by coordinates, then reuse the exact admission gate.
+
+    This is not an additional admission policy. No stable fallback, root
+    self-citation or ambiguous row is accepted. A discovered step is not an
+    accepted search ProofStep until the ordinary resolver accepts its conclusion.
+    """
+    if (type(group) is not TodaPrimaryGroup
+            or type(group.group_dimension) is not int
+            or type(group.sphere_dimension) is not int):
+        return None
+    n = group.sphere_dimension
+    k = group.group_dimension - n
+    target = group_coordinates(proof_target)
+    if target is None or not precedes_db_goal(n, k, *target):
+        return None
+    statement = exact_prior_database_result(n, k, csv_path=csv_path,
+                                            generator_csv=generator_csv)
+    if statement is None or group_coordinates(statement) != (n, k):
+        return None
+    return admitted_db_step(statement, proof_target=proof_target, bridge=bridge,
+                            csv_path=csv_path, generator_csv=generator_csv)

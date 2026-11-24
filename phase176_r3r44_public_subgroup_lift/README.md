@@ -1,0 +1,7 @@
+# Phase 176 R3R44 — Public Subgroup Lift Connection
+
+Connect the already tested R3R43R1 inference to the ordinary shared backward provider. This phase adds no mathematical rule, no GIVEN, and no target-specific proof path. Concrete source/prior presentations and typed DB candidates are used only to bind open goals. The existing rule requires five independently inferred premises. The candidate uses the canonical positive subgroup generator coefficient `m / d` when `d` is a proper nontrivial divisor of `m`; alternative unit multiples are not inferred.
+
+Run `run.ps1 -DryRun`, then `run.ps1` from the existing repository. The patch is pinned to the reviewed shared file and the exact isolated rule from R3R43R1; an untracked or committed R3R43R1 directory is supported. It refuses unrelated tracked or staged edits. The full changed shared function is generated as `SHARED_FUNCTION_FULL_JA.md` on application. Tests are focused only. The real Web audit records actual candidate calls and independent probes separately, with results in `%LOCALAPPDATA%/EHPProofTracerAudit/phase176_r3r44_public_subgroup_lift/report.json`.
+
+The audit requires an actual Web candidate with five premises; it does not require the root to be complete. No kernel inference, generator alias inference, renderer change, or DFS policy change is included. A failed test or audit leaves the exact patch in place for inspection and a safe rerun; no commit or push is performed.

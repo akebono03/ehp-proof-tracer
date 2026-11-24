@@ -375,6 +375,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     )
     if not isinstance(prior_conclusions, tuple):
         raise TypeError("prior_conclusions must be a tuple")
+    # Phase 176 R3R44: bind five open obligations to the existing isolated rule.
+    from phase176_r3r44_public_subgroup_lift.provider import (
+        build_public_subgroup_lift_provider,
+    )
+    public_subgroup_lift = build_public_subgroup_lift_provider(
+        tuple(available), prior_conclusions,
+    )
 
     # Phase 175 R4R5R3: reusable finite-cyclic summand order-to-zero rule.
     # All proof steps are resolved by the ordinary citation/DB-prior gate.
@@ -427,6 +434,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         and link.step.rule is ProofRule.GIVEN
         and bridge.registry.assertion(link.assertion_id).origin is AssertionOrigin.FIXED_STATEMENT
         and link.step.conclusion == bridge.registry.assertion(link.assertion_id).content
+    )
+
+    # R3R46R1: reuse admitted prior domains without the stable-family gate.
+    # Append after the existing source-specific providers; no new rule.
+    from phase176_r3r46r1_prior_group_availability.provider import build_prior_zero_image_provider
+    extra_providers = tuple(extra_providers) + (
+        build_prior_zero_image_provider(bridge=bridge, proof_target=proof_target),
     )
 
     shared_provider_registry = build_shared_expansion_provider_registry(
@@ -533,6 +547,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_cited_full_order_cyclic_structure,
         )
         options.extend(expand_cited_full_order_cyclic_structure(goal, tuple(available)))
+        options.extend(public_subgroup_lift(goal))
         from phase171_r2j_r4_r7_nonzero_nu_order.source import (
             expand_public_order_four_from_nonzero_double,
         )
