@@ -1,0 +1,399 @@
+# Phase 176 R3R43R1 — 新規コード全文
+
+既存ファイルの変更なし。以下はすべて新規ファイル。各パスの位置に追加する。
+
+## `phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated/__init__.py`
+
+```python
+"""Isolated finite cyclic subgroup lift; no public registration."""
+```
+
+## `phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated/rule.py`
+
+```python
+"""Typed finite cyclic subgroup lift at H -> Delta; no public wiring."""
+from __future__ import annotations
+
+from math import gcd
+
+from expression import MapApplication, Multiple
+from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaHopfInvariantMap, TodaPrimaryGroup
+from map_facts import EHP_DELTA_MAP, EHP_H_MAP
+from phase165_r12_r2_quotient_rules import CyclicStructureStatement, KernelMultipleStatement
+from phase165_r12_r11_prop42_unified import prop42_exactness_indices
+from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
+from phase165_r14_r6_generic_iso import MapInjective
+from phase165_r3_recursive_search import GoalExpansion
+from phase171_r2j_r2_cyclic_hopf_surjective.source import _coordinates
+from proof import InferenceRule, PremisePattern, ProofRule, Relation, RelationType
+from toda_rules import TodaProp42ExactnessStatement
+
+RULE_NAME = "injective Hopf lift of a finite cyclic subgroup through exactness"
+
+
+def finite_cyclic_subgroup_lift_inputs(
+    goal: object, exactness: object, codomain: object, kernel: object, image: object,
+) -> tuple[object, ...] | None:
+    """Validate five independent obligations without treating them as proofs."""
+    if (type(goal) is not CyclicStructureStatement
+            or type(goal.group) is not TodaPrimaryGroup
+            or type(goal.order) is not int or goal.order < 1
+            or type(exactness) is not EHPImageEqualsKernelStatement
+            or type(codomain) is not Relation
+            or codomain.relation_type is not RelationType.EQUALITY
+            or type(codomain.lhs) is not TodaPrimaryGroup
+            or type(codomain.rhs) is not FiniteCyclicGroup
+            or type(kernel) is not KernelMultipleStatement
+            or type(image) is not Relation
+            or image.relation_type is not RelationType.EQUALITY
+            or type(image.lhs) is not MapApplication
+            or type(image.rhs) is not Multiple
+            or type(image.rhs.coefficient) is not int):
+        return None
+    window = exactness.window
+    indices = prop42_exactness_indices(TodaProp42ExactnessStatement(window))
+    if indices is None or indices[2] != "h_delta":
+        return None
+    if (window.first_map != EHP_H_MAP or window.second_map != EHP_DELTA_MAP
+            or window.source_term != goal.group or window.middle_term != codomain.lhs):
+        return None
+    a, b, c = window.source_term, window.middle_term, window.target_term
+    if (a.sphere_dimension < 2 or b.group_dimension < b.sphere_dimension
+            or c.sphere_dimension < 2 or c.group_dimension < c.sphere_dimension):
+        return None
+    m, q = codomain.rhs.order, kernel.multiple
+    if (type(m) is not int or m < 1 or type(q) is not int or q < 1
+            or goal.order != m // gcd(m, q)):
+        return None
+    generator = codomain.rhs.generator
+    if (_coordinates(goal.generator) != (a.group_dimension, a.sphere_dimension)
+            or _coordinates(generator) != (b.group_dimension, b.sphere_dimension)):
+        return None
+    delta = TodaDeltaMap(b, c)
+    if (type(kernel.map) is not TodaDeltaMap or kernel.map != delta
+            or kernel.domain != b or kernel.source_generator != generator):
+        return None
+    # Strict typed identity only; an alias or equal-looking label is not evidence.
+    expected_image = Relation(MapApplication(EHP_H_MAP, goal.generator),
+                              Multiple(q, generator), RelationType.EQUALITY)
+    if image != expected_image:
+        return None
+    return MapInjective(TodaHopfInvariantMap(a, b)), exactness, codomain, kernel, image
+
+
+def finite_cyclic_subgroup_lift_rule(
+    goal: CyclicStructureStatement, exactness: EHPImageEqualsKernelStatement,
+    codomain: Relation, kernel: KernelMultipleStatement, image: Relation,
+) -> InferenceRule:
+    """An injective H identifies its source with the proved subgroup <qb>."""
+    required = finite_cyclic_subgroup_lift_inputs(goal, exactness, codomain, kernel, image)
+    if required is None:
+        raise ValueError("not a typed finite cyclic subgroup lift")
+
+    def guard(premises, bindings):
+        return (len(premises) == 5
+                and all(step.rule is ProofRule.INFERENCE for step in premises)
+                and tuple(step.conclusion for step in premises) == required
+                and finite_cyclic_subgroup_lift_inputs(
+                    goal, *(step.conclusion for step in premises[1:])) == required)
+
+    return InferenceRule(
+        name=RULE_NAME,
+        description=("For injective H, exactness Im(H)=Ker(Delta), a cyclic "
+                     "codomain of order m generated by b, Ker(Delta)=<qb>, "
+                     "and H(a)=qb imply that a generates the source and has "
+                     "order m/gcd(m,q). All five premises are independent."),
+        premise_patterns=tuple(
+            PremisePattern(proof_rule=ProofRule.INFERENCE, statement_type=type(item),
+                           statement_pattern=item)
+            for item in required
+        ),
+        conclusion_pattern=goal,
+        match_guard=guard,
+    )
+
+
+def expand_finite_cyclic_subgroup_lift(
+    goal: object, exactness: object, codomain: object, kernel: object, image: object,
+) -> tuple[GoalExpansion, ...]:
+    """Construct an isolated candidate from explicit typed witnesses only."""
+    required = finite_cyclic_subgroup_lift_inputs(goal, exactness, codomain, kernel, image)
+    if required is None:
+        return ()
+    return (GoalExpansion(
+        finite_cyclic_subgroup_lift_rule(goal, exactness, codomain, kernel, image),
+        required,
+    ),)
+```
+
+## `phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated/tests/test_finite_cyclic_subgroup_lift.py`
+
+```python
+"""Synthetic premise fixtures test the rule, not any actual Toda group proof."""
+from dataclasses import replace
+from math import gcd
+
+import pytest
+
+from expression import Composition, GeneratorSymbol, HomotopyElement, MapApplication, Multiple
+from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaEHPExactnessWindow, TodaHopfInvariantMap, TodaPrimaryGroup
+from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
+from phase165_r12_r2_quotient_rules import CyclicStructureStatement, KernelMultipleStatement
+from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
+from phase165_r14_r6_generic_iso import MapInjective
+from phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated.rule import (
+    RULE_NAME, expand_finite_cyclic_subgroup_lift, finite_cyclic_subgroup_lift_inputs,
+    finite_cyclic_subgroup_lift_rule,
+)
+from proof import (InferenceRule, ProofRule, ProofStep, Relation, RelationType,
+                   apply_inference_match, find_inference_matches_for_rule)
+
+
+def fixture(n=3, i=8, m=8, q=4):
+    a, b, c = TodaPrimaryGroup(i, n), TodaPrimaryGroup(i, 2*n-1), TodaPrimaryGroup(i-2, n-1)
+    x = Composition(HomotopyElement("x", n, i-1, n, GeneratorSymbol("x")),
+                    HomotopyElement("y", i-1, i, i-1, GeneratorSymbol("y")))
+    y = HomotopyElement("b", 2*n-1, i, 2*n-1, GeneratorSymbol("b"))
+    goal = CyclicStructureStatement(a, x, m // gcd(m, q))
+    exact = EHPImageEqualsKernelStatement(TodaEHPExactnessWindow(a, b, c, EHP_H_MAP, EHP_DELTA_MAP))
+    group = Relation(b, FiniteCyclicGroup(m, y), RelationType.EQUALITY)
+    kernel = KernelMultipleStatement(TodaDeltaMap(b, c), b, y, q)
+    image = Relation(MapApplication(EHP_H_MAP, x), Multiple(q, y), RelationType.EQUALITY)
+    return goal, exact, group, kernel, image
+
+
+def inferred(value, kind=ProofRule.INFERENCE):
+    return ProofStep(value, (), kind, inference_rule=InferenceRule("synthetic test fixture only"))
+
+
+@pytest.mark.parametrize("n,i,m,q,order", [(3,8,8,4,2), (4,10,16,6,8), (5,12,8,3,8), (4,10,8,8,1), (4,10,8,12,2)])
+def test_general_order_and_replay(n, i, m, q, order):
+    args = fixture(n, i, m, q)
+    goal, exact, group, kernel, image = args
+    assert goal.order == order
+    required = finite_cyclic_subgroup_lift_inputs(*args)
+    assert required == (MapInjective(TodaHopfInvariantMap(goal.group, group.lhs)), exact, group, kernel, image)
+    options = expand_finite_cyclic_subgroup_lift(*args)
+    assert len(options) == 1
+    assert options[0].subgoals == required
+    assert all(not isinstance(v, ProofStep) for v in required)
+    assert options[0].rule.name == RULE_NAME
+    parents = tuple(inferred(v) for v in required)
+    matches = find_inference_matches_for_rule(options[0].rule, parents)
+    assert len(matches) == 1
+    step = apply_inference_match(matches[0])
+    assert step.conclusion == goal and step.rule is ProofRule.INFERENCE
+    assert step.premises == parents
+
+
+@pytest.mark.parametrize("index", range(5))
+def test_missing_premise_rejected(index):
+    args = fixture()
+    required = finite_cyclic_subgroup_lift_inputs(*args)
+    parents = tuple(inferred(v) for j, v in enumerate(required) if j != index)
+    assert not find_inference_matches_for_rule(finite_cyclic_subgroup_lift_rule(*args), parents)
+
+
+@pytest.mark.parametrize("index", range(5))
+def test_given_not_accepted_as_inferred_premise(index):
+    args = fixture()
+    required = finite_cyclic_subgroup_lift_inputs(*args)
+    parents = tuple(inferred(v, ProofRule.GIVEN if j == index else ProofRule.INFERENCE)
+                    for j, v in enumerate(required))
+    assert not find_inference_matches_for_rule(finite_cyclic_subgroup_lift_rule(*args), parents)
+
+
+@pytest.mark.parametrize("case", ["order", "bool_order", "bad_m", "bool_m", "window_map", "window_term",
+                                  "kernel_map", "kernel_domain", "kernel_generator", "image_map", "image_source",
+                                  "image_coefficient", "image_generator", "bad_composition", "bad_codomain_generator"])
+def test_incompatible_witnesses_rejected(case):
+    goal, exact, group, kernel, image = fixture()
+    y = group.rhs.generator
+    other = replace(y, generator=GeneratorSymbol("other"))
+    if case == "order":
+        goal = replace(goal, order=4)
+    elif case == "bool_order":
+        # The existing statement constructor rejects bool; bypass is not needed.
+        with pytest.raises(ValueError):
+            replace(goal, order=True)
+        return
+    elif case == "bad_m":
+        group = replace(group, rhs=replace(group.rhs, order=0))
+    elif case == "bool_m":
+        group = replace(group, rhs=replace(group.rhs, order=True))
+    elif case == "window_map":
+        exact = replace(exact, window=replace(exact.window, second_map=EHP_E_MAP))
+    elif case == "window_term":
+        exact = replace(exact, window=replace(exact.window, target_term=TodaPrimaryGroup(7,2)))
+    elif case == "kernel_map":
+        kernel = replace(kernel, map=TodaDeltaMap(group.lhs, TodaPrimaryGroup(7,2)))
+    elif case == "kernel_domain":
+        kernel = replace(kernel, domain=goal.group)
+    elif case == "kernel_generator":
+        kernel = replace(kernel, source_generator=other)
+    elif case == "image_map":
+        image = replace(image, lhs=MapApplication(EHP_E_MAP, goal.generator))
+    elif case == "image_source":
+        image = replace(image, lhs=MapApplication(EHP_H_MAP, replace(goal.generator, left=replace(goal.generator.left, generator=GeneratorSymbol("other")))))
+    elif case == "image_coefficient":
+        image = replace(image, rhs=Multiple(2,y))
+    elif case == "image_generator":
+        image = replace(image, rhs=Multiple(4,other))
+    elif case == "bad_composition":
+        goal = replace(goal, generator=replace(goal.generator, right=replace(goal.generator.right, target=6, dimension=6)))
+        image = replace(image, lhs=MapApplication(EHP_H_MAP, goal.generator))
+    elif case == "bad_codomain_generator":
+        wrong = replace(y, source=9)
+        group = replace(group, rhs=replace(group.rhs, generator=wrong))
+        kernel = replace(kernel, source_generator=wrong)
+        image = replace(image, rhs=Multiple(4,wrong))
+    args = goal, exact, group, kernel, image
+    assert finite_cyclic_subgroup_lift_inputs(*args) is None
+    assert expand_finite_cyclic_subgroup_lift(*args) == ()
+    with pytest.raises(ValueError):
+        finite_cyclic_subgroup_lift_rule(*args)
+
+
+def test_bool_image_coefficient_is_not_integer_one():
+    goal, exact, group, kernel, image = fixture(q=1)
+    invalid = replace(image, rhs=Multiple(True, group.rhs.generator))
+    assert finite_cyclic_subgroup_lift_inputs(goal, exact, group, kernel, invalid) is None
+    required = finite_cyclic_subgroup_lift_inputs(goal, exact, group, kernel, image)
+    parents = tuple(inferred(v) for v in required[:-1]) + (inferred(invalid),)
+    assert not find_inference_matches_for_rule(
+        finite_cyclic_subgroup_lift_rule(goal, exact, group, kernel, image), parents)
+
+
+def test_wrong_verified_injection_does_not_match():
+    args = fixture()
+    required = finite_cyclic_subgroup_lift_inputs(*args)
+    wrong = MapInjective(TodaHopfInvariantMap(args[0].group, TodaPrimaryGroup(9,5)))
+    parents = (inferred(wrong),) + tuple(inferred(v) for v in required[1:])
+    assert not find_inference_matches_for_rule(finite_cyclic_subgroup_lift_rule(*args), parents)
+
+
+def test_actual_shape_is_only_a_candidate():
+    goal, exact, group, kernel, image = fixture()
+    nu_prime = HomotopyElement("ν′",3,6,3,GeneratorSymbol("ν",decoration="′"))
+    eta6 = HomotopyElement("η₆",6,7,6,GeneratorSymbol("η",6))
+    eta7 = HomotopyElement("η₇",7,8,7,GeneratorSymbol("η",7))
+    nu5 = HomotopyElement("ν₅",5,8,5,GeneratorSymbol("ν",5))
+    x = Composition(nu_prime, Composition(eta6,eta7))
+    goal = replace(goal, generator=x)
+    group = replace(group, rhs=FiniteCyclicGroup(8,nu5))
+    kernel = replace(kernel, source_generator=nu5)
+    image = Relation(MapApplication(EHP_H_MAP,x), Multiple(4,nu5), RelationType.EQUALITY)
+    options = expand_finite_cyclic_subgroup_lift(goal, exact, group, kernel, image)
+    assert len(options) == 1 and len(options[0].subgoals) == 5
+    assert not find_inference_matches_for_rule(options[0].rule, ())
+```
+
+## `phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated/audit.py`
+
+```python
+"""Check the reviewed API baseline; never run public proof search."""
+from __future__ import annotations
+
+import argparse
+import ast
+from pathlib import Path
+import subprocess
+
+ROOT = Path(__file__).resolve().parent.parent
+REVIEWED_HEAD = "a9225ddbbed20fd350d4cdf2f3dd68fdcb598f93"
+PINS = {
+    'phase175_r3_pi73_hopf_lift/rule.py': '9457cece2b7f3ff7eb1b756296225c0ee0516897',
+    'phase175_r3_pi73_hopf_lift/tests/test_rule.py': 'cf61613fedf68060271307d060067d9a55e3718c',
+    'phase165_r12_r2_quotient_rules.py': '2b3e8e0449382e9245ee22f08501e9cede0a5b59',
+    'phase165_r12_r12_ehp_consequences.py': '895dc98ad4d25f14fb7aac8fa52460a77fd049bc',
+    'phase165_r12_r11_prop42_unified.py': '79752ec035244677ff6a54debff312e87a76fbf2',
+    'phase165_r14_r6_generic_iso.py': '8e8f5a4245f3dbbc5707b3a0042a1274e4b3e6b7',
+    'phase171_r2j_r2_cyclic_hopf_surjective/source.py': 'ebe53bc49872bd12b8c6eb0649e853726d7d45fe',
+    'phase165_r52_r9_shared_math.py': '165f2d0ad78e0dcb05d01ec0784b974a92c5ee02',
+    'phase176_r3r42_root_backward_frontier_audit/audit.py': '7e8d68768214d678b87cbf4541c4f5e7bbe3e69e',
+    'phase176_r3r42_root_backward_frontier_audit/tests/test_audit.py': 'd7f5d82db290d4f669775983166e3a577e40090c',
+    'proof.py': '2eb683053eaf7146bd89afbc581a386af08b8060',
+    'homotopy_groups.py': '883faf1b4a067485c9127f14dbb575aaa195960e',
+    'expression.py': '7f7cd97468cd753643369f54774ee9892968c345',
+    'phase165_r3_recursive_search.py': '06009bfcf57f99cac58c229d99c53f16324692d0',
+    'map_facts.py': '86fbf404783e15d344595bf54df5a9a8bafc35fc',
+}
+
+
+def git(*args: str) -> str:
+    return subprocess.check_output(["git", *args], cwd=ROOT, text=True,
+                                   encoding="utf-8", errors="replace").strip()
+
+
+def source_guard() -> str:
+    if git("branch", "--show-current") != "develop":
+        raise RuntimeError("DEVELOP_BRANCH_REQUIRED")
+    if git("status", "--porcelain", "--untracked-files=no"):
+        raise RuntimeError("TRACKED_WORKTREE_NOT_CLEAN")
+    for path, expected in PINS.items():
+        actual = git("rev-parse", f"HEAD:{path}")
+        if actual != expected:
+            raise RuntimeError(f"REVIEWED_SOURCE_CHANGED: {path}: {actual} != {expected}")
+        ast.parse((ROOT / path).read_text(encoding="utf-8-sig"), filename=path)
+    for path in Path(__file__).resolve().parent.rglob("*.py"):
+        ast.parse(path.read_text(encoding="utf-8-sig"), filename=str(path))
+    return git("rev-parse", "HEAD")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--dry-run", action="store_true")
+    args = parser.parse_args()
+    head = source_guard()
+    from phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated.rule import RULE_NAME
+    if not RULE_NAME:
+        raise RuntimeError("RULE_IMPORT_FAILED")
+    if source_guard() != head:
+        raise RuntimeError("HEAD_CHANGED_DURING_AUDIT")
+    print("PHASE176_R3R43R1_HEAD=" + head)
+    print("PHASE176_R3R43R1_REVIEWED_HEAD=" + REVIEWED_HEAD)
+    print("PHASE176_R3R43R1_PINNED_FILES=" + str(len(PINS)))
+    print("PHASE176_R3R43R1_GATE=" + ("PASS_R3R43R1_DRYRUN" if args.dry_run else "PASS_R3R43R1_SOURCE_GUARD"))
+    print("PHASE176_R3R43R1_PUBLIC_CONNECTION=NOT_DONE")
+    print("PHASE176_R3R43R1_ROOT_PROVED=NOT_CLAIMED")
+    print("PHASE176_R3R43R1_NEW_GIVEN=0")
+    print("PHASE176_R3R43R1_FULL_PYTEST=NOT_RUN")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+## `phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated/run.ps1`
+
+```powershell
+param([switch]$DryRun)
+$ErrorActionPreference = 'Stop'
+$root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+Push-Location $root
+try {
+    $parameters = @()
+    if ($DryRun) { $parameters += '--dry-run' }
+    & python -B -m phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated.audit @parameters
+    if ($LASTEXITCODE -ne 0) { throw 'R3R43R1 source guard failed' }
+    if (-not $DryRun) {
+        & python -B -m pytest -q -p no:cacheprovider --import-mode=importlib `
+            .\phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated\tests\test_finite_cyclic_subgroup_lift.py `
+            .\phase175_r3_pi73_hopf_lift\tests\test_rule.py `
+            .\phase176_r3r42_root_backward_frontier_audit\tests\test_audit.py
+        if ($LASTEXITCODE -ne 0) { throw 'R3R43R1 focused pytest failed' }
+        & git diff --check
+        if ($LASTEXITCODE -ne 0) { throw 'R3R43R1 git diff check failed' }
+        & python -B -m phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated.audit
+        if ($LASTEXITCODE -ne 0) { throw 'R3R43R1 post-test guard failed' }
+        Write-Host 'PHASE176_R3R43R1_GATE=PASS_R3R43R1_ISOLATED_FOCUSED_TESTS'
+        Write-Host 'PHASE176_R3R43R1_NEW_MATH_RULES=1'
+        Write-Host 'PHASE176_R3R43R1_FULL_PYTEST=NOT_RUN'
+    }
+    Write-Host '(END)'
+} finally {
+    Pop-Location
+}
+```
+
