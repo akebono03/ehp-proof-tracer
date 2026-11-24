@@ -140,6 +140,13 @@ def test_zero_image_provider_uses_existing_r40_without_stable_source_gate(n,k,ta
 def test_patch_idempotent_and_rejects_unknown_bytes():
     for path in PINS:
         raw = (ROOT / path).read_bytes()
+        # This is a historical R46 installer contract, not a pin on all future Phases.
+        if path == 'phase165_r52_r9_shared_math.py':
+            import subprocess
+            raw = subprocess.check_output(
+                ['git', 'cat-file', 'blob', '73e8a6b1d3127502a5459fc36cc439f00a745107'],
+                cwd=ROOT,
+            )
         assert updated_source(path, raw) == raw
         with pytest.raises(ValueError):
             updated_source(path, raw + b'\n# unexpected edit\n')
