@@ -474,6 +474,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_composite_suspension_equality,
         )
         options.extend(expand_composite_suspension_equality(goal))
+        # Phase 176 R3R37: source-screened composite-right Hopf candidates.
+        from phase176_r3r36_composite_right_hopf_isolated.source import (
+            expand_cited_composite_right_hopf,
+        )
+        options.extend(expand_cited_composite_right_hopf(goal, tuple(available)))
         from phase171_r2i_eta_hopf_bridge.source import (
             expand_cited_eta_hopf_power,
         )
