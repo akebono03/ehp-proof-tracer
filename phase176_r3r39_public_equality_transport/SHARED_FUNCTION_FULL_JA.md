@@ -1,6 +1,6 @@
 # Phase 176 R3R39 — shared_expansion_provider() 全文
 
-この関数は既存実装を維持し、R3R39 のセットアップと呼び出しのみを追加したものです。
+既存実装を維持し、R3R39 のセットアップと呼び出しのみを追加したものです。
 
 ```python
 def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = (), *, proof_target=None, prior_conclusions: tuple = ()):

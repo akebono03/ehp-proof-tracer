@@ -1,0 +1,3 @@
+# Phase 176 R3R39R1 — line-ending repair
+
+Extract into the repository root before committing R3R39. This replaces the R3R39 patch driver and its full-code document, and adds a separate repair runner and tests. The mathematical provider and its proofs remain unchanged. The driver accepts only the exact original or R3R39-patched source, refuses staged or unrelated changes, and preserves the tracked UTF-8 BOM and line-ending format. DryRun does not write the production source. The full run requires exactly nine added lines and no deleted lines in the target, runs six format tests, then repeats the existing R3R39 audit and focused tests. No full test suite is run. Do not use this repair runner after committing the nine-line change.

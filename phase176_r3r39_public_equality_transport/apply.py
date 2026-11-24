@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -43,6 +44,36 @@ def updated_source(source: str) -> str:
     )
 
 
+def normalized_source(raw: bytes) -> str:
+    """Decode UTF-8 without treating the byte representation as source code."""
+    return raw.decode("utf-8-sig").replace("\r\n", "\n").replace("\r", "\n")
+
+
+def patched_bytes(baseline: bytes, current: bytes) -> bytes:
+    """Only permit the exact R3R39 insertion; preserve baseline EOL and BOM."""
+    original = normalized_source(baseline)
+    proposed = updated_source(original)
+    if normalized_source(current) not in (original, proposed):
+        raise ValueError("UNRELATED_WORKTREE_CHANGE_REFUSED")
+    without_crlf = baseline.replace(b"\r\n", b"")
+    if b"\r" in without_crlf or (b"\r\n" in baseline and b"\n" in without_crlf):
+        raise ValueError("MIXED_OR_UNSUPPORTED_BASELINE_EOL")
+    eol = "\r\n" if b"\r\n" in baseline else "\n"
+    encoding = "utf-8-sig" if baseline.startswith(b"\xef\xbb\xbf") else "utf-8"
+    ast.parse(proposed, filename=str(TARGET))
+    return proposed.replace("\n", eol).encode(encoding)
+
+
+def tracked_baseline() -> bytes:
+    """Reject staged changes; compare the index and HEAD as exact bytes."""
+    relative = TARGET.relative_to(ROOT).as_posix()
+    head = subprocess.check_output(["git", "show", "HEAD:" + relative], cwd=ROOT)
+    index = subprocess.check_output(["git", "show", ":" + relative], cwd=ROOT)
+    if head != index:
+        raise ValueError("STAGED_TARGET_CHANGE_REFUSED")
+    return index
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
@@ -54,25 +85,26 @@ def main() -> int:
     ):
         if not required.is_file():
             raise ValueError("MISSING_BASELINE:" + str(required.relative_to(ROOT)))
-    original = TARGET.read_text(encoding="utf-8-sig")
-    proposed = updated_source(original)
-    ast.parse(proposed, filename=str(TARGET))
+    current = TARGET.read_bytes()
+    proposed = patched_bytes(tracked_baseline(), current)
     if not args.dry_run:
-        if proposed != original:
-            TARGET.write_text(proposed, encoding="utf-8")
-        # The replacement unit for the existing function is available in full.
-        text = TARGET.read_text(encoding="utf-8")
+        if current != proposed:
+            TARGET.write_bytes(proposed)
+        if TARGET.read_bytes() != proposed:
+            raise ValueError("BYTE_VERIFICATION_FAILED")
+        text = normalized_source(proposed)
         start = text.index("def shared_expansion_provider(")
         end = text.index("\ndef search_shared_group_goal(", start)
         documented = (
             "# Phase 176 R3R39 — shared_expansion_provider() 全文\n\n"
-            "この関数は既存実装を維持し、R3R39 のセットアップと呼び出しのみを追加したものです。\n\n"
+            "既存実装を維持し、R3R39 のセットアップと呼び出しのみを追加したものです。\n\n"
             "```python\n" + text[start:end].rstrip() + "\n```\n"
         )
-        (Path(__file__).resolve().parent / "SHARED_FUNCTION_FULL_JA.md").write_text(
-            documented, encoding="utf-8",
+        (Path(__file__).resolve().parent / "SHARED_FUNCTION_FULL_JA.md").write_bytes(
+            documented.encode("utf-8"),
         )
     print("PHASE176_R3R39_PATCH=" + ("DRY_RUN_PASS" if args.dry_run else "APPLIED_OR_ALREADY_PRESENT"))
+    print("PHASE176_R3R39R1_EOL=" + ("DRY_RUN_PASS" if args.dry_run else "BYTE_VERIFIED"))
     return 0
 
 
