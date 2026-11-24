@@ -99,6 +99,16 @@ def reconstruct_registered_goal(
         report("proved", target, step)
         return step
 
+    from phase176_r3r46r1_prior_group_availability.pruning import contradiction_witness
+
+    def contradicted(target: object) -> bool:
+        return contradiction_witness(
+            target, bridge=bridge, citing_id=citing_assertion_id,
+            lookup_mode=lookup_mode, verified_assertion_ids=verified_assertion_ids,
+            proof_target=goal, solved=tuple(solved),
+            completed_internal_proofs=completed_internal_proofs,
+        ) is not None
+
     def resolve(target: object) -> ProofStep:
         for earlier, step in solved:
             if type(earlier) is type(target) and earlier == target:
@@ -179,6 +189,9 @@ def reconstruct_registered_goal(
                     return accept(target, internal)
             if not bound and options:
                 return accept(target, options[0])
+            # Reject an impossible unproved zero obligation before its Provider.
+            if contradicted(target):
+                raise RegisteredGoalUnresolved("zero goal contradicted by eligible nonzero evidence")
             expansions = expansion_provider(actual)
             if not isinstance(expansions, tuple):
                 raise TypeError("expansion provider must return a tuple")
@@ -186,6 +199,9 @@ def reconstruct_registered_goal(
                 if not isinstance(expansion, GoalExpansion):
                     raise TypeError("invalid inference expansion")
                 if bound and expansion.subgoals != (target.source,):
+                    continue
+                # Preflight all immediate zero obligations before visiting any.
+                if any(contradicted(child) for child in expansion.subgoals):
                     continue
                 try:
                     premises = tuple(resolve(child) for child in expansion.subgoals)

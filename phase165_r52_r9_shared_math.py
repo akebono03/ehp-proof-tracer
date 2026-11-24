@@ -436,6 +436,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         and link.step.conclusion == bridge.registry.assertion(link.assertion_id).content
     )
 
+    # R3R46R1: reuse admitted prior domains without the stable-family gate.
+    # Append after the existing source-specific providers; no new rule.
+    from phase176_r3r46r1_prior_group_availability.provider import build_prior_zero_image_provider
+    extra_providers = tuple(extra_providers) + (
+        build_prior_zero_image_provider(bridge=bridge, proof_target=proof_target),
+    )
+
     shared_provider_registry = build_shared_expansion_provider_registry(
         expand_generic_iso_goal=expand_generic_iso_goal,
         expand_generic_ehp_hopf_goal=expand_generic_ehp_hopf_goal,
