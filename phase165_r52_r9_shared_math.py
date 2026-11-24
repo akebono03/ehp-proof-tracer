@@ -469,6 +469,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_generic_hopf_substitution,
         )
         options.extend(expand_generic_hopf_substitution(goal, tuple(available)))
+        # Phase 176 R3R35: composite suspension equality; image stays an open goal.
+        from phase176_r3r34_composite_suspension_isolated.source import (
+            expand_composite_suspension_equality,
+        )
+        options.extend(expand_composite_suspension_equality(goal))
         from phase171_r2i_eta_hopf_bridge.source import (
             expand_cited_eta_hopf_power,
         )
