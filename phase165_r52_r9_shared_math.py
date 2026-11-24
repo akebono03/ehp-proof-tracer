@@ -359,6 +359,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     from phase169_r10d2_general_family_definition.family_citation import (
         expand_cited_stable_family,
     )
+    # Phase 176 R3R39: source-screened, six existing equality inferences.
+    from phase176_r3r39_public_equality_transport.source import (
+        build_public_right_hopf_transport_provider,
+    )
+    public_right_hopf_transport = build_public_right_hopf_transport_provider(
+        tuple(available),
+    )
     if not isinstance(prior_conclusions, tuple):
         raise TypeError("prior_conclusions must be a tuple")
 
@@ -479,6 +486,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_cited_composite_right_hopf,
         )
         options.extend(expand_cited_composite_right_hopf(goal, tuple(available)))
+        # All six transport steps stay visible in the ordinary Proof Tree.
+        options.extend(public_right_hopf_transport(goal))
         from phase171_r2i_eta_hopf_bridge.source import (
             expand_cited_eta_hopf_power,
         )
