@@ -366,6 +366,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     public_right_hopf_transport = build_public_right_hopf_transport_provider(
         tuple(available),
     )
+    # Phase 176 R3R41: audited source-screened quadruple connection.
+    from phase176_r3r41_public_quadruple_connection.source import (
+        build_public_quadruple_connection_provider,
+    )
+    public_quadruple_connection = build_public_quadruple_connection_provider(
+        tuple(available),
+    )
     if not isinstance(prior_conclusions, tuple):
         raise TypeError("prior_conclusions must be a tuple")
 
@@ -449,6 +456,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         if defined_options:
             return defined_options
         options = []
+        options.extend(public_quadruple_connection(goal))
         from phase174_r3_r7_r30_prop27_public_provider_wiring.provider import (
             expand_public_cited_prop27_goal,
         )
