@@ -8,10 +8,11 @@ from map_facts import EHP_H_MAP
 from phase165_r3_recursive_search import GoalExpansion
 from phase176_r3r27r1_toda55_quadruple_isolated.source import canonical_quadruple_goal
 from phase176_r3r40r1_eta_notation_bridge.source import connection_backward_plan
+from phase176_r3r50_strict_nu_prime_connection.notation import alias_hopf_backward_plan
 from proof import Relation, RelationType
 
 
-def public_quadruple_backward_plan(
+def _strict_public_quadruple_backward_plan(
     goal: object, available: tuple[object, ...],
 ) -> tuple[tuple[Relation, GoalExpansion], ...]:
     """Derive a finite candidate from the goal and screened H(alpha) values.
@@ -51,6 +52,16 @@ def public_quadruple_backward_plan(
             plans.append(plan)
     # Ambiguous routes are not silently selected by a notation heuristic.
     return plans[0] if len(plans) == 1 else ()
+
+
+def public_quadruple_backward_plan(
+    goal: object, available: tuple[object, ...],
+) -> tuple[tuple[Relation, GoalExpansion], ...]:
+    """Prefer the existing exact plan; otherwise transport strict notation."""
+    plan = _strict_public_quadruple_backward_plan(goal, available)
+    if plan:
+        return plan
+    return alias_hopf_backward_plan(goal, available, _strict_public_quadruple_backward_plan)
 
 
 def build_public_quadruple_connection_provider(

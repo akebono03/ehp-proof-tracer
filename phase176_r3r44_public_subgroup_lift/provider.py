@@ -1,7 +1,8 @@
 """Bind the existing subgroup-lift rule to ordinary backward goals.
 
 Concrete presentations (including DB candidates) are only variable bindings.
-The rule still requires five independently inferred ProofSteps.
+The rule still requires five independent ProofSteps. Only the codomain
+may be a revalidated DB prior under the active proof context.
 """
 from __future__ import annotations
 
@@ -16,7 +17,8 @@ from phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated.rule import expand_fi
 from proof import Relation, RelationType
 
 
-def build_public_subgroup_lift_provider(available: tuple, prior_conclusions: tuple = ()):
+def build_public_subgroup_lift_provider(available: tuple, prior_conclusions: tuple = (),
+                                        *, bridge=None, proof_target=None):
     """Source/prior candidates first, typed DB candidate last; no proof insertion."""
     if not isinstance(available, tuple) or not isinstance(prior_conclusions, tuple):
         raise TypeError("source and prior candidates must be tuples")
@@ -58,7 +60,8 @@ def build_public_subgroup_lift_provider(available: tuple, prior_conclusions: tup
             generator = group.rhs.generator
             kernel = KernelMultipleStatement(TodaDeltaMap(b,c), b, generator, q)
             image = Relation(MapApplication(EHP_H_MAP, goal.generator), Multiple(q,generator), RelationType.EQUALITY)
-            for option in expand_finite_cyclic_subgroup_lift(goal, exact, group, kernel, image):
+            for option in expand_finite_cyclic_subgroup_lift(
+                    goal, exact, group, kernel, image, bridge=bridge, proof_target=proof_target):
                 if not any(old.subgoals == option.subgoals for old in options):
                     options.append(option)
         return tuple(options)

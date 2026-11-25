@@ -376,21 +376,14 @@ def typed_sentence(statement, step):
             return rf"${symbol}:{source}\to {target}$ は零写像."
         return None
     if type(statement) is KernelMultipleStatement:
-        mapping = statement.map
-        source = group_tex(getattr(mapping, "source_group", None))
-        target = group_tex(getattr(mapping, "target_group", None))
-        symbol = map_symbol_tex(mapping)
-        generator = element_tex(statement.source_generator)
-        if (source is not None and target is not None
-                and symbol is not None and generator is not None
-                and type(statement.multiple) is int
-                and statement.multiple >= 1
-                and statement.domain == mapping.source_group):
-            return (
-                rf"$\ker({symbol}:{source}\to {target})="
-                rf"\mathbb{{Z}}\{{{statement.multiple}{generator}\}}$."
-            )
-        return None
+        from toda_conclusion_latex_renderer import (
+            render_repository_conclusion_latex,
+        )
+        try:
+            latex = render_repository_conclusion_latex(statement)
+        except (TypeError, ValueError):
+            return None
+        return "$" + latex + "$."
     if (type(statement) is Relation
             and statement.relation_type is RelationType.EQUALITY
             and isinstance(statement.rhs, Zero)):

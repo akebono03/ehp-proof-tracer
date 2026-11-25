@@ -122,6 +122,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_cited_toda55_quadruple_source,
         )
         sources = sources + (build_cited_toda55_quadruple_source(),)
+    # R3R48: append the independently cited signed Lemma 5.7 clause.
+    if default_sources:
+        from phase176_r3r48_cited_finite_delta_kernel.source import build_cited_lemma57_delta_source
+        sources = sources + (build_cited_lemma57_delta_source(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -381,6 +385,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     )
     public_subgroup_lift = build_public_subgroup_lift_provider(
         tuple(available), prior_conclusions,
+        bridge=bridge, proof_target=proof_target,
     )
 
     # Phase 175 R4R5R3: reusable finite-cyclic summand order-to-zero rule.
@@ -441,6 +446,12 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     from phase176_r3r46r1_prior_group_availability.provider import build_prior_zero_image_provider
     extra_providers = tuple(extra_providers) + (
         build_prior_zero_image_provider(bridge=bridge, proof_target=proof_target),
+    )
+
+    # R3R48: finite cyclic Delta kernel from three open proof obligations.
+    from phase176_r3r48_cited_finite_delta_kernel.provider import build_finite_delta_kernel_provider
+    extra_providers = tuple(extra_providers) + (
+        build_finite_delta_kernel_provider(bridge=bridge, proof_target=proof_target),
     )
 
     shared_provider_registry = build_shared_expansion_provider_registry(
