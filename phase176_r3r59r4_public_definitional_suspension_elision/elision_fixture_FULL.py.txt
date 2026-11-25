@@ -1,0 +1,4 @@
+def verified():
+    from phase176_r3r59r4_public_definitional_suspension_elision.apply import previous_stage
+    with previous_stage():
+        return capture()

@@ -1,8 +1,25 @@
 # EHP Proof Tracer ロードマップ
 
+<!-- PHASE176_FINAL_CLOSEOUT_20261125 -->
+
+## Phase 176 正式終了後の現在地と次 Phase の境界
+
+選定目標 $(n,k)=(3,5)$ は $\pi_8^3=\mathbb Z/2\{\nu'\eta_6^2\}$、`generic-complete-proof`、Open Goals 0。証明木62段階（INFERENCE 51、GIVEN 11）、内部出典10件、共通 Narrative 本文18行・表示出典9件を確認した。Phase 175 の k=4 登録6群の終了記録は履歴として維持する。
+
+次 Phase は残る k=5 登録群の完成・未完成状態と出典・型付き前提の不足を監査してから選定する。この段階で特定の追加目標や将来機能の実装を確定しない。DB 上の群構造と証明の完成を区別する。既に証明済みの群を先行結果として利用する場合は出典と順序を検証し、不要な再証明をしない。Source-first、First Successful Proof Search、唯一性検査なし、一般規則と共通 Renderer の方針を維持する。
+
+R2 で修正後の現行アクティブ `tests/` 全体 pytest を1回実施し、成功を確認した。HEAD `7b4e071b735d8c309c2155c04c96869e7e774bdb`; pytest `3546 passed in 41.33s`; stdout SHA-256 `a85672383551328c0752687200efacf8ff2cd95bd46da5ba61f85ac5663846b9`; stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+
+旧 Phase 174 の固定 HEAD・関数スナップショット依存 Source Guard 4件は、現行アクティブ範囲外の既知失敗として残す。今回再実行・解決・PASS 計上していない。任意の球面ホモトピー群、5-stem 全体、全文献命題の独立検証を認定しない。
+
+初回 Closeout（HEAD `471d79109d3054b088c7f910372b5f4f6cd5efa1`）は、混入した旧 Phase 77 テストの import エラーで収集時に停止した（終了コード2）。R1 は混入4ファイルを `.py.txt` として保存し、現行テストの合格条件や除外方針を変更せず、限定5件 PASS、3546件の収集成功を確認した。R2 は修正後の現行全体テストを実行した。初回 stdout SHA-256 `41156466594bef2736fac8d1fe0f5ae43203e7c997a08d1ec5aca1cf40320b22`、stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。初回失敗記録と R1 収集記録を成功した終了記録とは別に保持する。
+
+R2 は修正後の全体 pytest に合格したが、文書生成・適用時の Windows PermissionError により終了 Gate は FAIL となった。R3 は保存済みの R2 合格証拠を検証し、全体 pytest を再実行せず主要5文書の全文更新を復旧した。R2 の失敗記録は変更せず保持する。R2 report SHA-256：`5b41bc648eaa9c2bfddba380b090e4a2349ff36721d0d3dbb94d0edfa6c784e9`。
+
+
 <!-- PHASE175_R4R14R12_DOCS_20261119 -->
 
-## Phase 175：R4R14R12 終了文書整備後の工程（2026-11-19）
+## 履歴：Phase 175 R4R14R12 時点の終了工程（2026-11-19）
 
 登録された k=4 の6群について、R4R14R11 により当初未完成の3群 `(3,4),(5,4),(6,4)` もすべて `complete`／Open Goal 0 件であることが確認された。R4R14R10 は $\pi_{10}^{6}=0$ の14ステップ・出典4件の証明木を監査済み。これは Phase 175 の数学的対象に関する到達点であり、Phase の正式終了ではない。
 

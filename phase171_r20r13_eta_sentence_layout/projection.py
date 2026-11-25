@@ -180,4 +180,16 @@ def format_complete_proof_sentences(lines: list[str], model) -> list[str]:
         project_composite_hopf_chain,
     )
     compressed, _ = project_composite_hopf_chain(projected, model)
-    return formatted if compressed == markdown else compressed.split("\n")
+    from phase176_r3r58_finite_cyclic_lift_display_isolated.projection import (
+        project_finite_cyclic_lift,
+    )
+    explained, _ = project_finite_cyclic_lift(compressed, model)
+    from phase176_r3r59r3_definitional_suspension_elision_isolated.projection import (
+        project_definitional_suspension_elision,
+    )
+    elided, _ = project_definitional_suspension_elision(explained, model)
+    from phase176_r3r60r1_citation_premise_elision_isolated.projection import (
+        project_citation_premise_elision,
+    )
+    simplified, _ = project_citation_premise_elision(elided, model)
+    return formatted if simplified == markdown else simplified.split("\n")

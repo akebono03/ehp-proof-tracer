@@ -1,0 +1,4 @@
+def verified():
+    from phase176_r3r60r2_public_citation_premise_elision.apply import previous_stage
+    with previous_stage():
+        return capture()

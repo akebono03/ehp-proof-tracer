@@ -1,0 +1,21 @@
+def previous_stage():
+    """Scope the inverse-verified file reads and display hook to historical checks.
+
+    No disk writes, no changed trust/search behavior, no global pytest fixture.
+    Production rendering never enters this context.
+    """
+    from phase176_r3r60r2_public_citation_premise_elision.apply import previous_stage as r60_stage
+    with r60_stage():
+        from phase176_r3r59r3_definitional_suspension_elision_isolated import projection
+        restored = {ROOT / path: previous_source(path, (ROOT / path).read_bytes()) for path in PINS}
+        read_bytes = Path.read_bytes
+
+        def read_at_previous_stage(path):
+            if path in restored:
+                return restored[path]
+            return read_bytes(path)
+
+        with patch.object(Path, 'read_bytes', read_at_previous_stage), patch.object(
+                projection, 'project_definitional_suspension_elision',
+                lambda markdown, model: (markdown, {})):
+            yield

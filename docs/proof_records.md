@@ -7805,3 +7805,76 @@ $$
 k=4 の登録6群（n=2〜7）は R4R14R14 終了監査で全群 `complete`、Open Goals 0。$\pi_{10}^{6}=0$ は文献由来の先行有限巡回群と生成元零像を結合した14段階の証明木で、Proposition 4.2 (4.4)、(5.1)、Proposition 5.8、(5.9) の出典を持つ。Phase 末尾の現行 `tests/` 全体 pytest は一度実施して成功した。HEAD `90e8025c31841e522b3bb36f002ec44dfd4b89aa`; pytest `3546 passed in 38.52s`; stdout SHA-256 `5b1265843809af137f21982ddf34ddf08e1af08660109185d13c29834dfcb766`; stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
 
 **未解決の既知の境界：** Phase 174 の古い HEAD／関数スナップショットに固定された Source Guard テスト4件は現行アクティブ `tests/` 範囲外であり、既知の失敗のまま維持する。これらを PASS と見なさない。R4R14R14 は既存の数学的規則、文献 GIVEN、DB Provenance、旧 Source Guard を変更しない。正式終了の認定範囲は k=4 登録群とアクティブテストに限定し、任意の群・全文献命題の独立検証を意味しない。
+
+<!-- PHASE176_FINAL_CLOSEOUT_20261125 -->
+
+## Phase 176 — $\pi_8^3=\mathbb Z/2\{\nu'\eta_6^2\}$ の完成証明
+
+対象 $(n,k)=(3,5)$。公開結果 `generic-complete-proof`、Open Goals 0。検証済み証明木62段階（INFERENCE 51、GIVEN 11）、内部出典10件、表示出典9件。以下は実 Web Narrative に基づく数学的記録である。
+
+### 使用する結果（表示用番号）
+
+- [R1] 先行 DB（sphere.csv, n=2, k=5）：$\pi_7^2=\mathbb Z/2\{\eta_2\nu'\eta_6\}$。
+- [R2] Lemma 5.7：$\Delta(\nu_5)=\pm\eta_2\nu'$、$E(\eta_2\nu')=0$。
+- [R3] Proposition 4.2 (4.4)：EHP 完全性。
+- [R4] 先行 DB（sphere.csv, n=5, k=3）：$\pi_8^5=\mathbb Z/8\{\nu_5\}$（参考：Proposition 5.6）。
+- [R5] 先行 DB（sphere.csv, n=2, k=4）：$\pi_6^2=\mathbb Z/4\{\eta_2\nu'\}$。
+- [R6] Proposition 2.2：$H(\alpha E\beta)=H(\alpha)E\beta$。
+- [R7] Toda (5.3)：$H(\nu')=\eta_5$。
+- [R8] Chapter V, i)：$\eta_n=E^{n-2}\eta_2$（$n\ge2$）。
+- [R9] Toda (5.5)：$4\nu_n=\eta_n^3$（$n\ge5$）。
+
+### 証明
+
+[R3] の完全列
+
+$$
+\pi_7^2\xrightarrow{E}\pi_8^3\xrightarrow{H}\pi_8^5\xrightarrow{\Delta}\pi_6^2
+$$
+
+を考える。[R1], [R2] より、右合成と懸垂の関手性によって
+
+$$
+E(\eta_2\nu'\eta_6)=E(\eta_2\nu')E\eta_6=0.
+$$
+
+生成元が零に写るので E は零写像。完全性より H は単射。[R4], [R5], [R2] より Δ は位数8の巡回群の生成元を位数4の巡回群の符号付き生成元に写す。したがって
+
+$$
+\ker\Delta=\langle4\nu_5\rangle.
+$$
+
+[R6], [R7], [R8] により
+
+$$
+\begin{aligned}
+H(\nu'\eta_6^2)&=H(\nu'E\eta_5^2)\\
+&=H(\nu')E\eta_5^2\\
+&=\eta_5 E\eta_5^2=\eta_5^3.
+\end{aligned}
+$$
+
+[R9] の $4\nu_5=\eta_5^3$ を用いて $H(\nu'\eta_6^2)=4\nu_5$。完全性より
+
+$$
+\operatorname{Im}H=\ker\Delta=\langle4\nu_5\rangle,\qquad
+\operatorname{ord}(4\nu_5)=\frac{8}{\gcd(8,4)}=2.
+$$
+
+H は単射であり、上の像はこの部分群を生成する。よってその原像は位数2の生成元であり、
+
+$$
+\pi_8^3=\mathbb Z/2\{\nu'\eta_6^2\}.
+$$
+
+□
+
+内部の10出典には Chapter V, iii) の ν-family 定義も含まれる。R3R60R2 はこれを表示だけから省略し、内部番号10の (5.5) を表示9へ移す。ProofStep と出典リンクを保持し、表示番号を内部証明に戻さない。原著印刷版の全命題の独立照合を意味しない。先行 DB 3件を再証明せず、型付き先行結果として利用する。
+
+R2 で修正後の現行アクティブ `tests/` 全体 pytest を1回実施し、成功を確認した。HEAD `7b4e071b735d8c309c2155c04c96869e7e774bdb`; pytest `3546 passed in 41.33s`; stdout SHA-256 `a85672383551328c0752687200efacf8ff2cd95bd46da5ba61f85ac5663846b9`; stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+
+旧 Phase 174 の固定 HEAD・関数スナップショット依存 Source Guard 4件は、現行アクティブ範囲外の既知失敗として残す。今回再実行・解決・PASS 計上していない。任意の球面ホモトピー群、5-stem 全体、全文献命題の独立検証を認定しない。
+
+初回 Closeout（HEAD `471d79109d3054b088c7f910372b5f4f6cd5efa1`）は、混入した旧 Phase 77 テストの import エラーで収集時に停止した（終了コード2）。R1 は混入4ファイルを `.py.txt` として保存し、現行テストの合格条件や除外方針を変更せず、限定5件 PASS、3546件の収集成功を確認した。R2 は修正後の現行全体テストを実行した。初回 stdout SHA-256 `41156466594bef2736fac8d1fe0f5ae43203e7c997a08d1ec5aca1cf40320b22`、stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。初回失敗記録と R1 収集記録を成功した終了記録とは別に保持する。
+
+R2 は修正後の全体 pytest に合格したが、文書生成・適用時の Windows PermissionError により終了 Gate は FAIL となった。R3 は保存済みの R2 合格証拠を検証し、全体 pytest を再実行せず主要5文書の全文更新を復旧した。R2 の失敗記録は変更せず保持する。R2 report SHA-256：`5b41bc648eaa9c2bfddba380b090e4a2349ff36721d0d3dbb94d0edfa6c784e9`。

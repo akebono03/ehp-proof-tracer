@@ -1,0 +1,7 @@
+def test_public_finite_cyclic_lift_on_verified_model():
+    report = observe()
+    assert report['gate'] == 'PASS_R3R58R1_PUBLIC_FINITE_CYCLIC_LIFT_DISPLAY_CONNECTED'
+    assert report['body_rows_before'] == 18 and report['body_rows_after'] == 21
+    assert report['root_display_count'] == 1
+    assert report['references_without_explicit_body_use'] == []
+    assert report['model_unchanged'] and report['partial_render_unchanged']
