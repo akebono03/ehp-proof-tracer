@@ -9,7 +9,12 @@ from phase176_r3r57_composite_hopf_display_isolated.projection import project_co
 
 @pytest.fixture(scope='module')
 def verified():
-    return capture()
+    # The isolated tests exercise the uncompressed, verified public model.
+    from unittest.mock import patch
+    from phase176_r3r57_composite_hopf_display_isolated import projection
+    with patch.object(projection, 'project_composite_hopf_chain',
+                      lambda markdown, model: (markdown, {})):
+        return capture()
 
 
 def test_real_chain_and_idempotence(verified):

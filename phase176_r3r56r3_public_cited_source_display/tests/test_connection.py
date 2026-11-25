@@ -63,8 +63,14 @@ def test_scope_and_actual_leaf_required(verified):
 
 
 def test_two_exact_replacements_are_idempotent():
+    # The R56R3 patch is tested against its exact, inverse-verified stage.
+    from phase176_r3r57r1_public_composite_hopf_display.apply import (
+        LAYOUT, previous_source,
+    )
     for path in PINS:
         raw = (ROOT / path).read_bytes()
+        if path == LAYOUT:
+            raw = previous_source(path, raw)
         assert updated_source(path, raw) == raw
         base, _ = baseline_source(path, raw)
         for eol in ('\n', '\r\n'):

@@ -176,4 +176,8 @@ def format_complete_proof_sentences(lines: list[str], model) -> list[str]:
     )
     markdown = "\n".join(formatted)
     projected = project_cited_sources(markdown, model)
-    return formatted if projected == markdown else projected.split("\n")
+    from phase176_r3r57_composite_hopf_display_isolated.projection import (
+        project_composite_hopf_chain,
+    )
+    compressed, _ = project_composite_hopf_chain(projected, model)
+    return formatted if compressed == markdown else compressed.split("\n")

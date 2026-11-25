@@ -1,0 +1,12 @@
+def test_two_exact_replacements_are_idempotent():
+    for path in PINS:
+        raw = (ROOT / path).read_bytes()
+        assert updated_source(path, raw) == raw
+        base, _ = baseline_source(path, raw)
+        for eol in ('\n', '\r\n'):
+            original = base.replace('\n', eol).encode('utf-8')
+            changed = updated_source(path, original)
+            assert baseline_source(path, changed)[0] == base
+            assert updated_source(path, changed) == changed
+        with pytest.raises(ValueError):
+            updated_source(path, raw + b'\n# unknown edit\n')
