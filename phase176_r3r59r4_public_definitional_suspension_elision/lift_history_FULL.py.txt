@@ -1,0 +1,5 @@
+def test_prior_stage_is_preserved():
+    from phase176_r3r59r4_public_definitional_suspension_elision.apply import previous_stage
+    with previous_stage():
+        assert all(raw == new for raw, new in planned_changes().values())
+        assert all(raw == new for raw, new in r57_stage_changes().values())

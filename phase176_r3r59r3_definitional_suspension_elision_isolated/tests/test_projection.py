@@ -13,7 +13,9 @@ from phase176_r3r59r3_definitional_suspension_elision_isolated.projection import
 
 @pytest.fixture(scope='module')
 def verified():
-    return capture()
+    from phase176_r3r59r4_public_definitional_suspension_elision.apply import previous_stage
+    with previous_stage():
+        return capture()
 
 
 def test_actual_elision_and_citations(verified):

@@ -1,0 +1,6 @@
+def test_previous_public_source_connection_is_preserved():
+    from phase176_r3r58r1_public_finite_cyclic_lift_display.apply import r57_stage_changes
+    changes = r57_stage_changes()
+    assert all(raw == changed for raw, changed in changes.values())
+    prior = previous_source(LAYOUT, changes[LAYOUT][0])
+    assert r56.updated_source(LAYOUT, prior) == prior

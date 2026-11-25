@@ -184,4 +184,8 @@ def format_complete_proof_sentences(lines: list[str], model) -> list[str]:
         project_finite_cyclic_lift,
     )
     explained, _ = project_finite_cyclic_lift(compressed, model)
-    return formatted if explained == markdown else explained.split("\n")
+    from phase176_r3r59r3_definitional_suspension_elision_isolated.projection import (
+        project_definitional_suspension_elision,
+    )
+    elided, _ = project_definitional_suspension_elision(explained, model)
+    return formatted if elided == markdown else elided.split("\n")

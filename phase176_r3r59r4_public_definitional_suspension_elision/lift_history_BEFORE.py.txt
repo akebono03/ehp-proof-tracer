@@ -1,0 +1,3 @@
+def test_prior_stage_is_preserved():
+    assert all(raw == new for raw, new in planned_changes().values())
+    assert all(raw == new for raw, new in r57_stage_changes().values())
