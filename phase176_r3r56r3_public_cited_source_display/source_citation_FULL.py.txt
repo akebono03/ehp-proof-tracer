@@ -1,0 +1,18 @@
+def source_citation(model, scope, index, statement, assertion_id, reference_id, locator):
+    """Require an exact typed leaf and the common checked registry ID pair."""
+    if index not in scope:
+        return None
+    step = model.steps[index]
+    if (step.rule is not ProofRule.GIVEN or step.premises
+            or type(step.conclusion) is not type(statement) or step.conclusion != statement):
+        return None
+    from phase175_r3r11_cited_hopf_narrative.projection import _source_citation
+
+    found = _source_citation(
+        model, scope, statement_type=type(statement), assertion_id=assertion_id,
+        reference_id=reference_id, locator=locator,
+        allow_provenance_fallback=False,
+    )
+    if found is None or found[1] != index:
+        return None
+    return found[0]

@@ -30,19 +30,23 @@ def matches_registered_id(value: str, expected: str) -> bool:
 
 
 def source_citation(model, scope, index, statement, assertion_id, reference_id, locator):
-    """Require the actual cited source leaf, matching registry IDs and locator."""
+    """Require an exact typed leaf and the common checked registry ID pair."""
     if index not in scope:
         return None
     step = model.steps[index]
     if (step.rule is not ProofRule.GIVEN or step.premises
             or type(step.conclusion) is not type(statement) or step.conclusion != statement):
         return None
-    matches = [c for c in model.citations
-               if c.reference.locator == locator and index in c.step_indices
-               and c.number in model.step_citation_numbers[index]
-               and any(matches_registered_id(a, assertion_id) for a in c.assertion_ids)
-               and any(matches_registered_id(r, reference_id) for r in c.reference_ids)]
-    return matches[0] if len(matches) == 1 else None
+    from phase175_r3r11_cited_hopf_narrative.projection import _source_citation
+
+    found = _source_citation(
+        model, scope, statement_type=type(statement), assertion_id=assertion_id,
+        reference_id=reference_id, locator=locator,
+        allow_provenance_fallback=False,
+    )
+    if found is None or found[1] != index:
+        return None
+    return found[0]
 
 
 def insert_reference_clause(lines, citation, clause):

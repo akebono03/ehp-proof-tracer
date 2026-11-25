@@ -170,4 +170,10 @@ def format_complete_proof_sentences(lines: list[str], model) -> list[str]:
         combine_adjacent_verified_eta_sentences(lines, model), model,
     )
     cited = project_verified_source_and_hopf_summary(combined, model)
-    return split_completed_proof_sentences(cited)
+    formatted = split_completed_proof_sentences(cited)
+    from phase176_r3r56_cited_source_display_isolated.projection import (
+        project_cited_sources,
+    )
+    markdown = "\n".join(formatted)
+    projected = project_cited_sources(markdown, model)
+    return formatted if projected == markdown else projected.split("\n")
