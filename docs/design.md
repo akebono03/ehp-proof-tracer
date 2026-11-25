@@ -1,8 +1,32 @@
 # EHP Proof Tracer 設計
 
+<!-- PHASE176_FINAL_CLOSEOUT_20261125 -->
+
+## Phase 176 の現行設計境界（終了監査）
+
+対象は $(n,k)=(3,5)$ の $\pi_8^3=\mathbb Z/2\{\nu'\eta_6^2\}$。Source-first（出典優先）、First Successful Proof Search（最初の成功で終了）、唯一性検査なしを維持する。出典に基づく型付き GIVEN、一般規則の INFERENCE、先行 DB の検証を分離する。対象結論の直接 GIVEN 登録や群専用 Narrative は導入しない。
+
+- `phase176_r3r10_right_zero_transport_isolated/rule.py`：型付き懸垂零像を合成の右因子へ移送する。実際の前提、写像、合成因子の型を検査する。
+- `phase176_r3r27r1_toda55_quadruple_isolated/source.py`：Toda (5.5) の一般公式を出典付きで特殊化する。族定義は内部前提として維持する。
+- `phase176_r3r48_cited_finite_delta_kernel/rule.py`：有限巡回群間の生成元の像が符号付き生成元となるとき、型・位数・出典を検査して核を導く。
+- `phase176_r3r43r1_finite_cyclic_subgroup_lift_isolated/rule.py`：H の単射性、EHP 完全性、余域の有限巡回構造、Δ の核、生成元候補の像という5前提から有限巡回群構造を導く。位数は $m/\gcd(m,q)$。候補の一致だけを証明とみなさない。
+
+公開経路は Verified Proof Tree（検証済み証明木）→ `ProofNarrativeModel` → 共通 Renderer → Web Adapter。R3R53〜R3R60R2 は共通表示で核を部分群として表し、冗長等式、Hopf 合成、有限巡回持ち上げ、定義的懸垂、既出零関係と出典を整理した。最後の `project_citation_premise_elision()` は確認済みの一般公式の特殊化と右合成の実依存関係を要求する。表示に限り補助定義出典を省略し、残る参照を同時に再採番する。内部の Citation（出典対応）10件、証明木62段階、状態、未解決 Goal は変更しない。適用条件が成立しない場合は元の表示を返す。表示用番号を内部証明の出典番号として再利用しない。
+
+実測対象は complete、INFERENCE 51、GIVEN 11、Open Goals 0、本文18行、表示出典9件。未完成表示の不変性を確認。R3R60R2 限定 pytest 60 PASS。今回の Closeout は本番コード、数学規則、GIVEN、旧テストを変更しない。
+
+R2 で修正後の現行アクティブ `tests/` 全体 pytest を1回実施し、成功を確認した。HEAD `7b4e071b735d8c309c2155c04c96869e7e774bdb`; pytest `3546 passed in 41.33s`; stdout SHA-256 `a85672383551328c0752687200efacf8ff2cd95bd46da5ba61f85ac5663846b9`; stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+
+旧 Phase 174 の固定 HEAD・関数スナップショット依存 Source Guard 4件は、現行アクティブ範囲外の既知失敗として残す。今回再実行・解決・PASS 計上していない。任意の球面ホモトピー群、5-stem 全体、全文献命題の独立検証を認定しない。
+
+初回 Closeout（HEAD `471d79109d3054b088c7f910372b5f4f6cd5efa1`）は、混入した旧 Phase 77 テストの import エラーで収集時に停止した（終了コード2）。R1 は混入4ファイルを `.py.txt` として保存し、現行テストの合格条件や除外方針を変更せず、限定5件 PASS、3546件の収集成功を確認した。R2 は修正後の現行全体テストを実行した。初回 stdout SHA-256 `41156466594bef2736fac8d1fe0f5ae43203e7c997a08d1ec5aca1cf40320b22`、stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。初回失敗記録と R1 収集記録を成功した終了記録とは別に保持する。
+
+R2 は修正後の全体 pytest に合格したが、文書生成・適用時の Windows PermissionError により終了 Gate は FAIL となった。R3 は保存済みの R2 合格証拠を検証し、全体 pytest を再実行せず主要5文書の全文更新を復旧した。R2 の失敗記録は変更せず保持する。R2 report SHA-256：`5b41bc648eaa9c2bfddba380b090e4a2349ff36721d0d3dbb94d0edfa6c784e9`。
+
+
 <!-- PHASE175_R4R14R12_DOCS_20261119 -->
 
-## Phase 175 の現行設計境界（2026-11-19・終了文書準備）
+## 履歴：Phase 175 の終了文書準備時点の設計境界（2026-11-19）
 
 k=4 の登録6群について、R4R14R11 時点の実探索で当初未完成だった `(n,k)=(3,4),(5,4),(6,4)` はいずれも `complete`、Open Goal 0 件となった。これは対象登録群の実測であり、任意のホモトピー群への一般化ではない。
 

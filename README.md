@@ -1,8 +1,31 @@
 # EHP Proof Tracer
 
+<!-- PHASE176_FINAL_CLOSEOUT_20261125 -->
+
+## Current development status — Phase 176 formally closed (active scope)
+
+Phase 176 completes the selected 5-stem target $(n,k)=(3,5)$:
+
+$$
+\pi_8^3=\mathbb Z/2\{\nu'\eta_6^2\}.
+$$
+
+The shared source-first search returns `generic-complete-proof`, with 62 linked ProofSteps (51 INFERENCE, 11 GIVEN), 10 internal citations and no open goals. The proof uses prior group results, Toda Lemma 5.7, Proposition 4.2 (4.4), Proposition 2.2, (5.3), family definitions and (5.5). It derives the zero suspension image by typed right composition, the finite cyclic Delta kernel, and the finite cyclic lift along an injective Hopf map. The target is not directly registered as a GIVEN. The first successful proof is accepted; no uniqueness search is required.
+
+The common renderer preserves the verified tree and the partial-proof state. R3R60R2 uses 18 nonblank proof-body rows (including the end marker) and nine displayed references; the auxiliary nu-family definition is omitted only in the presentation, and original citation 10 is displayed as 9. All ten internal citations remain available. The public adapter and the final narrative were verified; the R3R60R2 focused run passed 60 tests. These projections are conditional on actual typed proof dependencies, not on the target coordinates.
+
+The repaired end-of-phase active `tests/` suite was run once successfully at R2. HEAD `7b4e071b735d8c309c2155c04c96869e7e774bdb`; pytest `3546 passed in 41.33s`; stdout SHA-256 `a85672383551328c0752687200efacf8ff2cd95bd46da5ba61f85ac5663846b9`; stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`.
+
+**Scope and remaining limitations:** four historical Phase 174 source-guard failures remain outside this active suite; they were not rerun, resolved or counted as passes. This closure is for the selected target and the active suite, not every registered 5-stem group or independent verification of the original printed Toda edition. Earlier status sections below are dated history. The next phase must first select its mathematical scope; no future proof rule is introduced by this closeout.
+
+The first closeout attempt on `471d79109d3054b088c7f910372b5f4f6cd5efa1` stopped during collection (exit 2) because a reintroduced historical Phase 77 test imported an archived module. R1 preserved four misplaced files as `.py.txt` archives, without changing the active test assertions or exclusion policy. R1 passed five focused tests and collected exactly 3546 active tests. R2 completed the repaired active suite. The original failure stdout SHA-256 is `41156466594bef2736fac8d1fe0f5ae43203e7c997a08d1ec5aca1cf40320b22`, stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`. The failed attempt and collection evidence remain separate from the successful final run.
+
+R2 passed the repaired active suite but its closeout gate failed during document publication with a Windows PermissionError. R3 verified the saved R2 evidence and recovered all five complete documents without rerunning the full suite. The R2 failure record remains unchanged. R2 report SHA-256: `5b41bc648eaa9c2bfddba380b090e4a2349ff36721d0d3dbb94d0edfa6c784e9`.
+
+
 <!-- PHASE175_R4R14R12_DOCS_20261119 -->
 
-## Current development status — Phase 175 closeout pending (2026-11-19)
+## Historical checkpoint — Phase 175 before closeout (2026-11-19)
 
 Phase 175 has completed the six registered k=4 group proofs (sphere dimensions n=2 through n=7). The latest read-only R4R14R11 preflight observed `complete` and zero open goals for the three formerly unfinished groups `(n,k)=(3,4), (5,4), (6,4)`. This is evidence for these registered targets, **not** for all unstable homotopy groups or all published statements.
 
