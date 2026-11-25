@@ -1,0 +1,7 @@
+# Phase 176 R3R56 — Isolated cited-source display
+
+Requires the applied R3R55R1 public equality projection on develop. Read-only isolated presentation experiment; no production files are edited. The real public proof is observed through the previous R54/R53 trust and Web audits. The same immutable narrative model is passed to the new display-only projection.
+
+The projection supplements the missing explicit zero clause in a merged Lemma 5.7 reference, displays the already registered second (5.5) clause for n >= 5, binds a composite-right Proposition 2.2 specialization to its actual cited GIVEN, and adds the actual cited stable-family definition to the existing quadruple specialization's citation prefix. It requires exact typed source leaves, registered IDs (including shared namespaces), citation membership, root ancestry and unique rendered anchors. No database reference body is added. The source is the project's adopted transcription, not an independently verified printed edition.
+
+`run.ps1 -DryRun` verifies the reviewed source blobs and applied R55R1 patch. `run.ps1` runs four focused suites, then checks the real complete proof (62 steps, 51 inferences, 11 GIVENs, 10 references), idempotence, missing-source rejection, and unchanged partial display. Output: `%LOCALAPPDATA%/EHPProofTracerAudit/phase176_r3r56_cited_source_display_isolated/` (`before.md`, `shadow.md`, `partial.md`, `narrative.diff`, `report.json`). The public Web view is intentionally unchanged until a separately verified connection. Full pytest is not run.
