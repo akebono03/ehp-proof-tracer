@@ -11,7 +11,11 @@ from phase176_r3r58_finite_cyclic_lift_display_isolated.projection import match_
 
 @pytest.fixture(scope='module')
 def verified():
-    return capture()
+    from unittest.mock import patch
+    from phase176_r3r58_finite_cyclic_lift_display_isolated import projection
+    with patch.object(projection, 'project_finite_cyclic_lift',
+                      lambda markdown, model: (markdown, {})):
+        return capture()
 
 
 def test_real_lift_uses_five_actual_premises(verified):

@@ -1,0 +1,12 @@
+def test_exact_replacements_are_idempotent_and_reject_unknown_bytes():
+    for path in PINS:
+        raw = (ROOT / path).read_bytes()
+        assert updated_source(path, raw) == raw
+        base = previous_source(path, raw)
+        for eol in (b'\n', b'\r\n'):
+            previous = base.replace(b'\r\n', b'\n').replace(b'\n', eol)
+            changed = updated_source(path, previous)
+            assert previous_source(path, changed) == previous
+            assert updated_source(path, changed) == changed
+        with pytest.raises(ValueError):
+            updated_source(path, raw + b'\n# unknown edit\n')

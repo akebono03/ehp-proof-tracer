@@ -67,10 +67,11 @@ def test_two_exact_replacements_are_idempotent():
     from phase176_r3r57r1_public_composite_hopf_display.apply import (
         LAYOUT, previous_source,
     )
+    from phase176_r3r58r1_public_finite_cyclic_lift_display.apply import r57_stage_bytes
     for path in PINS:
         raw = (ROOT / path).read_bytes()
         if path == LAYOUT:
-            raw = previous_source(path, raw)
+            raw = previous_source(path, r57_stage_bytes(path))
         assert updated_source(path, raw) == raw
         base, _ = baseline_source(path, raw)
         for eol in ('\n', '\r\n'):

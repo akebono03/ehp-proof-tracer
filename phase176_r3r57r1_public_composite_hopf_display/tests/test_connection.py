@@ -8,8 +8,9 @@ from phase176_r3r56r3_public_cited_source_display import apply as r56
 
 
 def test_exact_replacements_are_idempotent_and_reject_unknown_bytes():
+    from phase176_r3r58r1_public_finite_cyclic_lift_display.apply import r57_stage_bytes
     for path in PINS:
-        raw = (ROOT / path).read_bytes()
+        raw = r57_stage_bytes(path)
         assert updated_source(path, raw) == raw
         base = previous_source(path, raw)
         for eol in (b'\n', b'\r\n'):
@@ -22,7 +23,8 @@ def test_exact_replacements_are_idempotent_and_reject_unknown_bytes():
 
 
 def test_previous_public_source_connection_is_preserved():
-    changes = planned_changes()
+    from phase176_r3r58r1_public_finite_cyclic_lift_display.apply import r57_stage_changes
+    changes = r57_stage_changes()
     assert all(raw == changed for raw, changed in changes.values())
     prior = previous_source(LAYOUT, changes[LAYOUT][0])
     assert r56.updated_source(LAYOUT, prior) == prior
