@@ -730,6 +730,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         )
         merged = merge_backward_expansions(merged, expand_public_left_composition(goal))
         merged = merge_backward_expansions(merged, public_unsigned_delta(goal))
+        # Phase 177 R11: existing typed composition associativity equality.
+        from phase177_r10_composition_associativity_isolated.rule import (
+            expand_composition_associativity_equality,
+        )
+        merged = merge_backward_expansions(merged, expand_composition_associativity_equality(goal))
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 
