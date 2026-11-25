@@ -1,0 +1,5 @@
+# Phase 176 R3R57 — Isolated composite-right Hopf display
+
+This package performs presentation-only projection of a certified composite-right Hopf chain. No existing production source is modified. Run `run.ps1 -DryRun` and then `run.ps1` from the repository root after applying R3R56R3.
+
+The projection checks real premise edges, exact typed equalities, existing citation ownership, no external consumers of omitted steps, and one contiguous sequence of matching rendered sentences. The independently proved suspension witness is retained without inventing a citation. The two genuine source citations are retained in the chain. Existing eta-family definition displays are unchanged. The known 62-step proof is the regression fixture only; its indices are not used to select a chain in production projection. Artifacts include `before.md`, `shadow.md`, `partial.md`, `narrative.diff`, `plan.json`, and `report.json`. A missing or ambiguous witness, citation or display anchor prevents compression. The public connection is intentionally deferred. No full pytest run is included.

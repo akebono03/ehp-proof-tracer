@@ -45,8 +45,24 @@ def _source_citation(model, scope: frozenset[int], *, statement_type: type,
     citation membership, and verified source-rule identity; a bare locator
     alone never supplies a fact.
     """
+    def namespace_prefixes(values, expected):
+        prefixes = set()
+        for value in values:
+            match = re.fullmatch(r"(shared:[0-9]+:)" + re.escape(expected), value)
+            if match is not None:
+                prefixes.add(match.group(1))
+        return prefixes
+
     citations = getattr(model, "citations", ())
+    # The shared registry prefixes both IDs with the same source index.
+    # Require a unique pair in a unique citation; a suffix alone is not evidence.
+    namespaced = [citation for citation in citations
+                  if citation.reference.locator == locator
+                  and len(namespace_prefixes(citation.assertion_ids, assertion_id)
+                          & namespace_prefixes(citation.reference_ids, reference_id)) == 1]
+    namespace_citation = namespaced[0] if len(namespaced) == 1 else None
     matches = []
+    namespace_matches = []
     for citation in citations:
         if citation.reference.locator != locator:
             continue
@@ -70,7 +86,12 @@ def _source_citation(model, scope: frozenset[int], *, statement_type: type,
                 )
             if registered:
                 matches.append((citation, i))
-    return matches[0] if len(matches) == 1 else None
+            elif citation is namespace_citation:
+                namespace_matches.append((citation, i))
+    # Preserve the legacy direct/provenance path, including its ambiguity guard.
+    if matches:
+        return matches[0] if len(matches) == 1 else None
+    return namespace_matches[0] if len(namespace_matches) == 1 else None
 
 
 def _reference_body_lines(lines: list[str], model, scope: frozenset[int]):

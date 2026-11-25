@@ -450,6 +450,22 @@ def render_model_backed_narrative_markdown(
                 model, order, suppressed_body_indices,
             )
         )
+    if not incomplete:
+        protected_equalities = set()
+        if order_summary is not None:
+            protected_equalities.update(order)
+        if direct_sum_display is not None:
+            protected_equalities.add(direct_sum_display.root_index)
+        if stable_chain_display is not None:
+            protected_equalities.add(stable_chain_display.root_index)
+        if hopf_display is not None:
+            protected_equalities.update((hopf_display.formula_index, hopf_display.image_index))
+        from phase176_r3r55_equality_display_isolated.projection import (
+            project_redundant_equalities,
+        )
+        suppressed_body_indices.update(project_redundant_equalities(
+            model, order, suppressed_body_indices, protected_equalities,
+        ))
     for index in order:
         if order_summary is not None and index == model.root_index:
             lines.extend((order_summary, ""))
