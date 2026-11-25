@@ -1,0 +1,5 @@
+# Phase 176 R3R60 — Citation and redundant premise display audit
+
+This read-only audit checks the actual trusted complete narrative after R3R59R4. It replays the existing typed Lemma 5.7 extraction, right-zero transport and Toda (5.5) specialization rules. It records exact source and consumer steps, candidate body edits and potentially unused reference headers. It does not change source files, proof search, rules, model citations, public rendering, reference numbering or project documents. Candidate text is diagnostic only, not a production projection. A successful audit can still report unresolved dependency review.
+
+Run `run.ps1 -DryRun`, then `run.ps1` from PowerShell. Only focused tests run. The report, full step index and actual complete/partial narratives are stored under `%LOCALAPPDATA%/EHPProofTracerAudit/phase176_r3r60_citation_redundant_premise_audit/`. The expected starting body is 19 rows; the candidate body has 18 if both typed candidates are recognized. Whether to omit or retain an auxiliary reference header is deferred to the next phase. No full pytest run is performed.
