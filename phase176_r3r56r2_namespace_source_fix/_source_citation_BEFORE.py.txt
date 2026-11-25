@@ -1,0 +1,37 @@
+def _source_citation(model, scope: frozenset[int], *, statement_type: type,
+                     assertion_id: str, reference_id: str, locator: str,
+                     allow_provenance_fallback: bool = False):
+    """Bind a real cited GIVEN to a typed, used, source-screened proof leaf.
+
+    Prefer the precise registry IDs. The historical Proposition 2.2 path can
+    carry only the original ProofStep's attached LiteratureReference in the
+    Narrative Model. Its fallback requires the exact proved source leaf,
+    citation membership, and verified source-rule identity; a bare locator
+    alone never supplies a fact.
+    """
+    citations = getattr(model, "citations", ())
+    matches = []
+    for citation in citations:
+        if citation.reference.locator != locator:
+            continue
+        for i in citation.step_indices:
+            if (i not in scope or type(model.steps[i].conclusion) is not statement_type
+                    or model.steps[i].rule is not ProofRule.GIVEN
+                    or model.steps[i].premises
+                    or citation.number not in model.step_citation_numbers[i]):
+                continue
+            registered = (assertion_id in citation.assertion_ids
+                          and reference_id in citation.reference_ids)
+            if not registered and allow_provenance_fallback:
+                source = model.steps[i].inference_rule
+                reference = getattr(source, "literature_reference", None)
+                registered = (
+                    statement_type.__name__ == "TodaProp22RightFormula"
+                    and getattr(source, "name", None)
+                    == "Toda Proposition 2.2 right-Hopf source"
+                    and getattr(reference, "locator", None) == locator
+                    and locator == "Proposition 2.2"
+                )
+            if registered:
+                matches.append((citation, i))
+    return matches[0] if len(matches) == 1 else None
