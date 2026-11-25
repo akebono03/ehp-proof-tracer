@@ -1,0 +1,6 @@
+def test_pi43_existing_typed_output_maintained():
+    text = _render(3, 1)
+    assert "準同型定理" in text
+    assert r"\ker(E:\pi_{3}^{2}\to \pi_{4}^{3})=\langle 2\eta_{2}\rangle" in text
+    assert r"\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}" in text
+    assert text.count("次の完全列を考える") == 1
