@@ -719,6 +719,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         merged = merge_backward_expansions(merged, expand_public_suspension_equality(
             goal, tuple(available) + prior_conclusions,
         ))
+        # Phase 177 R7R1: existing typed left-composition congruence.
+        from phase177_r7r1_left_composition_public.provider import (
+            expand_public_left_composition,
+        )
+        merged = merge_backward_expansions(merged, expand_public_left_composition(goal))
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 
