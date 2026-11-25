@@ -712,6 +712,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
                 raise
             seeded_options = ()
         merged = merge_backward_expansions(merged, seeded_options)
+        # Phase 177 R6: append general suspension equality proposals.
+        from phase177_r6_general_suspension_public.provider import (
+            expand_public_suspension_equality,
+        )
+        merged = merge_backward_expansions(merged, expand_public_suspension_equality(
+            goal, tuple(available) + prior_conclusions,
+        ))
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 
