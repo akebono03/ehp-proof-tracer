@@ -76,7 +76,12 @@ def test_actual_db_root_candidate_requires_same_typed_goal():
 
 
 def test_patch_minimal_and_idempotent():
-    source=TARGET.read_bytes().decode('utf-8')
+    # Test the historical R44 installer on the reviewed pre-R51 shared blob.
+    import subprocess
+    source=subprocess.check_output(
+        ['git', 'cat-file', 'blob', '937e8627f2d8d8a60ec7b36186fec5633b5604cd'],
+        cwd=TARGET.parent,
+    ).decode('utf-8').replace('\r\n', '\n')
     assert updated_source(source)==source
     assert source.count(SETUP)==source.count(DISPATCH)==1
     baseline=source.replace(SETUP,'',1).replace(DISPATCH,'',1)

@@ -12,6 +12,7 @@ from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
 from phase165_r14_r6_generic_iso import MapInjective
 from phase165_r3_recursive_search import GoalExpansion
 from phase171_r2j_r2_cyclic_hopf_surjective.source import _coordinates
+from phase169_r10e4_ordered_db_prior.db_prior import verified_db_step
 from proof import InferenceRule, PremisePattern, ProofRule, Relation, RelationType
 from toda_rules import TodaProp42ExactnessStatement
 
@@ -71,6 +72,7 @@ def finite_cyclic_subgroup_lift_inputs(
 def finite_cyclic_subgroup_lift_rule(
     goal: CyclicStructureStatement, exactness: EHPImageEqualsKernelStatement,
     codomain: Relation, kernel: KernelMultipleStatement, image: Relation,
+    *, bridge=None, proof_target=None,
 ) -> InferenceRule:
     """An injective H identifies its source with the proved subgroup <qb>."""
     required = finite_cyclic_subgroup_lift_inputs(goal, exactness, codomain, kernel, image)
@@ -79,7 +81,10 @@ def finite_cyclic_subgroup_lift_rule(
 
     def guard(premises, bindings):
         return (len(premises) == 5
-                and all(step.rule is ProofRule.INFERENCE for step in premises)
+                and all(premises[j].rule is ProofRule.INFERENCE for j in (0, 1, 3, 4))
+                and (premises[2].rule is ProofRule.INFERENCE
+                     or (bridge is not None and proof_target is not None
+                         and verified_db_step(premises[2], proof_target=proof_target, bridge=bridge)))
                 and tuple(step.conclusion for step in premises) == required
                 and finite_cyclic_subgroup_lift_inputs(
                     goal, *(step.conclusion for step in premises[1:])) == required)
@@ -91,9 +96,10 @@ def finite_cyclic_subgroup_lift_rule(
                      "and H(a)=qb imply that a generates the source and has "
                      "order m/gcd(m,q). All five premises are independent."),
         premise_patterns=tuple(
-            PremisePattern(proof_rule=ProofRule.INFERENCE, statement_type=type(item),
-                           statement_pattern=item)
-            for item in required
+            PremisePattern(proof_rule=(None if j == 2 and bridge is not None
+                                       and proof_target is not None else ProofRule.INFERENCE),
+                           statement_type=type(item), statement_pattern=item)
+            for j, item in enumerate(required)
         ),
         conclusion_pattern=goal,
         match_guard=guard,
@@ -102,12 +108,14 @@ def finite_cyclic_subgroup_lift_rule(
 
 def expand_finite_cyclic_subgroup_lift(
     goal: object, exactness: object, codomain: object, kernel: object, image: object,
+    *, bridge=None, proof_target=None,
 ) -> tuple[GoalExpansion, ...]:
     """Construct an isolated candidate from explicit typed witnesses only."""
     required = finite_cyclic_subgroup_lift_inputs(goal, exactness, codomain, kernel, image)
     if required is None:
         return ()
     return (GoalExpansion(
-        finite_cyclic_subgroup_lift_rule(goal, exactness, codomain, kernel, image),
+        finite_cyclic_subgroup_lift_rule(goal, exactness, codomain, kernel, image,
+                                         bridge=bridge, proof_target=proof_target),
         required,
     ),)

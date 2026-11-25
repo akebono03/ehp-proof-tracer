@@ -44,6 +44,12 @@ TEST_SETUP = '''        # This is a historical R46 installer contract, not a pin
 def updated_source(path, raw):
     text, eol = normalize(raw)
     if path == SHARED:
+        # R3R51 changes only the existing R44 factory call. Accept that exact
+        # successor without removing it; unknown subsequent edits still fail.
+        from phase176_r3r51_verified_db_subgroup_lift.apply import OLD_HOOK, NEW_HOOK, PINS as R51_PINS
+        from phase176_r3r46r1_prior_group_availability.apply import pinned
+        if text.count(NEW_HOOK) == 1 and pinned(text.replace(NEW_HOOK, OLD_HOOK, 1), R51_PINS[SHARED]):
+            return raw
         # Scope the source anchor to build_shared_typed_bridge. Other functions
         # may also create registries; the combined anchor is unique.
         anchor = '        sources = sources + (build_cited_toda55_quadruple_source(),)\n' + SOURCE_ANCHOR

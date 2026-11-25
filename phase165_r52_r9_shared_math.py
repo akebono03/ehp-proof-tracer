@@ -385,6 +385,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     )
     public_subgroup_lift = build_public_subgroup_lift_provider(
         tuple(available), prior_conclusions,
+        bridge=bridge, proof_target=proof_target,
     )
 
     # Phase 175 R4R5R3: reusable finite-cyclic summand order-to-zero rule.
