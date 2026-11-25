@@ -735,6 +735,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_composition_associativity_equality,
         )
         merged = merge_backward_expansions(merged, expand_composition_associativity_equality(goal))
+        # Phase 177 R12: typed RHS reassociation via existing transitivity.
+        from phase177_r12_reassociation_transitivity_public.provider import (
+            expand_public_reassociation_transitivity,
+        )
+        merged = merge_backward_expansions(merged, expand_public_reassociation_transitivity(goal))
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 
