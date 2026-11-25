@@ -1,0 +1,14 @@
+def test_prior_stage_is_exact_and_restored():
+    from phase176_r3r60r2_public_citation_premise_elision.apply import previous_stage as r60_stage
+    with r60_stage():
+        from phase176_r3r59r3_definitional_suspension_elision_isolated import projection
+        from phase176_r3r59r3_definitional_suspension_elision_isolated.audit import preflight
+        current = {path:(ROOT/path).read_bytes() for path in PINS}
+        hook = projection.project_definitional_suspension_elision
+        assert all(raw == new for raw,new in planned_changes().values())
+        with previous_stage():
+            assert preflight()
+            assert all((ROOT/path).read_bytes() == previous_source(path,raw) for path,raw in current.items())
+            assert projection.project_definitional_suspension_elision is not hook
+        assert projection.project_definitional_suspension_elision is hook
+        assert all((ROOT/path).read_bytes() == raw for path,raw in current.items())

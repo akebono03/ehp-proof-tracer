@@ -12,7 +12,9 @@ from phase176_r3r60r1_citation_premise_elision_isolated.projection import (
 
 @pytest.fixture(scope='module')
 def verified():
-    return capture()
+    from phase176_r3r60r2_public_citation_premise_elision.apply import previous_stage
+    with previous_stage():
+        return capture()
 
 
 def test_real_elision_keeps_model_and_renumbers_display(verified):

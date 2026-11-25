@@ -1,0 +1,9 @@
+def test_actual_public_elision():
+    from phase176_r3r60r2_public_citation_premise_elision.apply import previous_stage as r60_stage
+    with r60_stage():
+        report = observe()
+        assert report['gate'] == 'PASS_R3R59R4_PUBLIC_DEFINITIONAL_SUSPENSION_ELISION_CONNECTED'
+        assert report['body_rows_before'] == 21 and report['body_rows_after'] == 19
+        assert report['model_unchanged'] and report['partial_render_unchanged']
+        assert report['root_display_count'] == 1
+        assert report['references_without_explicit_body_use'] == []
