@@ -454,6 +454,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         build_finite_delta_kernel_provider(bridge=bridge, proof_target=proof_target),
     )
 
+    # Phase 177 R8: screened unsigned Prop 2.5 backward candidates.
+    from phase177_r8_unsigned_delta_public.provider import (
+        build_public_unsigned_delta_provider,
+    )
+    public_unsigned_delta = build_public_unsigned_delta_provider(bridge, prior_conclusions)
     shared_provider_registry = build_shared_expansion_provider_registry(
         expand_generic_iso_goal=expand_generic_iso_goal,
         expand_generic_ehp_hopf_goal=expand_generic_ehp_hopf_goal,
@@ -724,6 +729,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_public_left_composition,
         )
         merged = merge_backward_expansions(merged, expand_public_left_composition(goal))
+        merged = merge_backward_expansions(merged, public_unsigned_delta(goal))
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 
