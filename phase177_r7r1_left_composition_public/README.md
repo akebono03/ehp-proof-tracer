@@ -1,0 +1,7 @@
+# Phase 177 R7R1 — General Left Composition Public Connection
+
+Pinned to `14a7fb8404da839c9ca13a818f3d6172db7f948a` (`177-7`). Run after R7 has been committed and pushed. Reuses the existing left composition congruence rule. For a typed goal $a\circ b=a\circ c$, propose $b=c$ as an independent subgoal. This is a sufficient proof route, not cancellation of a common factor. No new mathematical rule, source, GIVEN, target-specific proof, or Delta connection is introduced.
+
+The installer appends one hook to `shared_expansion_provider()` in `phase165_r52_r9_shared_math.py`. It preserves the prior candidate order, validates pinned inputs, rejects unrelated tracked/staged edits, and permits reruns with exactly its own patch. DryRun does not alter tracked files. The full updated function and imports and entire updated shared file are written to the external audit directory. On execution the original target bytes are backed up; a failing test leaves the patch for inspection.
+
+`run.ps1 -DryRun` performs preflight. `run.ps1` installs the hook and runs focused tests only: candidate/type guards, six real public composition searches and captured provider search, the prior R7 audit tests, R6 public tests, and Phase 176 existing equality transport tests. The actual chosen congruence ancestor is replayed, including when symmetry supplies the final equality. The root group result is observational; it is not required to complete in R7R1. No full-suite pytest is run.
