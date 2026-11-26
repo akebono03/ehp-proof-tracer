@@ -1,8 +1,27 @@
 # EHP Proof Tracer
 
+<!-- PHASE177_FINAL_CLOSEOUT_20261126 -->
+
+## Current development status — Phase 177 formally closed (active scope)
+
+Phase 177 completes $(n,k)=(5,5)$:
+
+$$
+\pi_{10}^5=\mathbb Z/2\{\nu_5\eta_8^2\}.
+$$
+
+The source-first public search returns `generic-complete-proof`: 43 linked ProofSteps (35 INFERENCE, 8 GIVEN), eight references, four verified prior database results, zero open goals, and no direct target GIVEN. R18 passed 101 focused tests. The proof combines the conditional unsigned Delta composition formula, typed suspension and reassociation, order of a direct-summand generator, finite cyclic injectivity, EHP exactness and suspension surjectivity, and the existing rank-two quotient rule. The common renderer compresses auxiliary equalities without removing internal proof nodes or citations. The first successful proof is accepted; no uniqueness search or target-specific proof/narrative is introduced.
+
+The scoped closeout measured all 15 registered unstable groups with $k\le5$ as complete (zero incomplete or unmeasured); all six registered 5-stem groups also completed in the original measurement, including one stable-range group. Of the 831 distinct CSV coordinates with $n\ge2,k\ge0$, the 313 stable-range coordinates ($n\ge k+2$) and 503 future unstable coordinates were excluded from R1's individual searches. The initial scan observed 75 coordinates before interruption; this is not an audit of every stable or registered group. The established stable-group completion policy is retained without new individual stable searches in R1.
+
+The active `tests/` suite ran once on `70d3ba540adebe96ada08728d045c1153e7e919a`: **3546 passed in 40.59s**. Stdout SHA-256: `c4ae4d18ff61978278a266ff55e3a9acd88ef56b517f6997cfba2c9179ded572`; stderr SHA-256: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`. The scoped R1 report SHA-256 is `adcb8904e39bc801bc6d03f626e4c009a5a406a9bb86897a89100bd0dee60e96`. The original measurement was interrupted during the overly broad group scan, after pytest had passed. R1 reused eight active group observations and ran only the seven missing searches; it did not rerun pytest. The final document gate reuses those results without new proof searches. Four known historical Phase 174 Source Guard failures remain outside the active suite; they were not rerun, resolved or counted as passing.
+
+Next: audit registered unstable 6-stem groups before selecting a Phase 178 target. This closeout certifies only the measured active scope, not every CSV group or independent verification of all printed literature.
+
+
 <!-- PHASE176_FINAL_CLOSEOUT_20261125 -->
 
-## Current development status — Phase 176 formally closed (active scope)
+## Historical status — Phase 176 formally closed (active scope)
 
 Phase 176 completes the selected 5-stem target $(n,k)=(3,5)$:
 

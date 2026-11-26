@@ -1,8 +1,27 @@
 # EHP Proof Tracer ロードマップ
 
+<!-- PHASE177_FINAL_CLOSEOUT_20261126 -->
+
+## Phase 177 正式終了後の現在地と Phase 178 の境界
+
+選定目標 $(n,k)=(5,5)$：
+
+$$
+\pi_{10}^{5}=\mathbb Z/2\{\nu_5\eta_8^2\}.
+$$
+
+`generic-complete-proof`、証明木43段階（INFERENCE 35、GIVEN 8）、出典8件、先行 DB 結果4件、Open Goals 0、対象結論の直接 GIVEN 0。R18 限定 pytest 101件 PASS。公開の型付き参照探索、Trust Boundary（信頼境界）、Narrative（証明表示）を確認した。
+
+CSV の重複除去後の831座標（$n\ge2, k\ge0$）のうち、現行安定判定 `is_in_toda_stable_range`（$n\ge k+2$）に従い、$k\le5$ の非安定登録群15件を監査し、15件すべて complete、Open Goals 0、未完成・未測定0件。k=1,2,3,4,5 の非安定群は各1,2,3,4,5件。k=5 の登録6群（安定範囲1群を含む）も初回実測ですべて complete。安定群313件は既存完成方針に従い R1 の個別探索対象外、将来の非安定群503件も対象外。初回は75座標まで探索したが、全831群の完成を認定しない。安定群313件すべてを今回再検証したとは主張しない。
+
+現行アクティブ `tests/` の全体 pytest は HEAD `70d3ba540adebe96ada08728d045c1153e7e919a` で1回実行し、**3546 passed in 40.59s**（終了コード0）。stdout SHA-256：`c4ae4d18ff61978278a266ff55e3a9acd88ef56b517f6997cfba2c9179ded572`、stderr SHA-256：`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。範囲修正 R1 report SHA-256：`adcb8904e39bc801bc6d03f626e4c009a5a406a9bb86897a89100bd0dee60e96`。初回は全体 pytest 成功後、過大な登録群探索中の KeyboardInterrupt により終了 Gate が FAIL となった。R1 は非安定群8件の既存観測を再利用し、不足7件のみ探索した。全体 pytest は再実行していない。最終文書 Gate でも再探索・再テストしない。歴史的な Phase 174 Source Guard 4件は現行範囲外の既知失敗として残し、再実行・解決・PASS 計上していない。
+
+次の Phase 178 は $k=6$ の非安定登録群の Source-first 監査を開始候補とする。現行コード・出典・未完成 Goal の確認後に対象を確定し、今回新規規則や将来 Phase の機能を追加しない。以後の Closeout は開発済み stem までの非安定登録群を対象とし、安定群は個別再探索せず、将来の非安定群も対象外とする。取得済み実測を再利用し、全体 pytest は Phase 末尾にのみ実行する。
+
+
 <!-- PHASE176_FINAL_CLOSEOUT_20261125 -->
 
-## Phase 176 正式終了後の現在地と次 Phase の境界
+## Phase 176 正式終了時の計画（履歴）
 
 選定目標 $(n,k)=(3,5)$ は $\pi_8^3=\mathbb Z/2\{\nu'\eta_6^2\}$、`generic-complete-proof`、Open Goals 0。証明木62段階（INFERENCE 51、GIVEN 11）、内部出典10件、共通 Narrative 本文18行・表示出典9件を確認した。Phase 175 の k=4 登録6群の終了記録は履歴として維持する。
 
