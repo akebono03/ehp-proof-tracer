@@ -252,6 +252,13 @@ def map_property_sentence(statement, step):
         from phase178_r10_equal_cardinality_reason_display.projection import project_equal_cardinality_reason
         return project_equal_cardinality_reason(statement, step) or result
 
+    # Phase 178 R11: explain the actual combined Delta-injective EHP inference.
+    from phase175_r4r12r13r2_delta_injective_e_surjective.rule import E_RULE_NAME as combined_e_rule
+    if (type(statement) is MapSurjective and step.inference_rule is not None
+            and step.inference_rule.name == combined_e_rule):
+        from phase178_r11_hopf_zero_reason_display.projection import project_hopf_zero_reason
+        return project_hopf_zero_reason(statement, step) or result
+
     premises = tuple(parent.conclusion for parent in step.premises)
     exact = tuple(item.window for item in premises if isinstance(item, TodaProp42ExactnessStatement))
 
