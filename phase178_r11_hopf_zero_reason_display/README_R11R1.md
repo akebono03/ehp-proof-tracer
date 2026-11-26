@@ -1,0 +1,3 @@
+# Phase 178 R11R1 — Sentence layout audit correction
+
+Extract over the original R11 package. Only audit.py and a new regression test are changed; production projection and installer remain unchanged. The previous run stopped after installation, before pytest. The common complete-proof renderer splits prose at a period followed by a space, so the former whole-sentence substring check cannot match the final paragraphs. Require both exact paragraphs once, adjacent and ordered in the proof body. Save narrative.md before any display assertion. Distinguish a failed projection from missing rendered paragraphs. Run the original run.ps1 with -DryRun and then without it. Expected focused test count: 20; original R11 gate names remain. No full pytest.
