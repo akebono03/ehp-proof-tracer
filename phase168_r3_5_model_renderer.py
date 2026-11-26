@@ -468,6 +468,7 @@ def render_model_backed_narrative_markdown(
         ))
     concise_delta_sentences = {}
     prop25_chain_sentences = {}
+    retained_cited_equalities = {}
     if not incomplete:
         from phase177_r17r1_finite_delta_reason_display.projection import project_concise_delta_display
         hidden, concise_delta_sentences = project_concise_delta_display(
@@ -659,6 +660,7 @@ def render_model_backed_narrative_markdown(
             )
             if extension_reason is not None:
                 sentence = extension_reason
+        cited_equality_start = len(lines)
         if sentence is not None:
             # The certified kernel step already consumes the suppressed
             # exactness equality and a concrete Delta image. Compose only
@@ -788,6 +790,16 @@ def render_model_backed_narrative_markdown(
                 lines.append(f"{prefix}{projected}" if projected is not None
                              else f"{prefix}${statement_latex}$.")
             lines.append("")
+        if (not incomplete and len(lines) == cited_equality_start + 2
+                and lines[-1] == ""):
+            from phase177_r17r5_duplicate_cited_equality.projection import (
+                omit_duplicate_cited_equality,
+            )
+            if omit_duplicate_cited_equality(
+                model, index, lines[cited_equality_start], retained_cited_equalities,
+                protected_equalities,
+            ):
+                del lines[cited_equality_start:]
     if incomplete:
         if model.open_goals:
             lines.extend(("", "## 未解決 Goal", ""))

@@ -1,0 +1,5 @@
+# Phase 177 R17R5 — Duplicate cited equality display
+
+Only the complete narrative renderer is changed. A previously emitted direct, cited equality may replace a later identical sentence only when both actual inferences replay, their cited GIVEN conclusions and citation numbers agree, their inference rules agree, and their typed equalities agree exactly or via the existing registered generator identity at checked endpoints. No search, proof step, GIVEN, citation, or mathematical rule is modified. Roots, partial proofs, protected projections, different sources and ambiguous equalities are retained.
+
+The reviewed baseline is `b30678c9aca3188d0190bbf2b5e36fcdb2b24c16`. Run `run.ps1 -DryRun` first; it exports the full proposed renderer to the local audit folder. Run `run.ps1` for installation and focused tests. The actual public (5,5) narrative must contain the cited Delta equality exactly once and preserve the 43 steps, eight citations, and the existing Prop 2.5 compressed equality. Full pytest is reserved for phase closeout.
