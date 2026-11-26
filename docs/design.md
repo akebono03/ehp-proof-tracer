@@ -1,8 +1,29 @@
 # EHP Proof Tracer 設計
 
+<!-- PHASE177_FINAL_CLOSEOUT_20261126 -->
+
+## Phase 177 の現行設計と終了監査の境界
+
+選定目標 $(n,k)=(5,5)$：
+
+$$
+\pi_{10}^{5}=\mathbb Z/2\{\nu_5\eta_8^2\}.
+$$
+
+`generic-complete-proof`、証明木43段階（INFERENCE 35、GIVEN 8）、出典8件、先行 DB 結果4件、Open Goals 0、対象結論の直接 GIVEN 0。R18 限定 pytest 101件 PASS。公開の型付き参照探索、Trust Boundary（信頼境界）、Narrative（証明表示）を確認した。
+
+Proposition 2.5 の条件付き符号なし Δ 合成、一般懸垂等式、合成結合律と等式推移律、直和成分の位数、有限巡回群の生成元像の位数による単射性、Δ 単射と連続する EHP 完全性から E 全射、既存の rank-two elementary 2-group quotient（階数2の基本2群の商）および懸垂合成規則を接続した。対象群専用証明・専用 Narrative・結論直接 GIVEN は追加しない。Source-first、First Successful Proof Search、唯一性検査なしを維持する。
+
+R17R1〜R17R6R1 は共通 Renderer で有限巡回群の単射理由、商群、補助懸垂等式、対称律・結合律・推移律の等式連鎖、重複等式、懸垂合成の補助等式と出典引き継ぎを整理した。表示圧縮は実際の型付き依存関係に基づき、Verified Proof Tree → `ProofNarrativeModel` → 共通 Renderer → Web の経路を維持する。内部証明木・出典・未解決状態を書き換えない。
+
+CSV の重複除去後の831座標（$n\ge2, k\ge0$）のうち、現行安定判定 `is_in_toda_stable_range`（$n\ge k+2$）に従い、$k\le5$ の非安定登録群15件を監査し、15件すべて complete、Open Goals 0、未完成・未測定0件。k=1,2,3,4,5 の非安定群は各1,2,3,4,5件。k=5 の登録6群（安定範囲1群を含む）も初回実測ですべて complete。安定群313件は既存完成方針に従い R1 の個別探索対象外、将来の非安定群503件も対象外。初回は75座標まで探索したが、全831群の完成を認定しない。安定群313件すべてを今回再検証したとは主張しない。
+
+現行アクティブ `tests/` の全体 pytest は HEAD `70d3ba540adebe96ada08728d045c1153e7e919a` で1回実行し、**3546 passed in 40.59s**（終了コード0）。stdout SHA-256：`c4ae4d18ff61978278a266ff55e3a9acd88ef56b517f6997cfba2c9179ded572`、stderr SHA-256：`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。範囲修正 R1 report SHA-256：`adcb8904e39bc801bc6d03f626e4c009a5a406a9bb86897a89100bd0dee60e96`。初回は全体 pytest 成功後、過大な登録群探索中の KeyboardInterrupt により終了 Gate が FAIL となった。R1 は非安定群8件の既存観測を再利用し、不足7件のみ探索した。全体 pytest は再実行していない。最終文書 Gate でも再探索・再テストしない。歴史的な Phase 174 Source Guard 4件は現行範囲外の既知失敗として残し、再実行・解決・PASS 計上していない。
+
+
 <!-- PHASE176_FINAL_CLOSEOUT_20261125 -->
 
-## Phase 176 の現行設計境界（終了監査）
+## Phase 176 の設計境界（終了時の履歴）
 
 対象は $(n,k)=(3,5)$ の $\pi_8^3=\mathbb Z/2\{\nu'\eta_6^2\}$。Source-first（出典優先）、First Successful Proof Search（最初の成功で終了）、唯一性検査なしを維持する。出典に基づく型付き GIVEN、一般規則の INFERENCE、先行 DB の検証を分離する。対象結論の直接 GIVEN 登録や群専用 Narrative は導入しない。
 

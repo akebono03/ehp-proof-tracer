@@ -8125,3 +8125,25 @@ R2 で修正後の現行アクティブ `tests/` 全体 pytest を1回実施し�
 初回 Closeout（HEAD `471d79109d3054b088c7f910372b5f4f6cd5efa1`）は、混入した旧 Phase 77 テストの import エラーで収集時に停止した（終了コード2）。R1 は混入4ファイルを `.py.txt` として保存し、現行テストの合格条件や除外方針を変更せず、限定5件 PASS、3546件の収集成功を確認した。R2 は修正後の現行全体テストを実行した。初回 stdout SHA-256 `41156466594bef2736fac8d1fe0f5ae43203e7c997a08d1ec5aca1cf40320b22`、stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。初回失敗記録と R1 収集記録を成功した終了記録とは別に保持する。
 
 R2 は修正後の全体 pytest に合格したが、文書生成・適用時の Windows PermissionError により終了 Gate は FAIL となった。R3 は保存済みの R2 合格証拠を検証し、全体 pytest を再実行せず主要5文書の全文更新を復旧した。R2 の失敗記録は変更せず保持する。R2 report SHA-256：`5b41bc648eaa9c2bfddba380b090e4a2349ff36721d0d3dbb94d0edfa6c784e9`。
+
+<!-- PHASE177_FINAL_CLOSEOUT_20261126 -->
+
+## 2026-11-26 — Phase 177 正式終了（現行範囲）
+
+選定目標 $(n,k)=(5,5)$：
+
+$$
+\pi_{10}^{5}=\mathbb Z/2\{\nu_5\eta_8^2\}.
+$$
+
+`generic-complete-proof`、証明木43段階（INFERENCE 35、GIVEN 8）、出典8件、先行 DB 結果4件、Open Goals 0、対象結論の直接 GIVEN 0。R18 限定 pytest 101件 PASS。公開の型付き参照探索、Trust Boundary（信頼境界）、Narrative（証明表示）を確認した。
+
+Proposition 2.5 の条件付き符号なし Δ 合成、一般懸垂等式、合成結合律と等式推移律、直和成分の位数、有限巡回群の生成元像の位数による単射性、Δ 単射と連続する EHP 完全性から E 全射、既存の rank-two elementary 2-group quotient（階数2の基本2群の商）および懸垂合成規則を接続した。対象群専用証明・専用 Narrative・結論直接 GIVEN は追加しない。Source-first、First Successful Proof Search、唯一性検査なしを維持する。
+
+R17R1〜R17R6R1 は共通 Renderer で有限巡回群の単射理由、商群、補助懸垂等式、対称律・結合律・推移律の等式連鎖、重複等式、懸垂合成の補助等式と出典引き継ぎを整理した。表示圧縮は実際の型付き依存関係に基づき、Verified Proof Tree → `ProofNarrativeModel` → 共通 Renderer → Web の経路を維持する。内部証明木・出典・未解決状態を書き換えない。
+
+現行アクティブ `tests/` の全体 pytest は HEAD `70d3ba540adebe96ada08728d045c1153e7e919a` で1回実行し、**3546 passed in 40.59s**（終了コード0）。stdout SHA-256：`c4ae4d18ff61978278a266ff55e3a9acd88ef56b517f6997cfba2c9179ded572`、stderr SHA-256：`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。範囲修正 R1 report SHA-256：`adcb8904e39bc801bc6d03f626e4c009a5a406a9bb86897a89100bd0dee60e96`。初回は全体 pytest 成功後、過大な登録群探索中の KeyboardInterrupt により終了 Gate が FAIL となった。R1 は非安定群8件の既存観測を再利用し、不足7件のみ探索した。全体 pytest は再実行していない。最終文書 Gate でも再探索・再テストしない。歴史的な Phase 174 Source Guard 4件は現行範囲外の既知失敗として残し、再実行・解決・PASS 計上していない。
+
+CSV の重複除去後の831座標（$n\ge2, k\ge0$）のうち、現行安定判定 `is_in_toda_stable_range`（$n\ge k+2$）に従い、$k\le5$ の非安定登録群15件を監査し、15件すべて complete、Open Goals 0、未完成・未測定0件。k=1,2,3,4,5 の非安定群は各1,2,3,4,5件。k=5 の登録6群（安定範囲1群を含む）も初回実測ですべて complete。安定群313件は既存完成方針に従い R1 の個別探索対象外、将来の非安定群503件も対象外。初回は75座標まで探索したが、全831群の完成を認定しない。安定群313件すべてを今回再検証したとは主張しない。
+
+次の Phase 178 は $k=6$ の非安定登録群の Source-first 監査を開始候補とする。現行コード・出典・未完成 Goal の確認後に対象を確定し、今回新規規則や将来 Phase の機能を追加しない。以後の Closeout は開発済み stem までの非安定登録群を対象とし、安定群は個別再探索せず、将来の非安定群も対象外とする。取得済み実測を再利用し、全体 pytest は Phase 末尾にのみ実行する。
