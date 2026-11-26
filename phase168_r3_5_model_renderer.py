@@ -473,6 +473,12 @@ def render_model_backed_narrative_markdown(
             model, order, suppressed_body_indices,
         )
         suppressed_body_indices.update(hidden)
+        from phase177_r17r4r1_prop25_suspension_elision.projection import (
+            project_prop25_suspension_elision,
+        )
+        suppressed_body_indices.update(project_prop25_suspension_elision(
+            model, order, suppressed_body_indices, protected_equalities,
+        ))
     for index in order:
         if order_summary is not None and index == model.root_index:
             lines.extend((order_summary, ""))
