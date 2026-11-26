@@ -468,6 +468,14 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         expand_delta_surjective_from_zero_suspension,
     )
 
+    # Phase 178 R7: expose the unchanged R6 finite group cardinality rule.
+    from phase178_r7_finite_group_cardinality_public.provider import (
+        build_public_finite_cardinality_provider,
+    )
+    extra_providers = tuple(extra_providers) + (
+        build_public_finite_cardinality_provider(bridge=bridge, proof_target=proof_target),
+    )
+
     # Phase 177 R8: screened unsigned Prop 2.5 backward candidates.
     from phase177_r8_unsigned_delta_public.provider import (
         build_public_unsigned_delta_provider,
