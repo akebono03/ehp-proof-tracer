@@ -838,4 +838,8 @@ def render_model_backed_narrative_markdown(
             project_suspension_composition_display,
         )
         lines, _ = project_suspension_composition_display(lines, model, protected_equalities)
+        from phase178_r12r1_suspension_composition_display.projection import (
+            project_zero_suspension_composition,
+        )
+        lines = project_zero_suspension_composition(lines, model, protected_equalities)
     return "\n".join(lines).rstrip() + "\n"
