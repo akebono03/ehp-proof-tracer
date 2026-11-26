@@ -1,0 +1,106 @@
+"""Install only the common complete-narrative suppression hook."""
+from __future__ import annotations
+
+import argparse
+import ast
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+
+from phase177_r2_cited_511_reuse_audit.audit import git, matches_blob
+from phase177_r6_general_suspension_public.installer import normalize
+
+ROOT = Path(__file__).resolve().parents[1]
+BASE = '7d6b35deb2a5c3d8f6740844460a5bae41a206ce'
+TARGET = 'phase168_r3_5_model_renderer.py'
+PINS = {
+    TARGET: 'af4116b2cbc20c578350daf13c274a166c5ea442',
+    'phase168_r3_27_typed_statement_projection.py': 'fc19a65386b92ce096c3f4c55fc10622b19c3d65',
+    'phase165_r52_r9_shared_math.py': 'f4383a0c248fe62903203d1863df345740581c59',
+    'phase177_r17r1_finite_delta_reason_display/projection.py': '8829b03bc1d5c1033013d76fe878c8af1dbae559',
+    'phase177_r17r1_finite_delta_reason_display/tests/test_display.py': '5c145a1a8a04d45384cfe52fbc112aa3c5616941',
+    'phase177_r17r3_rank_two_quotient_display/projection.py': 'b7ffda82255b0d3c6e7d37389515b376c902edc0',
+    'phase177_r17r3_rank_two_quotient_display/tests/test_display.py': '9d3c1d32cb44fcc9210d2535ca7fbabd583e7278',
+    'phase177_r3_unsigned_delta_composition_isolated/rule.py': '485591c14c2b1bbdb5b3486ac3fd5797ec89caf6',
+    'phase177_r5_general_suspension_equality_isolated/rule.py': 'f8f94381103bf133393caf9c28ec18dfb8a7a006',
+    'phase177_r6_general_suspension_public/provider.py': 'd996b74261f3bd6cc439cb6baaf70579b8435bc9',
+    'phase169_r10eq_r1_universal_stable_definition/definition.py': '0c74d121419b6755e947a367d7de465d81193174',
+    'phase175_r4r7_prop25_typed_composition/rule.py': 'e957752baf93f75352d106e53205730af9a02b4d',
+    'phase176_r3r55_equality_display_isolated/projection.py': 'f2bedfc04f96f27a771fbdebaa282fd9c2c9a075',
+    'relation_rules.py': '0da057f35b7ebd51b31c247e04bc4b15b1dcff9e',
+}
+ANCHOR = '        suppressed_body_indices.update(hidden)\n    for index in order:\n'
+PATCH = ('        from phase177_r17r4r1_prop25_suspension_elision.projection import (\n'
+         '            project_prop25_suspension_elision,\n'
+         '        )\n'
+         '        suppressed_body_indices.update(project_prop25_suspension_elision(\n'
+         '            model, order, suppressed_body_indices, protected_equalities,\n'
+         '        ))\n')
+
+
+def proposed_source(source):
+    if source.count(ANCHOR) != 1 or 'project_prop25_suspension_elision' in source:
+        raise RuntimeError('R17R4R1_ANCHOR_CHANGED')
+    tree = ast.parse(source)
+    fn, = [n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name == 'render_model_backed_narrative_markdown']
+    line = source[:source.index(ANCHOR)].count('\n')+1
+    if not fn.lineno < line < fn.end_lineno:
+        raise RuntimeError('R17R4R1_ANCHOR_OUTSIDE_RENDERER')
+    updated = source.replace(ANCHOR, '        suppressed_body_indices.update(hidden)\n'+PATCH+'    for index in order:\n',1)
+    ast.parse(updated)
+    return updated
+
+
+def preflight():
+    if Path(git('rev-parse','--show-toplevel')).resolve() != ROOT or git('branch','--show-current') != 'develop':
+        raise RuntimeError('WRONG_ROOT_OR_BRANCH')
+    head = git('rev-parse','HEAD')
+    if head != BASE or git('rev-parse','origin/develop') != BASE:
+        raise RuntimeError('REVIEWED_HEAD_REQUIRED:'+BASE)
+    if git('diff','--cached','--name-only') or set(git('diff','--name-only','HEAD').splitlines()) - {TARGET}:
+        raise RuntimeError('UNRELATED_TRACKED_OR_STAGED_CHANGES')
+    for path,pin in PINS.items():
+        if git('rev-parse','HEAD:'+path) != pin:
+            raise RuntimeError('COMMITTED_DEPENDENCY_CHANGED:'+path)
+        if path != TARGET and not matches_blob((ROOT/path).read_bytes(),pin):
+            raise RuntimeError('WORKTREE_DEPENDENCY_CHANGED:'+path)
+    baseline = subprocess.check_output(['git','show',BASE+':'+TARGET],cwd=ROOT)
+    if not matches_blob(baseline,PINS[TARGET]):
+        raise RuntimeError('BASE_BLOB_CHANGED')
+    source = normalize(baseline)
+    updated = proposed_source(source)
+    raw = (ROOT/TARGET).read_bytes()
+    if normalize(raw) not in (source,updated):
+        raise RuntimeError('UNREVIEWED_RENDERER_CHANGE')
+    rest = raw.replace(b'\r\n',b'')
+    if b'\r' in rest or (b'\r\n' in raw and b'\n' in rest):
+        raise RuntimeError('UNSUPPORTED_MIXED_EOL')
+    eol = '\r\n' if b'\r\n' in raw else '\n'
+    encoding = 'utf-8-sig' if raw.startswith(b'\xef\xbb\xbf') else 'utf-8'
+    return head, raw, updated.replace('\n',eol).encode(encoding), updated
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--dry-run',action='store_true')
+    args = parser.parse_args()
+    head, raw, updated, source = preflight()
+    folder = Path(os.environ.get('LOCALAPPDATA') or tempfile.gettempdir())/'EHPProofTracerAudit'/Path(__file__).parent.name
+    folder.mkdir(parents=True,exist_ok=True)
+    review = folder/'MODEL_RENDERER_FULL.py.txt'
+    review.write_text(source,encoding='utf-8')
+    if not args.dry_run:
+        if raw != updated:
+            (folder/'model_renderer.before').write_bytes(raw)
+            (ROOT/TARGET).write_bytes(updated)
+        if (ROOT/TARGET).read_bytes() != updated:
+            raise RuntimeError('INSTALL_BYTE_MISMATCH')
+    print('PHASE177_R17R4R1_HEAD='+head)
+    print('PHASE177_R17R4R1_FULL_CODE='+str(review))
+    print('PHASE177_R17R4R1_GATE='+('PASS_R17R4R1_READ_ONLY_DRYRUN' if args.dry_run else 'PASS_R17R4R1_PUBLIC_HOOK_INSTALLED'))
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

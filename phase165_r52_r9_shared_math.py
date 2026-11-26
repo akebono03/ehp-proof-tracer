@@ -454,6 +454,12 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         build_finite_delta_kernel_provider(bridge=bridge, proof_target=proof_target),
     )
 
+    # Phase 177 R15: expose existing finite cyclic Delta injectivity and summand order.
+    from phase177_r15_finite_cyclic_delta_injective_public.provider import build_public_finite_delta_injective_provider
+    extra_providers = tuple(extra_providers) + (
+        build_public_finite_delta_injective_provider(bridge=bridge, proof_target=proof_target),
+    )
+
     # Phase 177 R8: screened unsigned Prop 2.5 backward candidates.
     from phase177_r8_unsigned_delta_public.provider import (
         build_public_unsigned_delta_provider,

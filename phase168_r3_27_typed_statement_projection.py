@@ -338,6 +338,14 @@ def map_property_sentence(statement, step):
     return result
 
 def typed_sentence(statement, step):
+    from phase177_r17r1_finite_delta_reason_display.projection import project_finite_delta_reason
+    finite_delta_reason = project_finite_delta_reason(statement, step)
+    if finite_delta_reason is not None:
+        return finite_delta_reason
+    from phase177_r17r3_rank_two_quotient_display.projection import project_rank_two_quotient_reason
+    quotient_reason = project_rank_two_quotient_reason(statement, step)
+    if quotient_reason is not None:
+        return quotient_reason
     from phase174_r3_r6_r3_common_narrative.projection import (
         project_verified_index_two_statement,
     )
