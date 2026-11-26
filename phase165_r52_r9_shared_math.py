@@ -460,6 +460,14 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         build_public_finite_delta_injective_provider(bridge=bridge, proof_target=proof_target),
     )
 
+    # Phase 178 R5: expose the unchanged R4 Delta-E surjectivity rule.
+    from phase178_r4_delta_surjective_zero_suspension_isolated.rule import (
+        expand_delta_surjective_from_zero_suspension,
+    )
+    extra_providers = tuple(extra_providers) + (
+        expand_delta_surjective_from_zero_suspension,
+    )
+
     # Phase 177 R8: screened unsigned Prop 2.5 backward candidates.
     from phase177_r8_unsigned_delta_public.provider import (
         build_public_unsigned_delta_provider,
