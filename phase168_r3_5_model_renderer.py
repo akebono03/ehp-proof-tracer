@@ -467,6 +467,7 @@ def render_model_backed_narrative_markdown(
             model, order, suppressed_body_indices, protected_equalities,
         ))
     concise_delta_sentences = {}
+    prop25_chain_sentences = {}
     if not incomplete:
         from phase177_r17r1_finite_delta_reason_display.projection import project_concise_delta_display
         hidden, concise_delta_sentences = project_concise_delta_display(
@@ -479,6 +480,13 @@ def render_model_backed_narrative_markdown(
         suppressed_body_indices.update(project_prop25_suspension_elision(
             model, order, suppressed_body_indices, protected_equalities,
         ))
+        from phase177_r17r4r2_prop25_equality_chain.projection import (
+            project_prop25_equality_chain,
+        )
+        hidden, prop25_chain_sentences = project_prop25_equality_chain(
+            model, order, suppressed_body_indices, protected_equalities,
+        )
+        suppressed_body_indices.update(hidden)
     for index in order:
         if order_summary is not None and index == model.root_index:
             lines.extend((order_summary, ""))
@@ -501,6 +509,9 @@ def render_model_backed_narrative_markdown(
                 prefix = ""
             lines.extend((f"{prefix}{compressed_statement}.", ""))
         if index in suppressed_body_indices:
+            continue
+        if index in prop25_chain_sentences:
+            lines.extend((prop25_chain_sentences[index], ""))
             continue
         if hopf_display is not None and index in (
             hopf_display.formula_index, hopf_display.image_index,
