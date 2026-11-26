@@ -466,6 +466,13 @@ def render_model_backed_narrative_markdown(
         suppressed_body_indices.update(project_redundant_equalities(
             model, order, suppressed_body_indices, protected_equalities,
         ))
+    concise_delta_sentences = {}
+    if not incomplete:
+        from phase177_r17r1_finite_delta_reason_display.projection import project_concise_delta_display
+        hidden, concise_delta_sentences = project_concise_delta_display(
+            model, order, suppressed_body_indices,
+        )
+        suppressed_body_indices.update(hidden)
     for index in order:
         if order_summary is not None and index == model.root_index:
             lines.extend((order_summary, ""))
@@ -604,7 +611,9 @@ def render_model_backed_narrative_markdown(
         if transition is not None:
             lines.extend((transition, ""))
         body_line = body_by_step.get(index)
-        sentence = typed_sentence(step.conclusion, step)
+        sentence = concise_delta_sentences.get(index)
+        if sentence is None:
+            sentence = typed_sentence(step.conclusion, step)
         # -g=g in a verified order-two cyclic target; remove the redundant
         # sign only when its exact typed group structure is already proved.
         from toda_rules import TodaDeltaImageUpToSignStatement
