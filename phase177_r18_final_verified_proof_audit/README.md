@@ -1,0 +1,5 @@
+# Phase 177 R18 — Final verified proof audit
+
+Read-only audit of the completed $(n,k)=(5,5)$ public proof. Reuse R16's actual root audit and observe the original Web trust-boundary verifier without replacing its result. Check the complete 43-node root, citation associations, absence of a target-group GIVEN in the active screened links and proof tree, final eight-reference narrative, source transcription positions, and targeted regression tests (including first-success search and Phase 176 display). This is a project-level verification of the adopted source and database premises, not an independent verification of the original printed edition.
+
+Extract at the repository root. Run `run.ps1 -DryRun` and then `run.ps1` on the reviewed clean develop HEAD. The only new repository files are this audit package. Reports, the actual proof tree and the narrative are written outside the repository under `LOCALAPPDATA/EHPProofTracerAudit`. No production edits, new mathematical rules, new GIVEN registrations, commit, or full pytest. A failed gate must be inspected before Phase 177 closeout.

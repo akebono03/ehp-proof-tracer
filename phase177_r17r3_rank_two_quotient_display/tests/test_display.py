@@ -74,6 +74,10 @@ def test_actual_rank_two_quotient_display():
     body = markdown.split('\n証明\n',1)[1]
     pieces = text.split('. ')
     sentences = [p+'.' if not p.endswith('.') else p for p in pieces]
+    # R17R6R1 transfers the factor-definition citation to the same
+    # certified composite image; the other quotient sentences stay intact.
+    assert sentences[1].startswith('また, ')
+    sentences[1] = '[R8]を用いて, '+sentences[1].removeprefix('また, ')
     positions = [body.index(s) for s in sentences]
     assert positions == sorted(positions) and len(set(positions)) == 3
     root_latex, fallback = _group_proof_statement_latex(result.conclusion)

@@ -109,7 +109,16 @@ def test_actual_elision():
                 r'E\eta_{9}=EE\eta_{8}',r'E(\eta_{9})=\eta_{10}',r'E\eta_{9}=\eta_{10}',
                 r'EE\eta_{8}=\eta_{10}',r'E^{2}\eta_{8}=\eta_{10}',r'\eta_{9}^{2}=\eta_{9}E^{2}\eta_{8}')
     assert not ({key(s) for s in unwanted} & terms), body
-    for step in (prop,prop.premises[1]):
+    # R17R4R2 may replace the Prop 2.5 intermediate with its certified
+    # transitivity conclusion. The base equality must still be printed.
+    from phase177_r17r4r2_prop25_equality_chain.projection import project_prop25_equality_chain
+    compressed, sentences = project_prop25_equality_chain(model,order,hidden)
+    prop_index, = [i for i,s in enumerate(model.steps) if s is prop]
+    visible = (prop,prop.premises[1])
+    if prop_index in compressed:
+        final_index, = sentences
+        visible = (model.steps[final_index],prop.premises[1])
+    for step in visible:
         latex,fallback = _group_proof_statement_latex(step.conclusion)
         assert latex is not None and fallback is None and key(latex) in terms, (latex,body)
     assert '準同型定理より' in body

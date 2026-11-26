@@ -1,0 +1,7 @@
+# Phase 177 R17R4R2R2 — Prop 2.5 equality chain compression
+
+This package supersedes R17R4R2 in the same directory. It preserves the common renderer hook. R17R4R2R3 updates only the installer logic for the reviewed committed baseline. The projection accepts direct associativity and associativity followed by one verified symmetry step. It checks actual typed premises, replay, citations, display order, protected steps and exclusive consumers. The verified proof tree is unchanged.
+
+The R17R4R2R1 audit identified actual intermediate indices 19, 20 and 21, with final index 22. All three intermediate nodes remain in the proof; only the final equation carries the original Proposition 2.5 citation in the narrative. These indices are not hardcoded in the projection.
+
+Reviewed develop HEAD: `7f2ce48d240c891c51e2eb711a1f83592f55708a`. The original patch baseline remains `954e28b2aba788d7b1e66c8ce1d709458ab3fe3e` for verification only. The committed renderer and R17R4R1 test must match the original reviewed patch; the installer must not apply it again. Run the original package's `run.ps1` after extracting this replacement with `-Force`. DryRun verifies the committed files, dependencies and replacement package contents and exports the full renderer and R17R4R1 test without changing tracked files. The new full projection and test module are included directly. No full pytest or Git commit is performed. Repository-dependent tests must run in the checkout.

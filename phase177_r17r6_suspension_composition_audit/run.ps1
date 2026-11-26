@@ -1,0 +1,13 @@
+param([switch]$DryRun)
+$ErrorActionPreference = 'Stop'
+Set-Location (Split-Path -Parent $PSScriptRoot)
+$env:PYTHONDONTWRITEBYTECODE = '1'
+$env:PYTHONUTF8 = '1'
+$env:GIT_OPTIONAL_LOCKS = '0'
+$package = 'phase177_r17r6_suspension_composition_audit'
+if ($DryRun) {
+    python -B -m "$package.audit" --dry-run
+} else {
+    python -B -m "$package.audit"
+}
+if ($LASTEXITCODE -ne 0) { throw 'R17R6 audit failed' }

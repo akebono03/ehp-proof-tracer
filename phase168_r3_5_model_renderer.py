@@ -467,6 +467,8 @@ def render_model_backed_narrative_markdown(
             model, order, suppressed_body_indices, protected_equalities,
         ))
     concise_delta_sentences = {}
+    prop25_chain_sentences = {}
+    retained_cited_equalities = {}
     if not incomplete:
         from phase177_r17r1_finite_delta_reason_display.projection import project_concise_delta_display
         hidden, concise_delta_sentences = project_concise_delta_display(
@@ -479,6 +481,13 @@ def render_model_backed_narrative_markdown(
         suppressed_body_indices.update(project_prop25_suspension_elision(
             model, order, suppressed_body_indices, protected_equalities,
         ))
+        from phase177_r17r4r2_prop25_equality_chain.projection import (
+            project_prop25_equality_chain,
+        )
+        hidden, prop25_chain_sentences = project_prop25_equality_chain(
+            model, order, suppressed_body_indices, protected_equalities,
+        )
+        suppressed_body_indices.update(hidden)
     for index in order:
         if order_summary is not None and index == model.root_index:
             lines.extend((order_summary, ""))
@@ -501,6 +510,9 @@ def render_model_backed_narrative_markdown(
                 prefix = ""
             lines.extend((f"{prefix}{compressed_statement}.", ""))
         if index in suppressed_body_indices:
+            continue
+        if index in prop25_chain_sentences:
+            lines.extend((prop25_chain_sentences[index], ""))
             continue
         if hopf_display is not None and index in (
             hopf_display.formula_index, hopf_display.image_index,
@@ -648,6 +660,7 @@ def render_model_backed_narrative_markdown(
             )
             if extension_reason is not None:
                 sentence = extension_reason
+        cited_equality_start = len(lines)
         if sentence is not None:
             # The certified kernel step already consumes the suppressed
             # exactness equality and a concrete Delta image. Compose only
@@ -777,6 +790,16 @@ def render_model_backed_narrative_markdown(
                 lines.append(f"{prefix}{projected}" if projected is not None
                              else f"{prefix}${statement_latex}$.")
             lines.append("")
+        if (not incomplete and len(lines) == cited_equality_start + 2
+                and lines[-1] == ""):
+            from phase177_r17r5_duplicate_cited_equality.projection import (
+                omit_duplicate_cited_equality,
+            )
+            if omit_duplicate_cited_equality(
+                model, index, lines[cited_equality_start], retained_cited_equalities,
+                protected_equalities,
+            ):
+                del lines[cited_equality_start:]
     if incomplete:
         if model.open_goals:
             lines.extend(("", "## 未解決 Goal", ""))
@@ -811,4 +834,8 @@ def render_model_backed_narrative_markdown(
             format_complete_proof_sentences,
         )
         lines = format_complete_proof_sentences(lines, model)
+        from phase177_r17r6r1_suspension_composition_display.projection import (
+            project_suspension_composition_display,
+        )
+        lines, _ = project_suspension_composition_display(lines, model, protected_equalities)
     return "\n".join(lines).rstrip() + "\n"
