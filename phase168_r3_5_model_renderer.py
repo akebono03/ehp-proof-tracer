@@ -834,4 +834,8 @@ def render_model_backed_narrative_markdown(
             format_complete_proof_sentences,
         )
         lines = format_complete_proof_sentences(lines, model)
+        from phase177_r17r6r1_suspension_composition_display.projection import (
+            project_suspension_composition_display,
+        )
+        lines, _ = project_suspension_composition_display(lines, model, protected_equalities)
     return "\n".join(lines).rstrip() + "\n"
