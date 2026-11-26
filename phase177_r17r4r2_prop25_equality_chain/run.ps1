@@ -17,7 +17,7 @@ python -B -m pytest -q -s --import-mode=importlib -p no:cacheprovider `
   phase168_r3_27_typed_projection/tests `
   phase177_r10_composition_associativity_isolated/tests `
   phase177_r3_unsigned_delta_composition_isolated/tests/test_rule.py
-if ($LASTEXITCODE -ne 0) { throw 'R17R4R2 focused tests failed; changes retained for inspection' }
+if ($LASTEXITCODE -ne 0) { throw 'R17R4R2R2 focused tests failed; changes retained for inspection' }
 python -B -m "$package.installer" --dry-run
 if ($LASTEXITCODE -ne 0) { throw 'R17R4R2 postflight failed' }
 git diff --check
@@ -25,4 +25,5 @@ if ($LASTEXITCODE -ne 0) { throw 'R17R4R2 diff check failed' }
 Write-Output 'PHASE177_R17R4R2_NEW_MATH_RULES=0'
 Write-Output 'PHASE177_R17R4R2_NEW_GIVEN=0'
 Write-Output 'PHASE177_R17R4R2_FULL_PYTEST=NOT_RUN'
+Write-Output 'PHASE177_R17R4R2R2_GATE=PASS_R17R4R2R2_SYMMETRY_CHAIN'
 Write-Output 'PHASE177_R17R4R2_GATE=PASS_R17R4R2_PROP25_EQUALITY_CHAIN'

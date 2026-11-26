@@ -1,8 +1,9 @@
-"""Install R17R4R2 only on the reviewed develop baseline."""
+"""Verify the committed R17R4R2 hook on the reviewed develop HEAD."""
 from __future__ import annotations
 
 import argparse
 import ast
+import hashlib
 import os
 from pathlib import Path
 import subprocess
@@ -28,6 +29,19 @@ PINS = {
     'phase177_r17r3_rank_two_quotient_display/tests/test_display.py': '9d3c1d32cb44fcc9210d2535ca7fbabd583e7278',
     'phase177_r17r1_finite_delta_reason_display/tests/test_display.py': '5c145a1a8a04d45384cfe52fbc112aa3c5616941',
 }
+REVIEWED_HEAD = '7f2ce48d240c891c51e2eb711a1f83592f55708a'
+HEAD_PINS = dict(PINS, **{
+    TARGET: 'c2557db64091344e48dc3c32b3bd2a93addb6a5c',
+    TEST: '390fed9301c14091415f184f295267996b73c1d1',
+})
+PACKAGE_SHA256 = {
+    'README.md': 'e30de490bf69decbc18f5bfa66241997e9f706556da43b673a7b3b6bc1be189b',
+    '__init__.py': 'b8a7840489db59f85a0a23759043aeddca461799f90d47efc66441ffebd9764a',
+    'projection.py': 'fed263585a744af1f4239d7e5f939b5cab832df6166cc08ff01b9335d0879dfa',
+    'run.ps1': 'c859e52da7146e2938be0175ef91b3770caa84c3e4ebfe80620a86196bd52a15',
+    'tests/test_display.py': '4a6dd6153a97163dc54de1fc110a707573caaf8982034f0a9fe67a49ad28363a',
+}
+
 RENDER_ANCHOR = ('        suppressed_body_indices.update(project_prop25_suspension_elision(\n'
                  '            model, order, suppressed_body_indices, protected_equalities,\n'
                  '        ))\n    for index in order:\n')
@@ -84,35 +98,42 @@ def proposed_test(source):
 
 
 def preflight():
+    """Verify the already committed hook and allow only this exact package update."""
     if Path(git('rev-parse','--show-toplevel')).resolve() != ROOT or git('branch','--show-current') != 'develop':
         raise RuntimeError('WRONG_ROOT_OR_BRANCH')
     head = git('rev-parse','HEAD')
-    if head != BASE or git('rev-parse','origin/develop') != BASE:
-        raise RuntimeError('REVIEWED_HEAD_REQUIRED:'+BASE+';actual='+head)
-    if git('diff','--cached','--name-only') or set(git('diff','--name-only','HEAD').splitlines()) - {TARGET,TEST}:
+    if head != REVIEWED_HEAD or git('rev-parse','origin/develop') != REVIEWED_HEAD:
+        raise RuntimeError('REVIEWED_HEAD_REQUIRED:'+REVIEWED_HEAD+';actual='+head)
+    git('merge-base','--is-ancestor',BASE,head)
+    package = Path(__file__).resolve().parent
+    allowed = {str((package/name).relative_to(ROOT).as_posix())
+               for name in (*PACKAGE_SHA256, 'installer.py')}
+    if git('diff','--cached','--name-only') or set(git('diff','--name-only','HEAD').splitlines()) - allowed:
         raise RuntimeError('UNRELATED_TRACKED_OR_STAGED_CHANGES')
+    for name, expected in PACKAGE_SHA256.items():
+        raw = (package/name).read_bytes()
+        if hashlib.sha256(raw.replace(b'\r\n',b'\n')).hexdigest() != expected:
+            raise RuntimeError('REPLACEMENT_PACKAGE_CHANGED:'+name)
     changes = {}
-    for path,pin in PINS.items():
+    for path,pin in HEAD_PINS.items():
         if git('rev-parse','HEAD:'+path) != pin:
             raise RuntimeError('COMMITTED_DEPENDENCY_CHANGED:'+path)
         raw = (ROOT/path).read_bytes()
+        if not matches_blob(raw,pin):
+            raise RuntimeError('WORKTREE_DEPENDENCY_CHANGED:'+path)
         if path not in (TARGET,TEST):
-            if not matches_blob(raw,pin):
-                raise RuntimeError('WORKTREE_DEPENDENCY_CHANGED:'+path)
             continue
         baseline = subprocess.check_output(['git','show',BASE+':'+path],cwd=ROOT)
-        if not matches_blob(baseline,pin):
+        if not matches_blob(baseline,PINS[path]):
             raise RuntimeError('BASE_BLOB_CHANGED:'+path)
         source = normalize(baseline)
         updated = (proposed_renderer if path == TARGET else proposed_test)(source)
-        if normalize(raw) not in (source,updated):
-            raise RuntimeError('UNREVIEWED_WORKTREE_CHANGE:'+path)
-        rest = raw.replace(b'\r\n',b'')
-        if b'\r' in rest or (b'\r\n' in raw and b'\n' in rest):
-            raise RuntimeError('UNSUPPORTED_MIXED_EOL:'+path)
-        eol = '\r\n' if b'\r\n' in raw else '\n'
-        encoding = 'utf-8-sig' if raw.startswith(b'\xef\xbb\xbf') else 'utf-8'
-        changes[path] = (raw,updated.replace('\n',eol).encode(encoding),updated)
+        committed = subprocess.check_output(['git','show','HEAD:'+path],cwd=ROOT)
+        if normalize(committed) != updated or normalize(raw) != updated:
+            raise RuntimeError('COMMITTED_HOOK_OR_TEST_MISMATCH:'+path)
+        # The reviewed patch is already committed: do not rewrite either file.
+        changes[path] = (raw,raw,updated)
+    print('PHASE177_R17R4R2R3_COMMITTED_HOOK=VERIFIED',flush=True)
     return head,changes
 
 
