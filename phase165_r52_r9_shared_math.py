@@ -500,6 +500,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     # Phase 178 R15R2: use only the already screened (5.12) source claims.
     from phase178_r15_toda512_isolated.provider import build_cited_512_provider
     extra_providers = tuple(extra_providers) + (build_cited_512_provider(bridge),)
+    # Phase 178 R17R1: expose the unchanged finite cyclic quotient rule.
+    from phase178_r17r1_finite_cyclic_quotient_public.provider import build_public_finite_cyclic_quotient_provider
+    extra_providers = tuple(extra_providers) + (
+        build_public_finite_cyclic_quotient_provider(bridge=bridge, proof_target=proof_target),
+    )
     shared_provider_registry = build_shared_expansion_provider_registry(
         expand_generic_iso_goal=expand_generic_iso_goal,
         expand_generic_ehp_hopf_goal=expand_generic_ehp_hopf_goal,

@@ -1,0 +1,10 @@
+{
+  "phase178_r17_finite_cyclic_quotient_isolated/README.md": "1fccf2fa6c000bb9691a179e234b7a9d31a4e0ccda3fac62b9ec4d57d1cb237f",
+  "phase178_r17_finite_cyclic_quotient_isolated/__init__.py": "fb37a77a8072cac01c80ea1219b8b3cdd71c363ddd0ff952bf879af0d07f65f4",
+  "phase178_r17_finite_cyclic_quotient_isolated/audit.py": "60435b16365e7696e2995bd0e33b72c76252ccbd6e29cfcc3f9b7f83ec98d045",
+  "phase178_r17_finite_cyclic_quotient_isolated/reviewed_r16r2_hashes.json": "64a8a06709b1c30df4d96460f8741794e337bb6bd0426dd0f457189af3b4e1da",
+  "phase178_r17_finite_cyclic_quotient_isolated/rule.py": "77bb03418344193a0aff6366d2d6e364c77a00073a6ae0a77029ff3df1c4bb3a",
+  "phase178_r17_finite_cyclic_quotient_isolated/run.ps1": "831eb0d0aef95d52168adbe6404a71ca6975af4f393889dca473f14f4b5e67a1",
+  "phase178_r17_finite_cyclic_quotient_isolated/tests/test_audit_contract.py": "3edbe98f386529a6a1697c2c5ed0dfd9a102cbab0a1273d75809f9eb449c94c3",
+  "phase178_r17_finite_cyclic_quotient_isolated/tests/test_rule.py": "ddb6e64093b8acc37fd5555861451efa0e9ad79c9914a0096339a358bf4c27f6"
+}
