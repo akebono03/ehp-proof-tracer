@@ -705,7 +705,15 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         from phase174_r3_r6_r2_prop44_lemma54.source import (
             expand_cited_preprop44_splitting,
         )
-        options.extend(expand_cited_preprop44_splitting(goal, tuple(available)))
+        legacy_splitting = expand_cited_preprop44_splitting(goal, tuple(available))
+        options.extend(legacy_splitting)
+        # Phase 179 R3: reuse the isolated, source-linked general splitting rule.
+        # Preserve the legacy n=4 route and its Lemma 5.4 priority.
+        if not legacy_splitting:
+            from phase179_r2_hopf_splitting_injectivity_isolated.rule import (
+                expand_splitting_injectivity,
+            )
+            options.extend(expand_splitting_injectivity(goal, bridge=bridge))
         from phase173_r4_r1_lemma54_source_bridge.source import (
             expand_cited_lemma54_hopf,
         )
