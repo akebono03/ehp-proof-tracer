@@ -126,6 +126,14 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
     if default_sources:
         from phase176_r3r48_cited_finite_delta_kernel.source import build_cited_lemma57_delta_source
         sources = sources + (build_cited_lemma57_delta_source(),)
+    # Phase 178 R15R2: append the reviewed, positioned Toda (5.12) claims.
+    if default_sources:
+        from phase178_r15_toda512_isolated.source import build_cited_512_source
+        sources = sources + (build_cited_512_source(),)
+    # Phase 178 R16R2: append the reviewed, positioned Toda (5.13) images.
+    if default_sources:
+        from phase178_r16_toda513_isolated.source import build_cited_513_source
+        sources = sources + (build_cited_513_source(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -489,6 +497,14 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         build_public_unsigned_delta_provider,
     )
     public_unsigned_delta = build_public_unsigned_delta_provider(bridge, prior_conclusions)
+    # Phase 178 R15R2: use only the already screened (5.12) source claims.
+    from phase178_r15_toda512_isolated.provider import build_cited_512_provider
+    extra_providers = tuple(extra_providers) + (build_cited_512_provider(bridge),)
+    # Phase 178 R17R1: expose the unchanged finite cyclic quotient rule.
+    from phase178_r17r1_finite_cyclic_quotient_public.provider import build_public_finite_cyclic_quotient_provider
+    extra_providers = tuple(extra_providers) + (
+        build_public_finite_cyclic_quotient_provider(bridge=bridge, proof_target=proof_target),
+    )
     shared_provider_registry = build_shared_expansion_provider_registry(
         expand_generic_iso_goal=expand_generic_iso_goal,
         expand_generic_ehp_hopf_goal=expand_generic_ehp_hopf_goal,
@@ -770,6 +786,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_public_reassociation_transitivity,
         )
         merged = merge_backward_expansions(merged, expand_public_reassociation_transitivity(goal))
+        # Phase 178 R17R2: prefer already screened direct citation readings.
+        from phase178_r15_toda512_isolated.provider import RULE_NAME as cited_512_rule_name
+        preferred = tuple(o for o in merged if o.rule.name == cited_512_rule_name)
+        if preferred:
+            merged = preferred + tuple(o for o in merged if o.rule.name != cited_512_rule_name)
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 
