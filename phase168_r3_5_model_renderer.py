@@ -838,6 +838,11 @@ def render_model_backed_narrative_markdown(
             project_suspension_composition_display,
         )
         lines, _ = project_suspension_composition_display(lines, model, protected_equalities)
+        from phase178_r17r3_common_renderer.projection import (
+            project_composite_suspension_lines, project_finite_quotient_order,
+        )
+        lines = project_composite_suspension_lines(lines, model, protected_equalities)
+        lines = project_finite_quotient_order(lines, model, protected_equalities)
         from phase178_r12r1_suspension_composition_display.projection import (
             project_zero_suspension_composition,
         )

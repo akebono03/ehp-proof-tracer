@@ -352,6 +352,10 @@ def map_property_sentence(statement, step):
     return result
 
 def typed_sentence(statement, step):
+    from phase178_r17r3_common_renderer.projection import finite_cyclic_quotient_reason
+    cyclic_quotient_reason = finite_cyclic_quotient_reason(statement, step)
+    if cyclic_quotient_reason is not None:
+        return cyclic_quotient_reason
     from phase177_r17r1_finite_delta_reason_display.projection import project_finite_delta_reason
     finite_delta_reason = project_finite_delta_reason(statement, step)
     if finite_delta_reason is not None:
