@@ -5,6 +5,10 @@ from web_group_proof_common import _group_proof_statement_latex
 
 def _verified_source_sentence(statement: object) -> str | None:
     """Render only a uniquely verified, canonical typed source statement."""
+    from phase178_r17r3_common_renderer.projection import cited_512_reference_sentence
+    cited_512 = cited_512_reference_sentence(statement)
+    if cited_512 is not None:
+        return cited_512
     from phase173_r4_r1_lemma54_source_bridge.source import TodaLemma54TypedSource
 
     if type(statement) is TodaLemma54TypedSource and statement == TodaLemma54TypedSource():

@@ -1,0 +1,203 @@
+"""Display-only projections of certified cyclic quotients and suspension branches."""
+from phase165_r52_partial_proof import ProofSearchStatus
+from phase168_r3_3_proof_narrative_model import root_ancestor_step_indices
+from phase177_r17r4r1_prop25_suspension_elision.projection import replayed
+from phase177_r17r6r1_suspension_composition_display.projection import match_composition_branch
+from phase178_r17_finite_cyclic_quotient_isolated.rule import RULE_NAME, finite_cyclic_quotient_inputs
+from proof import ProofRule, ProofStep
+
+
+def cited_512_reference_sentence(statement):
+    """Only the canonical instances of the already registered printed clause."""
+    from phase178_r15_toda512_isolated.source import CitedToda512, canonical_512
+    if (type(statement) is not CitedToda512 or type(statement.n) is not int
+            or statement.n not in (4, 5, 6) or statement != canonical_512(statement.n)):
+        return None
+    return r'$\Delta:\pi_{n+7}^{2n+1}\to\pi_{n+5}^{n}$ は単射 $(n=4,5,6)$.'
+
+
+def finite_cyclic_quotient_reason(statement, step):
+    """Explain the six actual premises of the registered quotient rule."""
+    if (not isinstance(step, ProofStep) or step.rule is not ProofRule.INFERENCE
+            or step.conclusion != statement or step.inference_rule is None
+            or step.inference_rule.name != RULE_NAME or len(step.premises) != 6):
+        return None
+    parents = step.premises
+    if (any(p.rule not in (ProofRule.GIVEN, ProofRule.INFERENCE) for p in parents[:2])
+            or parents[2].rule is not ProofRule.GIVEN
+            or any(p.rule is not ProofRule.INFERENCE for p in parents[3:])):
+        return None
+    values = tuple(p.conclusion for p in parents)
+    middle, source, signed, exact, onto, image = values
+    if finite_cyclic_quotient_inputs(statement, middle, source, signed, image) != values:
+        return None
+    if not replayed(step):
+        return None
+    from phase168_r3_27_typed_statement_projection import group_tex, element_tex
+    a, b = group_tex(middle.lhs), group_tex(statement.group)
+    generator = element_tex(middle.rhs.generator)
+    target = element_tex(image.target_generator)
+    if not all((a, b, generator, target)):
+        return None
+    multiple = signed.positive_value.coefficient
+    killed = f'{abs(multiple)}{generator}' if abs(multiple) != 1 else generator
+    subgroup = rf'\langle {killed}\rangle'
+    cyclic = rf'\mathbb{{Z}}/{middle.rhs.order}\{{{generator}\}}'
+    return (
+        rf'完全性より, $\ker E=\operatorname{{Im}}\Delta={subgroup}$. '
+        rf'$E$ は全射なので, 準同型定理より ${b}\cong {a}/\ker E'
+        rf'\cong {cyclic}/{subgroup}$.'
+    )
+
+
+def graph_context(lines, model):
+    """Resolve the complete model by identity; reject ambiguous ancestry."""
+    if (model.status is not ProofSearchStatus.COMPLETE or model.open_goals
+            or type(model.root_index) is not int or lines.count('証明') != 1
+            or len(model.steps) != len(model.step_citation_numbers)):
+        return None
+    steps = model.steps
+    lookup = {id(s): i for i, s in enumerate(steps)}
+    if len(lookup) != len(steps):
+        return None
+    parents = tuple(tuple(lookup.get(id(p)) for p in s.premises) for s in steps)
+    if any(type(p) is not int or not 0 <= p < i for i, ps in enumerate(parents) for p in ps):
+        return None
+    try:
+        scope = root_ancestor_step_indices(steps, model.root_index)
+    except ValueError:
+        return None
+    return scope, parents, lines.index('証明')
+
+
+def unique_body_line(lines, boundary, sentence):
+    matches = [i for i in range(boundary + 1, len(lines)) if lines[i] == sentence]
+    return matches[0] if len(matches) == 1 else None
+
+
+def composition_display_plan(lines, model, index, protected=frozenset()):
+    """Plan removal of exclusive factor sentences, independently of the consumer's rule."""
+    context = graph_context(lines, model)
+    if context is None:
+        return None
+    scope, parents, boundary = context
+    if index not in scope or index in protected:
+        return None
+    match = match_composition_branch(model, index)
+    if match is None:
+        return None
+    branch, leaves, old = match
+    hidden = branch - {index}
+    if (not branch <= scope or hidden & (set(protected) | {model.root_index})
+            or any(i not in branch and hidden.intersection(ps) for i, ps in enumerate(parents))):
+        return None
+    from phase168_r3_27_typed_statement_projection import typed_sentence
+    from phase169_r10d2_general_family_definition.family_citation import cited_family_reference_sentence
+    refs = sorted({n for i in leaves for n in model.step_citation_numbers[i]})
+    for i in leaves:
+        n, = model.step_citation_numbers[i]
+        ref_text = cited_family_reference_sentence(model.steps[i].conclusion)
+        starts = [j for j, s in enumerate(lines[:boundary]) if s.startswith(f'**[R{n}] ')]
+        if len(starts) != 1:
+            return None
+        start, = starts
+        end = next((j for j in range(start + 1, boundary) if lines[j].startswith('**[R')), boundary)
+        if ref_text not in lines[start + 1:end]:
+            return None
+    step = model.steps[index]
+    body = typed_sentence(step.conclusion, step)
+    if body is None or not body.startswith('$E('):
+        return None
+    tag = ', '.join(f'[R{n}]' for n in refs) + 'より, '
+    replacement = tag + body
+    # The normal renderer cites a unique source ancestor; preserve all refs
+    # if several independently cited factor branches were proved.
+    options = {body, replacement}
+    positions = [j for j in range(boundary + 1, len(lines)) if lines[j] in options]
+    if len(positions) != 1:
+        return None
+    pos, = positions
+    factors = [unique_body_line(lines, boundary, text) for text in old]
+    if any(j is None for j in factors):
+        return None
+    if len(set(factors)) != len(factors) or max(factors) >= pos:
+        return None
+    if any(lines[j].strip() for j in range(min(factors), pos) if j not in factors):
+        return None
+    # Do not delete a line that could also display another proof node.
+    for j in scope - branch:
+        other = model.steps[j]
+        text = typed_sentence(other.conclusion, other)
+        if text and (text == body or any(line == text or line.endswith('より, ' + text) for line in old)):
+            return None
+    return tuple(factors), pos, replacement
+
+
+def project_composite_suspension_lines(lines, model, protected=frozenset()):
+    """Keep the composite equation and its sources, not the exclusive factor prose."""
+    context = graph_context(lines, model)
+    if context is None:
+        return lines
+    scope, _, _ = context
+    output = list(lines)
+    for index in sorted(scope):
+        plan = composition_display_plan(output, model, index, protected)
+        if plan is None:
+            continue
+        factors, pos, replacement = plan
+        output[pos] = replacement
+        for j in sorted(factors, reverse=True):
+            del output[j]
+            if j < len(output) and not output[j]:
+                del output[j]
+    return output
+
+
+def project_finite_quotient_order(lines, model, protected=frozenset()):
+    """Place the retained generator equation after the quotient explanation if safe."""
+    context = graph_context(lines, model)
+    if context is None:
+        return lines
+    scope, parents, boundary = context
+    from phase168_r3_27_typed_statement_projection import typed_sentence
+    output = list(lines)
+    for index in sorted(scope):
+        step = model.steps[index]
+        reason = finite_cyclic_quotient_reason(step.conclusion, step)
+        if reason is None or index in protected or model.step_citation_numbers[index]:
+            continue
+        image = parents[index][-1]
+        if (image in protected or image == model.root_index or model.step_citation_numbers[image]
+                or any(j != index and image in ps for j, ps in enumerate(parents))):
+            continue
+        image_step = model.steps[image]
+        if not replayed(image_step):
+            continue
+        text = typed_sentence(image_step.conclusion, image_step)
+        if text is None:
+            continue
+        ancestry = root_ancestor_step_indices(model.steps, image)
+        refs = sorted({n for j in ancestry if model.steps[j].rule is ProofRule.GIVEN
+                       for n in model.step_citation_numbers[j]})
+        options = {text}
+        if refs:
+            options.add(', '.join(f'[R{n}]' for n in refs) + 'より, ' + text)
+        hits = [j for j in range(boundary + 1, len(output)) if output[j] in options]
+        if len(hits) != 1:
+            continue
+        pos, = hits
+        first, last = reason.split('. ', 1)
+        start = unique_body_line(output, boundary, first + '.')
+        end = unique_body_line(output, boundary, last)
+        if start is None or end is None or not pos < start < end:
+            continue
+        if any(output[j].strip() for j in range(pos + 1, end) if j != start):
+            continue
+        if any(j != image and typed_sentence(model.steps[j].conclusion, model.steps[j]) == text for j in scope):
+            continue
+        output.insert(end + 1, '')
+        output.insert(end + 2, output[pos])
+        del output[pos]
+        if pos < len(output) and not output[pos]:
+            del output[pos]
+    return output
