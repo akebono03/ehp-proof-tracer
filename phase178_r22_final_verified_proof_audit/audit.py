@@ -13,6 +13,19 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = Path(__file__).resolve().parent.name
 BASE = '73a77aedcebabb8b4c6a2ee2edf4df7e9ac8a3aa'
 PREVIOUS = 'phase178_r21r1_finite_cyclic_generator_zero_image_public/'
+REVIEWED_R22_HEAD = 'dfadbdbdc0cdd31cab708f7336a1b65e4914668f'
+R22_COMMITTED_PATHS = frozenset(PACKAGE + '/' + name for name in (
+    '__init__.py', 'audit.py', 'run.ps1', 'tests/test_audit.py',
+))
+R22_FIX_PATHS = frozenset(PACKAGE + '/' + name for name in (
+    'audit.py', 'tests/test_audit.py',
+))
+R22_ORIGINAL_PINS = {
+    PACKAGE + '/__init__.py': 'e69de29bb2d1d6434b8b29ae775ad8c2e48c5391',
+    PACKAGE + '/audit.py': 'e394e66a5f5577683b9f9db5351eaa2e282f4023',
+    PACKAGE + '/run.ps1': 'f5bf913bd400dc2693a38fcfb477ec3851d718b5',
+    PACKAGE + '/tests/test_audit.py': 'fefc2053fe2a317e3053f52e6fcdcae99286d148',
+}
 TARGET = 'phase165_r52_r9_shared_math.py'
 OLD_TEST = 'phase178_r21_finite_cyclic_generator_zero_image_isolated/tests/test_rule.py'
 PINS = {
@@ -75,8 +88,19 @@ def digest(raw):
     return hashlib.sha256(raw.replace(b'\r\n', b'\n')).hexdigest()
 
 
+def validate_change_scope(committed, later_committed, dirty):
+    """Allow the reviewed R21R1 and R22 additions, not unrelated changes."""
+    expected = {TARGET, OLD_TEST} | set(PACKAGE_PINS) | R22_COMMITTED_PATHS
+    require(set(committed) == expected,
+            'UNRELATED_TRACKED_CHANGES:' + repr(sorted(set(committed) ^ expected)))
+    require(set(later_committed) <= R22_FIX_PATHS,
+            'UNRELATED_LATER_COMMIT:' + repr(sorted(set(later_committed) - R22_FIX_PATHS)))
+    require(set(dirty) <= R22_FIX_PATHS,
+            'UNRELATED_WORKTREE_CHANGES:' + repr(sorted(set(dirty) - R22_FIX_PATHS)))
+
+
 def preflight():
-    """Admit only the reviewed base plus the exact installed R21R1 package."""
+    """Audit reviewed R21R1 content and R22's own committed audit files."""
     require(Path(gt('rev-parse', '--show-toplevel')).resolve() == ROOT, 'WRONG_ROOT')
     require(gt('branch', '--show-current') == 'develop', 'DEVELOP_REQUIRED')
     head = gt('rev-parse', 'HEAD')
@@ -84,10 +108,20 @@ def preflight():
     require(gt('merge-base', BASE, head) == BASE, 'REVIEWED_BASE_REQUIRED')
     require(not gt('diff', '--cached', '--name-only'), 'STAGED_CHANGES_PRESENT')
     require(not os.environ.get('PYTEST_ADDOPTS', '').strip(), 'PYTEST_ADDOPTS_REQUIRES_REVIEW')
-    allowed = {TARGET, OLD_TEST} | set(PACKAGE_PINS)
+    require(gt('merge-base', REVIEWED_R22_HEAD, head) == REVIEWED_R22_HEAD,
+            'REVIEWED_R22_HEAD_REQUIRED')
     committed = set(gt('diff', '--name-only', BASE, head).splitlines())
+    later_committed = set(gt('diff', '--name-only', REVIEWED_R22_HEAD, head).splitlines())
     dirty = set(gt('diff', '--name-only', 'HEAD').splitlines())
-    require((committed | dirty) <= allowed, 'UNRELATED_TRACKED_CHANGES')
+    validate_change_scope(committed, later_committed, dirty)
+    for path, pin in R22_ORIGINAL_PINS.items():
+        require(gt('rev-parse', REVIEWED_R22_HEAD+':'+path) == pin,
+                'R22_REVIEWED_PIN_CHANGED:' + path)
+        if path not in R22_FIX_PATHS:
+            require(gt('rev-parse', head+':'+path) == pin,
+                    'R22_FIXED_FILE_COMMIT_CHANGED:' + path)
+            require(normalize((ROOT/path).read_bytes()) == normalize(git('show', head+':'+path)),
+                    'R22_FIXED_FILE_WORKTREE_CHANGED:' + path)
     for path, pin in PACKAGE_PINS.items():
         require((ROOT/path).is_file() and digest((ROOT/path).read_bytes()) == pin,
                 'R21R1_PACKAGE_CHANGED:' + path)
