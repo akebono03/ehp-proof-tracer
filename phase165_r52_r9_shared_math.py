@@ -786,6 +786,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_public_reassociation_transitivity,
         )
         merged = merge_backward_expansions(merged, expand_public_reassociation_transitivity(goal))
+        # Phase 178 R17R2: prefer already screened direct citation readings.
+        from phase178_r15_toda512_isolated.provider import RULE_NAME as cited_512_rule_name
+        preferred = tuple(o for o in merged if o.rule.name == cited_512_rule_name)
+        if preferred:
+            merged = preferred + tuple(o for o in merged if o.rule.name != cited_512_rule_name)
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 

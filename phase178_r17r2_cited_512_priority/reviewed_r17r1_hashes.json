@@ -1,0 +1,10 @@
+{
+  "phase178_r17r1_finite_cyclic_quotient_public/README.md": "a33b8c685d47fbaf6604eb166dff17c4db423c212984489322a149408b373b3f",
+  "phase178_r17r1_finite_cyclic_quotient_public/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "phase178_r17r1_finite_cyclic_quotient_public/installer.py": "fafcff5da138961539a477d39ae95275c82be4745cc7e4c345f52fbea779bed2",
+  "phase178_r17r1_finite_cyclic_quotient_public/provider.py": "3ff13f92dfbd5f06be29fcd2a07a95e270194422f8095059389793620447863f",
+  "phase178_r17r1_finite_cyclic_quotient_public/reviewed_r17_hashes.json": "6824fb5d69133fe8e7b8184c5d9beefad8a9cf17ca6cc3fad7d7fcf95bd63640",
+  "phase178_r17r1_finite_cyclic_quotient_public/run.ps1": "0ef8fa1982305e6dcfd516530bedd97b5a032c894e29f95dace55affeaa45932",
+  "phase178_r17r1_finite_cyclic_quotient_public/tests/test_installer.py": "e58ade4f067ffb5c8fca7eedf7b9af79b1ece139fad6875d83772bd111c0f591",
+  "phase178_r17r1_finite_cyclic_quotient_public/tests/test_public.py": "e11c43f4c83ec6511abab95a2150f77854b7981c1dfc245c364740c9938611f4"
+}
