@@ -130,6 +130,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
     if default_sources:
         from phase178_r15_toda512_isolated.source import build_cited_512_source
         sources = sources + (build_cited_512_source(),)
+    # Phase 178 R16R2: append the reviewed, positioned Toda (5.13) images.
+    if default_sources:
+        from phase178_r16_toda513_isolated.source import build_cited_513_source
+        sources = sources + (build_cited_513_source(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []

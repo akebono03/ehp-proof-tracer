@@ -1,0 +1,11 @@
+{
+  "phase178_r16_toda513_isolated/README.md": "8a54ce571f9cf169486ac270864a030718fa317a585206d3297183d7ad5af599",
+  "phase178_r16_toda513_isolated/__init__.py": "f8c8093361177e466810d9977ca80a179952f87677a973613b99bedb2df27a71",
+  "phase178_r16_toda513_isolated/audit.py": "df320c84d494ca15c32df3c1367774ccfdcd71aba62819622e9c48cc937db926",
+  "phase178_r16_toda513_isolated/reviewed_r15r2_hashes.json": "d10e675e86a04d6eec4e35a397b068384f0139102423a4e4765fc444766724fa",
+  "phase178_r16_toda513_isolated/run.ps1": "3258c75adb392fe284c036b1c2fc6f55a5d2138597044252dc1b1352c0ff31b6",
+  "phase178_r16_toda513_isolated/source.py": "f484c52381447360509db124db38b27f1c8c8d094bc05dc081119b2c72e4b202",
+  "phase178_r16_toda513_isolated/source_contract.py": "9112622fe79d9cc6024a6a0d5309573affa51c362d3b15ac92c2c3971f45eb69",
+  "phase178_r16_toda513_isolated/tests/test_registration.py": "e3fe9afbca8533014c305cf5a66c55b7eba7c2ede21deb0e143b33d64d8faccc",
+  "phase178_r16_toda513_isolated/tests/test_source_contract.py": "3f96e264cdd76a3caf98025ec007af4a61032bcd53cf138ca3c74d5290ff5b69"
+}
