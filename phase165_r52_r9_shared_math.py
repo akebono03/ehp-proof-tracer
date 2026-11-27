@@ -126,6 +126,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
     if default_sources:
         from phase176_r3r48_cited_finite_delta_kernel.source import build_cited_lemma57_delta_source
         sources = sources + (build_cited_lemma57_delta_source(),)
+    # Phase 178 R15R2: append the reviewed, positioned Toda (5.12) claims.
+    if default_sources:
+        from phase178_r15_toda512_isolated.source import build_cited_512_source
+        sources = sources + (build_cited_512_source(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -489,6 +493,9 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         build_public_unsigned_delta_provider,
     )
     public_unsigned_delta = build_public_unsigned_delta_provider(bridge, prior_conclusions)
+    # Phase 178 R15R2: use only the already screened (5.12) source claims.
+    from phase178_r15_toda512_isolated.provider import build_cited_512_provider
+    extra_providers = tuple(extra_providers) + (build_cited_512_provider(bridge),)
     shared_provider_registry = build_shared_expansion_provider_registry(
         expand_generic_iso_goal=expand_generic_iso_goal,
         expand_generic_ehp_hopf_goal=expand_generic_ehp_hopf_goal,

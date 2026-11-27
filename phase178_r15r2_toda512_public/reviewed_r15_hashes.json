@@ -1,0 +1,11 @@
+{
+  "phase178_r15_toda512_isolated/README.md": "fc399609841790a034a6b200f5b2520674bf0c39a0df224e3da0f56a477611fa",
+  "phase178_r15_toda512_isolated/__init__.py": "a775493b774466ca56489e3b8156986eadbcba547ef61ab2955d70ea3e168704",
+  "phase178_r15_toda512_isolated/audit.py": "8f79b6d39aea7e6cddd9c42365f5e6d252479d92c01dc2a81f14e5dd1f05b21b",
+  "phase178_r15_toda512_isolated/provider.py": "a58096934cf04e54c3d1bc66bfb63ecaf2609fa39d91e5e55e25aff1265d94bf",
+  "phase178_r15_toda512_isolated/run.ps1": "7d13ed4beb73dc310d846a700084356b9e0425828cb765b2d7477c6ede0f88b8",
+  "phase178_r15_toda512_isolated/source.py": "50bc51db1e6411a74b498b0532b89bbd29beace3cd91bf050f003b5c36397a08",
+  "phase178_r15_toda512_isolated/source_contract.py": "d1929380cb4e5c872b3c3dc423efd90152c4c6cbfafa5b88c84370d377455dd0",
+  "phase178_r15_toda512_isolated/tests/test_registration.py": "8a6783419c436e7fa54013de87011f9c8a026039d3f16ac749ed433cd05f280b",
+  "phase178_r15_toda512_isolated/tests/test_source_contract.py": "8ffb24431c1fe73c254393ef2b96de213aae07e7ec6d759682945e13216907a8"
+}
