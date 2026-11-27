@@ -1,0 +1,24 @@
+{
+  "phase178_r17r3_common_renderer/projection.py": {
+    "before": "b786c29357e229ab1e800eff228549cdb3101677ad37b2bb644210e6fcdca570",
+    "after": "2fcf0845374600975b0803ec753f149510f8ec6658f7cdc67961c49b5edfb177",
+    "replacement": "projection.py.txt"
+  },
+  "phase178_r17r3_common_renderer/tests/test_display.py": {
+    "before": "fc840f26836a2c7fe35354b229559174df58333967b58b0537372f3be4d831ad",
+    "after": "767d20335582ab932600dfcd16ae3b767f8df70a1cb50c3689aaadef565dd0d6",
+    "replacement": "tests__test_display.py.txt"
+  },
+  "phase178_r17r3_common_renderer/installer.py": {
+    "before": "a8729bfd80ec8a8dae17784177b8f78a6e521f47a0a882d45abc08fcfaf9ae7d"
+  },
+  "phase178_r17r3_common_renderer/run.ps1": {
+    "before": "294eb9d450f647f2b7871161b2732c30941083ccde16c2f6503dee1908520552"
+  },
+  "phase178_r17r3_common_renderer/__init__.py": {
+    "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "phase178_r17r3_common_renderer/README.md": {
+    "before": "78703245e006071a772fb03ea705cf8b2587fada952b89e3f23bfe5786d87c7a"
+  }
+}

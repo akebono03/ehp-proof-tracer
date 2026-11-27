@@ -14,7 +14,8 @@ from phase178_r17_finite_cyclic_quotient_isolated.rule import RULE_NAME
 from phase178_r17r2_cited_512_priority.audit import audit_actual
 from phase178_r17r3_common_renderer.projection import (
     cited_512_reference_sentence, composition_display_plan,
-    finite_cyclic_quotient_reason, project_composite_suspension_lines,
+    finite_cyclic_quotient_reason, finite_cyclic_subgroup_tex,
+    project_composite_suspension_lines,
     project_finite_quotient_order,
 )
 from proof import ProofRule, ProofStep
@@ -61,8 +62,9 @@ def test_actual_renderer(actual):
     before = (model.steps, model.citations, model.step_citation_numbers)
     reason = finite_cyclic_quotient_reason(model.steps[q].conclusion, model.steps[q])
     assert reason is not None and typed_sentence(model.steps[q].conclusion, model.steps[q]) == reason
-    assert r'\ker E=\operatorname{Im}\Delta=\langle 2' in reason
-    assert r'\cong \mathbb{Z}/8' in reason
+    assert r'\ker E=\operatorname{Im}\Delta=\mathbb{Z}/4\{2\nu_{4}^{2}\}' in reason
+    assert r'\cong \mathbb{Z}/8\{\nu_{4}^{2}\}/\mathbb{Z}/4\{2\nu_{4}^{2}\}' in reason
+    assert r'\langle' not in reason and r'\rangle' not in reason
     first, last = reason.split('. ', 1)
     branch, leaves, old = match_composition_branch(model, image)
     refs = sorted({n for i in leaves for n in model.step_citation_numbers[i]})
@@ -73,6 +75,7 @@ def test_actual_renderer(actual):
     c, = [c for c in model.citations if c.reference.locator == '(5.12)']
     assert cited_512_reference_sentence(canonical_512(4)) in c.statement_bodies
     assert cited_512_reference_sentence(canonical_512(4)) in reference
+    assert r'\langle' not in body and r'\rangle' not in body
     lines = body.splitlines()
     assert all(s not in lines for s in old), markdown
     assert lines.count(composite) == 1, markdown
@@ -86,6 +89,7 @@ def test_actual_renderer(actual):
     print('PHASE178_R17R3_COMPOSITION_ELISION=VERIFIED')
     print('PHASE178_R17R3_FINITE_QUOTIENT_REASON=VERIFIED')
     print('PHASE178_R17R3_CITED_512_REFERENCE=VERIFIED')
+    print('PHASE178_R17R4_FINITE_CYCLIC_SUBGROUP_NOTATION=VERIFIED')
     print(markdown)
 
 
@@ -124,3 +128,16 @@ def test_guarded_composition_projection(actual):
     shared = replace(model, steps=model.steps + (extra,), step_citation_numbers=model.step_citation_numbers + ((),))
     assert composition_display_plan(original, shared, image) is None
     assert project_finite_quotient_order(lines, model) == lines
+
+
+@pytest.mark.parametrize('order,multiple,expected', [
+    (8, 2, r'\mathbb{Z}/4\{2a\}'),
+    (16, 4, r'\mathbb{Z}/4\{4a\}'),
+    (16, 12, r'\mathbb{Z}/4\{12a\}'),
+    (8, 6, r'\mathbb{Z}/4\{6a\}'),
+    (8, -2, r'\mathbb{Z}/4\{2a\}'),
+    (8, 8, '0'),
+    (8, -16, '0'),
+])
+def test_finite_cyclic_subgroup_tex(order, multiple, expected):
+    assert finite_cyclic_subgroup_tex(order, multiple, 'a') == expected
