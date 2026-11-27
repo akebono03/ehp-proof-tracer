@@ -1,0 +1,9 @@
+{
+  "phase178_r16r2_toda513_public/README.md": "bdeaadd523af079a1f1d86e41e96c87dc21877185bbeb1dc0bd05dc50ea13999",
+  "phase178_r16r2_toda513_public/__init__.py": "d8a89ce331511445b7fa55e3df7d272dc57bc2acb36c8cd5f75fd734e64e9d48",
+  "phase178_r16r2_toda513_public/installer.py": "d27f13521839852bcfc6ffaaef43a0f90a9bc3579f146475dccdabf332872b12",
+  "phase178_r16r2_toda513_public/reviewed_r16_hashes.json": "0d19ecc9559d2a6eff07d254250cb0ab8f02e1855a442d0e3976aa728f075702",
+  "phase178_r16r2_toda513_public/run.ps1": "0c8ea1a20933659b4424c5bf9af57557897937dd3de0abe095495a7198883280",
+  "phase178_r16r2_toda513_public/tests/test_installer.py": "b63d39b31a098a033554ad377a9c7b5e02beb94f6bd664618fc039274cc78130",
+  "phase178_r16r2_toda513_public/tests/test_public.py": "6b61916120c7a88603414826b525adf28277895f27face854eda8322527e4a6e"
+}
