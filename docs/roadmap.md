@@ -1,8 +1,34 @@
 # EHP Proof Tracer ロードマップ
 
+<!-- PHASE178_FINAL_CLOSEOUT_20261127 -->
+
+## Phase 178 正式終了後の現在地と Phase 179 の境界
+
+$$
+\begin{aligned}
+\pi_8^2 &= \mathbb Z/2\{\eta_2\nu'\eta_6^2\},\\
+\pi_9^3 &= 0,\\
+\pi_{10}^4 &= \mathbb Z/8\{\nu_4^2\},\\
+\pi_{11}^5 &= \mathbb Z/2\{\nu_5^2\},\\
+\pi_{12}^6 &= \mathbb Z/2\{\nu_6^2\},\\
+\pi_{13}^7 &= \mathbb Z/2\{\nu_7^2\}.
+\end{aligned}
+$$
+
+非安定6-stem の6群はすべて `generic-complete-proof`。根祖先83段階（INFERENCE 56、GIVEN 27）、モデル出典延べ27件、Open Goals 0、対象群の直接 GIVEN 0。出典数は群間の重複を含む。
+
+CSV の重複除去後の831座標（$n\ge2,k\ge0$）について、現行安定判定 `is_in_toda_stable_range`（$n\ge k+2$）に従い、$k\le6$ の非安定群21件を測定した。各 stem の件数は1、2、3、4、5、6。全21件 complete、Open Goals 0、未完成・未測定0件。安定群313件および将来の非安定群497件は一括探索対象外。安定境界 $\pi_{14}^8=\mathbb Z/2\{\nu_8^2\}$ は別枠の観測で `generic-partial-proof`、Open Goals 8、対象 GIVEN 0。Phase 179 に持ち越す。全831座標または文献全命題の独立検証を認定しない。
+
+測定時 HEAD `c3e873b8c5fe5b69c895a48d0c55bad759b7f107` にて現行アクティブ `tests/` の全体 pytest を Phase 末尾に1回実行し、**3546 passed in 54.95s**（終了コード0）。別枠の限定 pytest は 189 件 PASS（訂正済み R4C 全6件を含む）。全体 stdout SHA-256：`4d8f2852c9ff59ea60ebe07f19fd3f86b0e112cd47c1b89b4a79adfe4bcda2bd`、stderr SHA-256：`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`、JUnit XML SHA-256：`c11f1f8b1d9f5aa754140be7719616c577ca9c902b49f8e590039e1848478af8`。測定 report SHA-256：`96a8e35ca5547b7d7b0bc29b6fbe52565deecfa5e5a28bab402858e35e1ce5f2`。最終文書 Gate は実測記録を再利用し、pytest・再探索を行わない。旧 R4C の出典条件を独立した Proposition 4.4 直前の Hopf 分解、Proposition 4.2、(5.1)、文献順序と証明木再検証に訂正し、全6テスト PASS を確認した。これとは別の Phase 174 履歴専用 Source Guard 4件は現行範囲外の既知失敗として維持し、再実行・解決・PASS 計上していない。
+
+Phase 179 は $k=7$ の非安定登録群の Source-first 監査から開始する。Lemma 5.14 による $\sigma_8$ の存在と (5.15) の分解を型付きの独立した出典・前提として監査し、$\pi_{14}^8=\mathbb Z/2\{\nu_8^2\}$ の証明への接続を検討する。後続の出典を先行目標に循環使用しない。R27 では (5.15) と Lemma 5.14 が archive に存在するが必要な型付き GIVEN が未接続であり、既存の Proposition 4.4 直前の分解の単射規則は n=4 に限定されていることを確認した。今回の Closeout では新規の数学規則や将来 Phase の機能を先取りしない。
+
+今後の終了測定も開発済み stem までの非安定登録群を対象とし、安定群の一括再探索と将来の非安定群の探索を行わない。必要な安定境界の個別監査は別枠に記録する。全体 pytest は Phase 末尾に実施する。
+
+
 <!-- PHASE177_FINAL_CLOSEOUT_20261126 -->
 
-## Phase 177 正式終了後の現在地と Phase 178 の境界
+## Phase 177 正式終了時の計画（履歴）
 
 選定目標 $(n,k)=(5,5)$：
 

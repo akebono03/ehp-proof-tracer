@@ -7919,3 +7919,290 @@ $$
 CSV の重複除去後の831座標（$n\ge2, k\ge0$）のうち、現行安定判定 `is_in_toda_stable_range`（$n\ge k+2$）に従い、$k\le5$ の非安定登録群15件を監査し、15件すべて complete、Open Goals 0、未完成・未測定0件。k=1,2,3,4,5 の非安定群は各1,2,3,4,5件。k=5 の登録6群（安定範囲1群を含む）も初回実測ですべて complete。安定群313件は既存完成方針に従い R1 の個別探索対象外、将来の非安定群503件も対象外。初回は75座標まで探索したが、全831群の完成を認定しない。安定群313件すべてを今回再検証したとは主張しない。
 
 現行アクティブ `tests/` の全体 pytest は HEAD `70d3ba540adebe96ada08728d045c1153e7e919a` で1回実行し、**3546 passed in 40.59s**（終了コード0）。stdout SHA-256：`c4ae4d18ff61978278a266ff55e3a9acd88ef56b517f6997cfba2c9179ded572`、stderr SHA-256：`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。範囲修正 R1 report SHA-256：`adcb8904e39bc801bc6d03f626e4c009a5a406a9bb86897a89100bd0dee60e96`。初回は全体 pytest 成功後、過大な登録群探索中の KeyboardInterrupt により終了 Gate が FAIL となった。R1 は非安定群8件の既存観測を再利用し、不足7件のみ探索した。全体 pytest は再実行していない。最終文書 Gate でも再探索・再テストしない。歴史的な Phase 174 Source Guard 4件は現行範囲外の既知失敗として残し、再実行・解決・PASS 計上していない。
+
+<!-- PHASE178_FINAL_CLOSEOUT_20261127 -->
+
+## 2026-11-27 — Phase 178：非安定6-stem の完成証明
+
+$$
+\begin{aligned}
+\pi_8^2 &= \mathbb Z/2\{\eta_2\nu'\eta_6^2\},\\
+\pi_9^3 &= 0,\\
+\pi_{10}^4 &= \mathbb Z/8\{\nu_4^2\},\\
+\pi_{11}^5 &= \mathbb Z/2\{\nu_5^2\},\\
+\pi_{12}^6 &= \mathbb Z/2\{\nu_6^2\},\\
+\pi_{13}^7 &= \mathbb Z/2\{\nu_7^2\}.
+\end{aligned}
+$$
+
+非安定6-stem の6群はすべて `generic-complete-proof`。根祖先83段階（INFERENCE 56、GIVEN 27）、モデル出典延べ27件、Open Goals 0、対象群の直接 GIVEN 0。出典数は群間の重複を含む。
+
+- n=2, k=6：3 段階（INFERENCE 1、GIVEN 2）、モデル出典 2 件。
+- n=3, k=6：20 段階（INFERENCE 15、GIVEN 5）、モデル出典 5 件。
+- n=4, k=6：6 段階（INFERENCE 2、GIVEN 4）、モデル出典 4 件。
+- n=5, k=6：18 段階（INFERENCE 12、GIVEN 6）、モデル出典 6 件。
+- n=6, k=6：18 段階（INFERENCE 13、GIVEN 5）、モデル出典 5 件。
+- n=7, k=6：18 段階（INFERENCE 13、GIVEN 5）、モデル出典 5 件。
+
+以下は Closeout Measurement の各公開探索で保存した共通 Narrative の記録である。新たな GIVEN や専用証明として登録するものではない。
+
+### n=2, k=6：保存済み共通 Narrative
+
+使用する結果
+
+**[R1] 先行データベース結果 $\pi_{8}^{3}$（sphere.csv, n=3, k=5）.**
+
+**[R2] (5.2).**
+
+$i\ge 3$ に対し, $\eta_2\circ(-):\pi_i^3\xrightarrow{\cong}\pi_i^2$ は同型.
+
+証明
+
+$\pi_{8}^{2}$の群構造を決定する.
+
+[R1]より, $\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}^{2}\}$.
+
+[R2]を用いて, $\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}^{2}\}$.
+
+□
+
+### n=3, k=6：保存済み共通 Narrative
+
+使用する結果
+
+**[R1] Proposition 5.8.**
+
+$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$.
+
+**[R2] 先行データベース結果 $\pi_{7}^{2}$（sphere.csv, n=2, k=5）.**
+
+**[R3] Proposition 4.2 (4.4).**
+
+$\pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}\xrightarrow{H}\pi_{i+1}^{2n+1}\xrightarrow{\Delta}\pi_{i-1}^{n}\xrightarrow{E}\pi_i^{n+1}$ は完全.
+
+**[R4] Lemma 5.7.**
+
+$E(\eta_2\nu')=0$.
+
+**[R5] 先行データベース結果 $\pi_{8}^{2}$（sphere.csv, n=2, k=6）.**
+
+証明
+
+$\pi_{9}^{3}$の群構造を決定するために, [R3]を用いて次の完全列を考える.
+
+$\pi_{8}^{2} \xrightarrow{E} \pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \xrightarrow{\Delta} \pi_{7}^{2} \xrightarrow{E} \pi_{8}^{3}$.
+
+[R1]より, $\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$.
+
+[R2]より, $\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$.
+
+[R4]より, $E(\eta_{2}\nu'\eta_{6})=0$.
+
+$E:\pi_{7}^{2}\to \pi_{8}^{3}$ は零写像.
+
+完全性より, $\Delta: \pi_{9}^{5}\to \pi_{7}^{2}$ は全射.
+
+$|\pi_{9}^{5}|=|\pi_{7}^{2}|=2$ であり, $\Delta$ は全射なので, $\Delta: \pi_{9}^{5}\to \pi_{7}^{2}$ は単射.
+
+完全性より, $\operatorname{Im}H=\ker\Delta=0$ なので, $H$ は零写像.
+
+よって, $\operatorname{Im}E=\ker H=\pi_{9}^{3}$ となり, $E: \pi_{8}^{2}\to \pi_{9}^{3}$ は全射.
+
+[R5]より, $\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}^{2}\}$.
+
+[R4]より, $E(\eta_{2}\nu'\eta_{6}^{2})=0$.
+
+$E:\pi_{8}^{2}\to \pi_{9}^{3}$ は零写像.
+
+以上より, $\pi_{9}^{3} = 0$.
+
+□
+
+### n=4, k=6：保存済み共通 Narrative
+
+使用する結果
+
+**[R1] Proposition 4.4.**
+
+$\alpha\in\pi_{2n-1}^{n}$ で $H(\alpha)=\pm\iota_{2n-1}$ とする.
+このとき, 任意の $i$ に対して次の写像は同型である.
+$\pi_{i-1}^{n-1}\oplus\pi_i^{2n-1}\xrightarrow{\;\cong\;}\pi_i^n,\quad(\beta,\gamma)\longmapsto E\beta+\alpha\circ\gamma$.
+特に $E:\pi_{i-1}^{n-1}\to\pi_i^{n}$ は単射である.
+
+**[R2] 先行データベース結果 $\pi_{9}^{3}$（sphere.csv, n=3, k=6）.**
+
+**[R3] 先行データベース結果 $\pi_{10}^{7}$（sphere.csv, n=7, k=3）［参考: Proposition 5.6］.**
+
+**[R4] Lemma 5.4.**
+
+$\nu_4\in\pi_7^4$, $H(\nu_4)=\iota_7$ および $2E\nu_4=E^2\nu'$.
+
+証明
+
+$\pi_{10}^{4}$の群構造を決定する.
+
+[R2]より, $\pi_{9}^{3} = 0$.
+
+[R3]より, $\pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}$.
+
+[R4]より, $H\left(\nu_{4}\right) = \iota_{7}$.
+
+[R1]を用いて, $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}^{2}\}$.
+
+□
+
+### n=5, k=6：保存済み共通 Narrative
+
+使用する結果
+
+**[R1] 先行データベース結果 $\pi_{10}^{4}$（sphere.csv, n=4, k=6）.**
+
+**[R2] 先行データベース結果 $\pi_{12}^{9}$（sphere.csv, n=9, k=3）［参考: Proposition 5.6］.**
+
+**[R3] (5.13).**
+
+$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}^{2}$.
+
+**[R4] Proposition 4.2 (4.4).**
+
+$\pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}\xrightarrow{H}\pi_{i+1}^{2n+1}\xrightarrow{\Delta}\pi_{i-1}^{n}\xrightarrow{E}\pi_i^{n+1}$ は完全.
+
+**[R5] (5.12).**
+
+$\Delta:\pi_{n+7}^{2n+1}\to\pi_{n+5}^{n}$ は単射 $(n=4,5,6)$.
+
+**[R6] Chapter V, iii).**
+
+$n\ge 4$ に対し, $\nu_n=E^{n-4}\nu_{4}$ と定義する.
+
+証明
+
+$\pi_{11}^{5}$の群構造を決定するために, [R4]を用いて次の完全列を考える.
+
+$\pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4} \xrightarrow{E} \pi_{11}^{5} \xrightarrow{H} \pi_{11}^{9} \xrightarrow{\Delta} \pi_{9}^{4}$.
+
+[R1]より, $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}^{2}\}$.
+
+[R2]より, $\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$.
+
+[R3]より, $\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}^{2}$.
+
+[R5]より, $\Delta: \pi_{11}^{9}\to \pi_{9}^{4}$ は単射.
+
+完全性より, $\operatorname{Im}H=\ker\Delta=0$ なので, $H$ は零写像.
+
+よって, $\operatorname{Im}E=\ker H=\pi_{11}^{5}$ となり, $E: \pi_{10}^{4}\to \pi_{11}^{5}$ は全射.
+
+完全性より, $\ker E=\operatorname{Im}\Delta=\mathbb{Z}/4\{2\nu_{4}^{2}\}$.
+
+$E$ は全射なので, 準同型定理より $\pi_{11}^{5}\cong \pi_{10}^{4}/\ker E\cong \mathbb{Z}/8\{\nu_{4}^{2}\}/\mathbb{Z}/4\{2\nu_{4}^{2}\}$.
+
+[R6]より, $E(\nu_{4}^{2})=\nu_{5}^{2}$.
+
+以上より, $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}^{2}\}$.
+
+□
+
+### n=6, k=6：保存済み共通 Narrative
+
+使用する結果
+
+**[R1] 先行データベース結果 $\pi_{11}^{5}$（sphere.csv, n=5, k=6）.**
+
+**[R2] 先行データベース結果 $\pi_{13}^{11}$（sphere.csv, n=11, k=2）［参考: Proposition 5.3］.**
+
+**[R3] (5.13).**
+
+$\Delta(\eta_{11}^{2})=0$.
+
+**[R4] Proposition 4.2 (4.4).**
+
+$\pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}\xrightarrow{H}\pi_{i+1}^{2n+1}\xrightarrow{\Delta}\pi_{i-1}^{n}\xrightarrow{E}\pi_i^{n+1}$ は完全.
+
+**[R5] (5.12).**
+
+$\Delta:\pi_{n+7}^{2n+1}\to\pi_{n+5}^{n}$ は単射 $(n=4,5,6)$.
+
+証明
+
+$\pi_{12}^{6}$の群構造を決定するために, [R4]を用いて次の完全列を考える.
+
+$\pi_{13}^{11} \xrightarrow{\Delta} \pi_{11}^{5} \xrightarrow{E} \pi_{12}^{6} \xrightarrow{H} \pi_{12}^{11} \xrightarrow{\Delta} \pi_{10}^{5}$.
+
+[R1]より, $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}^{2}\}$.
+
+[R2]より, $\pi_{13}^{11} = \mathbb{Z}/2\{\eta_{11}^{2}\}$.
+
+[R3]より, $\Delta(\eta_{11}^{2})=0$.
+
+$\Delta: \pi_{13}^{11}\to \pi_{11}^{5}$ は零写像.
+
+完全性より, $\ker E=\operatorname{Im}\Delta=0$ なので, $E: \pi_{11}^{5}\to \pi_{12}^{6}$ は単射.
+
+[R5]より, $\Delta: \pi_{12}^{11}\to \pi_{10}^{5}$ は単射.
+
+完全性より, $\operatorname{Im}H=\ker\Delta=0$ なので, $H$ は零写像.
+
+よって, $\operatorname{Im}E=\ker H=\pi_{12}^{6}$ となり, $E: \pi_{11}^{5}\to \pi_{12}^{6}$ は全射.
+
+単射性と全射性より, $E: \pi_{11}^{5}\to \pi_{12}^{6}$ は同型.
+
+$E(\nu_{5}^{2})=\nu_{6}^{2}$.
+
+以上より, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}^{2}\}$.
+
+□
+
+### n=7, k=6：保存済み共通 Narrative
+
+使用する結果
+
+**[R1] 先行データベース結果 $\pi_{12}^{6}$（sphere.csv, n=6, k=6）.**
+
+**[R2] 先行データベース結果 $\pi_{14}^{13}$（sphere.csv, n=13, k=1）［参考: Proposition 5.1］.**
+
+**[R3] (5.13).**
+
+$\Delta(\eta_{13})=0$.
+
+**[R4] Proposition 4.2 (4.4).**
+
+$\pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}\xrightarrow{H}\pi_{i+1}^{2n+1}\xrightarrow{\Delta}\pi_{i-1}^{n}\xrightarrow{E}\pi_i^{n+1}$ は完全.
+
+**[R5] (5.12).**
+
+$\Delta:\pi_{n+7}^{2n+1}\to\pi_{n+5}^{n}$ は単射 $(n=4,5,6)$.
+
+証明
+
+$\pi_{13}^{7}$の群構造を決定するために, [R4]を用いて次の完全列を考える.
+
+$\pi_{14}^{13} \xrightarrow{\Delta} \pi_{12}^{6} \xrightarrow{E} \pi_{13}^{7} \xrightarrow{H} \pi_{13}^{13} \xrightarrow{\Delta} \pi_{11}^{6}$.
+
+[R1]より, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}^{2}\}$.
+
+[R2]より, $\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$.
+
+[R3]より, $\Delta(\eta_{13})=0$.
+
+$\Delta: \pi_{14}^{13}\to \pi_{12}^{6}$ は零写像.
+
+完全性より, $\ker E=\operatorname{Im}\Delta=0$ なので, $E: \pi_{12}^{6}\to \pi_{13}^{7}$ は単射.
+
+[R5]より, $\Delta: \pi_{13}^{13}\to \pi_{11}^{6}$ は単射.
+
+完全性より, $\operatorname{Im}H=\ker\Delta=0$ なので, $H$ は零写像.
+
+よって, $\operatorname{Im}E=\ker H=\pi_{13}^{7}$ となり, $E: \pi_{12}^{6}\to \pi_{13}^{7}$ は全射.
+
+単射性と全射性より, $E: \pi_{12}^{6}\to \pi_{13}^{7}$ は同型.
+
+$E(\nu_{6}^{2})=\nu_{7}^{2}$.
+
+以上より, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}^{2}\}$.
+
+□
+
+CSV の重複除去後の831座標（$n\ge2,k\ge0$）について、現行安定判定 `is_in_toda_stable_range`（$n\ge k+2$）に従い、$k\le6$ の非安定群21件を測定した。各 stem の件数は1、2、3、4、5、6。全21件 complete、Open Goals 0、未完成・未測定0件。安定群313件および将来の非安定群497件は一括探索対象外。安定境界 $\pi_{14}^8=\mathbb Z/2\{\nu_8^2\}$ は別枠の観測で `generic-partial-proof`、Open Goals 8、対象 GIVEN 0。Phase 179 に持ち越す。全831座標または文献全命題の独立検証を認定しない。
+
+測定時 HEAD `c3e873b8c5fe5b69c895a48d0c55bad759b7f107` にて現行アクティブ `tests/` の全体 pytest を Phase 末尾に1回実行し、**3546 passed in 54.95s**（終了コード0）。別枠の限定 pytest は 189 件 PASS（訂正済み R4C 全6件を含む）。全体 stdout SHA-256：`4d8f2852c9ff59ea60ebe07f19fd3f86b0e112cd47c1b89b4a79adfe4bcda2bd`、stderr SHA-256：`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`、JUnit XML SHA-256：`c11f1f8b1d9f5aa754140be7719616c577ca9c902b49f8e590039e1848478af8`。測定 report SHA-256：`96a8e35ca5547b7d7b0bc29b6fbe52565deecfa5e5a28bab402858e35e1ce5f2`。最終文書 Gate は実測記録を再利用し、pytest・再探索を行わない。旧 R4C の出典条件を独立した Proposition 4.4 直前の Hopf 分解、Proposition 4.2、(5.1)、文献順序と証明木再検証に訂正し、全6テスト PASS を確認した。これとは別の Phase 174 履歴専用 Source Guard 4件は現行範囲外の既知失敗として維持し、再実行・解決・PASS 計上していない。
