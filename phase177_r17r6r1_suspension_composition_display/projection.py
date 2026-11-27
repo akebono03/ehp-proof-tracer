@@ -24,7 +24,7 @@ def named(step, name):
             and step.inference_rule.name == name and replayed(step))
 
 
-def match_composition_branch(model, index):
+def match_composition_branch(model, index, *, allow_definition_only=False):
     """Return the actual typed factor witnesses, source leaves and all branch nodes.
 
     Only two proved factor images of the existing composite inference are
@@ -101,7 +101,7 @@ def match_composition_branch(model, index):
         nodes.update((a, b, leaf))
         leaves.add(leaf)
         displays.append(f'[R{c}]より, '+text)
-    if not leaves or len(set(displays)) != len(displays):
+    if (not leaves and not allow_definition_only) or len(set(displays)) != len(displays):
         return None
     try:
         if root_ancestor_step_indices(steps, index) != nodes:

@@ -94,7 +94,7 @@ def composition_display_plan(lines, model, index, protected=frozenset()):
     scope, parents, boundary = context
     if index not in scope or index in protected:
         return None
-    match = match_composition_branch(model, index)
+    match = match_composition_branch(model, index, allow_definition_only=True)
     if match is None:
         return None
     branch, leaves, old = match
@@ -119,8 +119,8 @@ def composition_display_plan(lines, model, index, protected=frozenset()):
     body = typed_sentence(step.conclusion, step)
     if body is None or not body.startswith('$E('):
         return None
-    tag = ', '.join(f'[R{n}]' for n in refs) + 'より, '
-    replacement = tag + body
+    replacement = (', '.join(f'[R{n}]' for n in refs) + 'より, ' + body
+                   if refs else body)
     # The normal renderer cites a unique source ancestor; preserve all refs
     # if several independently cited factor branches were proved.
     options = {body, replacement}
@@ -208,6 +208,54 @@ def project_finite_quotient_order(lines, model, protected=frozenset()):
             continue
         output.insert(end + 1, '')
         output.insert(end + 2, output[pos])
+        del output[pos]
+        if pos < len(output) and not output[pos]:
+            del output[pos]
+    return output
+
+def project_typed_suspension_iso_lines(lines, model, protected=frozenset()):
+    """Hide only a redundant typed reading of a displayed, proved isomorphism."""
+    context = graph_context(lines, model)
+    if context is None:
+        return lines
+    scope, parents, boundary = context
+    from phase168_r3_27_typed_statement_projection import typed_sentence
+    from phase178_r20_suspension_isomorphism_bridge_isolated.rule import (
+        RULE_NAME as bridge_name, suspension_isomorphism_inputs,
+    )
+    from phase165_r14_r6_generic_iso import MapInjective, MapSurjective
+    output = list(lines)
+    for index in sorted(scope):
+        step = model.steps[index]
+        if (index == model.root_index or index in protected
+                or model.step_citation_numbers[index]
+                or step.inference_rule is None or step.inference_rule.name != bridge_name
+                or step.inference_rule.literature_reference is not None
+                or len(parents[index]) != 1 or not replayed(step)):
+            continue
+        parent_index, = parents[index]
+        parent = model.steps[parent_index]
+        if (parent_index not in scope or parent_index in protected
+                or suspension_isomorphism_inputs(step.conclusion) != (parent.conclusion,)
+                or parent.inference_rule is None
+                or parent.inference_rule.name != 'generic injective and surjective imply isomorphism'
+                or tuple(p.conclusion for p in parent.premises) != (
+                    MapInjective(step.conclusion.map), MapSurjective(step.conclusion.map))
+                or not replayed(parent)):
+            continue
+        bare = typed_sentence(step.conclusion, step)
+        reason = typed_sentence(parent.conclusion, parent)
+        if not bare or reason != '単射性と全射性より, ' + bare:
+            continue
+        pos = unique_body_line(output, boundary, bare)
+        previous = unique_body_line(output, boundary, reason)
+        if (pos is None or previous is None or previous >= pos
+                or any(line.strip() for line in output[previous + 1:pos])):
+            continue
+        if any(j not in (index, parent_index) and
+               typed_sentence(model.steps[j].conclusion, model.steps[j]) in (bare, reason)
+               for j in scope):
+            continue
         del output[pos]
         if pos < len(output) and not output[pos]:
             del output[pos]
