@@ -811,6 +811,20 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             if not any(old.rule.name == option.rule.name and old.subgoals == option.subgoals
                        for old in merged):
                 merged += (option,)
+        # Phase 178 R21R1: append the verified cyclic generator zero-image provider.
+        from phase178_r21_finite_cyclic_generator_zero_image_isolated.rule import (
+            build_finite_cyclic_delta_zero_provider, valid_delta_zero_goal,
+        )
+        if valid_delta_zero_goal(goal):
+            from phase169_r10e4_ordered_db_prior.db_prior import group_coordinates
+            if group_coordinates(proof_target) is not None:
+                delta_zero_provider = build_finite_cyclic_delta_zero_provider(
+                    bridge=bridge, proof_target=proof_target,
+                )
+                for option in delta_zero_provider(goal):
+                    if not any(old.rule.name == option.rule.name and old.subgoals == option.subgoals
+                               for old in merged):
+                        merged += (option,)
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 

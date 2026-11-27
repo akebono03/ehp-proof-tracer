@@ -159,9 +159,11 @@ def test_real_n6_admitted_db_and_citation_replay(real_n6):
     assert result.premises == (prior,cited)
     assert result.inference_rule.literature_reference is None
     assert not any(link.step is not None and link.step.conclusion == root for link in bridge.proof_links)
-    assert all(o.rule.name != r21.RULE_NAME for o in shared_expansion_provider(bridge,proof_target=root)(goal))
+    public = shared_expansion_provider(bridge,proof_target=root)(goal)
+    assert sum(o.rule.name == r21.RULE_NAME and o.subgoals == option.subgoals for o in public) == 1
     assert before == (tuple(bridge.proof_links),tuple(bridge.registry._assertions.items()))
     print('R21_N6_DELTA_ZERO_ISOLATED_REPLAY=VERIFIED')
+    print('R21R1_N6_PUBLIC_PROVIDER_MATCH=VERIFIED')
 
 
 def test_real_n6_reject_unadmitted_or_unlinked_steps(real_n6):
