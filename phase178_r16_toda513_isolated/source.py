@@ -29,7 +29,9 @@ def canonical_513():
     nu9 = _element('ν', 9, 3)
     nu4_square = Composition(_element('ν', 4, 3), _element('ν', 7, 3))
     eta11_square = Composition(_element('η', 11, 1), _element('η', 12, 1))
-    eta13 = _element('η', 13, 1)
+    # Single generators use the existing simple DB adapter's indexed notation.
+    # The structured composite generators above retain their Unicode names.
+    eta13 = HomotopyElement('η_13', 13, 14, 13, GeneratorSymbol('η', index=13))
     return (
         TodaDeltaImageUpToSignStatement(
             TodaDeltaMap(TodaPrimaryGroup(12, 9), TodaPrimaryGroup(10, 4)),
