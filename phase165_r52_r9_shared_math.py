@@ -505,6 +505,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     extra_providers = tuple(extra_providers) + (
         build_public_finite_cyclic_quotient_provider(bridge=bridge, proof_target=proof_target),
     )
+    # Phase 178 R19R1: reuse the independently tested finite cyclic transport provider.
+    from phase178_r19_finite_cyclic_suspension_transport_isolated.provider import (
+        build_finite_cyclic_suspension_transport_provider,
+    )
+    finite_cyclic_transport = build_finite_cyclic_suspension_transport_provider(
+        bridge=bridge, proof_target=proof_target,
+    )
     shared_provider_registry = build_shared_expansion_provider_registry(
         expand_generic_iso_goal=expand_generic_iso_goal,
         expand_generic_ehp_hopf_goal=expand_generic_ehp_hopf_goal,
@@ -791,6 +798,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         preferred = tuple(o for o in merged if o.rule.name == cited_512_rule_name)
         if preferred:
             merged = preferred + tuple(o for o in merged if o.rule.name != cited_512_rule_name)
+        # Append only new obligations; preserve all existing candidate priorities.
+        for option in finite_cyclic_transport(goal):
+            if not any(old.rule.name == option.rule.name and old.subgoals == option.subgoals
+                       for old in merged):
+                merged += (option,)
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 

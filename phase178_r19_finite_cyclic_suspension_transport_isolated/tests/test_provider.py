@@ -145,7 +145,7 @@ def test_root_scope_rejects_invalid_goals_before_db_lookup(monkeypatch):
     assert provider.build_finite_cyclic_suspension_transport_provider(bridge=synthetic_bridge(),proof_target=low)(low) == ()
 
 
-def test_real_n6_candidate_not_publicly_installed():
+def test_real_n6_candidate_matches_public_wiring():
     root, lower = exact_prior_database_result(6,6), exact_prior_database_result(5,6)
     assert root.lhs == TodaPrimaryGroup(12,6) and lower.lhs == TodaPrimaryGroup(11,5)
     assert type(root.rhs.generator) is Composition and type(lower.rhs.generator) is Composition
@@ -162,11 +162,11 @@ def test_real_n6_candidate_not_publicly_installed():
     assert len(selected.subgoals) == 3 and not any(isinstance(s,ProofStep) for s in selected.subgoals)
     assert all(o.rule.name != RULE for o in expand_finite_cyclic_relation(root))
     public = shared_expansion_provider(bridge,proof_target=root)(root)
-    assert all(o.rule.name != RULE for o in public)
+    assert sum(o.rule.name == RULE and o.subgoals == expected for o in public) == 1
     assert tuple(bridge.proof_links) == original_links
     assert tuple(bridge.registry._assertions.items()) == original_assertions
     assert not any(link.step is not None and link.step.conclusion == root for link in bridge.proof_links)
     print('PHASE178_R19_N6_THREE_PREMISES=VERIFIED')
     for premise in selected.subgoals:
         print('PHASE178_R19_OBLIGATION='+repr(premise))
-    print('PHASE178_R19_PUBLIC_PROVIDER_UNCHANGED=VERIFIED')
+    print('PHASE178_R19R1_PUBLIC_PROVIDER_MATCH=VERIFIED')
