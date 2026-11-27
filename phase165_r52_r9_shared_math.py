@@ -803,6 +803,14 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             if not any(old.rule.name == option.rule.name and old.subgoals == option.subgoals
                        for old in merged):
                 merged += (option,)
+        # Phase 178 R20R1: append the verified typed suspension isomorphism bridge.
+        from phase178_r20_suspension_isomorphism_bridge_isolated.rule import (
+            expand_suspension_isomorphism_bridge,
+        )
+        for option in expand_suspension_isomorphism_bridge(goal):
+            if not any(old.rule.name == option.rule.name and old.subgoals == option.subgoals
+                       for old in merged):
+                merged += (option,)
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 

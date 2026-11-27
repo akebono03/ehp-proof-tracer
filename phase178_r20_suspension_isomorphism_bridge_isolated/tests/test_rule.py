@@ -93,7 +93,8 @@ def test_real_n6_frontier_and_existing_obligations():
     public = shared_expansion_provider(bridge,proof_target=root)
     assert any(o.subgoals == required for o in public(root))
     goal = required[1]
-    assert not any(o.rule.name == RULE_NAME for o in public(goal))
+    assert sum(o.rule.name == RULE_NAME and o.subgoals == (MapIsomorphism(goal.map),)
+               for o in public(goal)) == 1
     proposal, = expand_suspension_isomorphism_bridge(goal)
     generic, = proposal.subgoals
     assert isinstance(generic,MapIsomorphism)
@@ -107,6 +108,6 @@ def test_real_n6_frontier_and_existing_obligations():
     assert tuple(bridge.registry._assertions.items()) == assertions
     print('PHASE178_R20_N6_TYPED_ISOMORPHISM_BRIDGE=VERIFIED')
     print('PHASE178_R20_EXISTING_INJECTIVE_SURJECTIVE_CANDIDATES=VERIFIED')
-    print('PHASE178_R20_PUBLIC_PROVIDER_UNCHANGED=VERIFIED')
+    print('PHASE178_R20R1_PUBLIC_PROVIDER_MATCH=VERIFIED')
     for g in (goal,generic,injective,surjective):
         print('PHASE178_R20_OBLIGATION='+repr(g))
