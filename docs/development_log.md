@@ -8147,3 +8147,39 @@ R17R1〜R17R6R1 は共通 Renderer で有限巡回群の単射理由、商群、
 CSV の重複除去後の831座標（$n\ge2, k\ge0$）のうち、現行安定判定 `is_in_toda_stable_range`（$n\ge k+2$）に従い、$k\le5$ の非安定登録群15件を監査し、15件すべて complete、Open Goals 0、未完成・未測定0件。k=1,2,3,4,5 の非安定群は各1,2,3,4,5件。k=5 の登録6群（安定範囲1群を含む）も初回実測ですべて complete。安定群313件は既存完成方針に従い R1 の個別探索対象外、将来の非安定群503件も対象外。初回は75座標まで探索したが、全831群の完成を認定しない。安定群313件すべてを今回再検証したとは主張しない。
 
 次の Phase 178 は $k=6$ の非安定登録群の Source-first 監査を開始候補とする。現行コード・出典・未完成 Goal の確認後に対象を確定し、今回新規規則や将来 Phase の機能を追加しない。以後の Closeout は開発済み stem までの非安定登録群を対象とし、安定群は個別再探索せず、将来の非安定群も対象外とする。取得済み実測を再利用し、全体 pytest は Phase 末尾にのみ実行する。
+
+<!-- PHASE178_FINAL_CLOSEOUT_20261127 -->
+
+## 2026-11-27 — Phase 178 正式終了（現行範囲）
+
+$$
+\begin{aligned}
+\pi_8^2 &= \mathbb Z/2\{\eta_2\nu'\eta_6^2\},\\
+\pi_9^3 &= 0,\\
+\pi_{10}^4 &= \mathbb Z/8\{\nu_4^2\},\\
+\pi_{11}^5 &= \mathbb Z/2\{\nu_5^2\},\\
+\pi_{12}^6 &= \mathbb Z/2\{\nu_6^2\},\\
+\pi_{13}^7 &= \mathbb Z/2\{\nu_7^2\}.
+\end{aligned}
+$$
+
+非安定6-stem の6群はすべて `generic-complete-proof`。根祖先83段階（INFERENCE 56、GIVEN 27）、モデル出典延べ27件、Open Goals 0、対象群の直接 GIVEN 0。出典数は群間の重複を含む。
+
+- n=2, k=6：3 段階（INFERENCE 1、GIVEN 2）、モデル出典 2 件。
+- n=3, k=6：20 段階（INFERENCE 15、GIVEN 5）、モデル出典 5 件。
+- n=4, k=6：6 段階（INFERENCE 2、GIVEN 4）、モデル出典 4 件。
+- n=5, k=6：18 段階（INFERENCE 12、GIVEN 6）、モデル出典 6 件。
+- n=6, k=6：18 段階（INFERENCE 13、GIVEN 5）、モデル出典 5 件。
+- n=7, k=6：18 段階（INFERENCE 13、GIVEN 5）、モデル出典 5 件。
+
+R1〜R13：非安定6-stem の出典優先監査、有限群の全射・単射・零写像、零群証明と表示整理。
+
+R14〜R17： (5.12)、(5.13) と有限巡回商群の接続、共通表示の整理。R19〜R26：懸垂同型による有限巡回群輸送、生成元零像、n=6,7 の証明完成、表記整合、根祖先・出典・表示監査。
+
+R27：安定境界を別枠で監査し、R28 の接続を Phase 179 に延期。R29：非安定6群の最終監査（106件 PASS）。R30：旧 R4C の失敗原因を出典条件の不一致と判定（41件 PASS、旧テスト1件の既知失敗を別枠確認）。R30R1：出典条件を訂正し47件 PASS、旧 R4C は全6件 PASS。
+
+CSV の重複除去後の831座標（$n\ge2,k\ge0$）について、現行安定判定 `is_in_toda_stable_range`（$n\ge k+2$）に従い、$k\le6$ の非安定群21件を測定した。各 stem の件数は1、2、3、4、5、6。全21件 complete、Open Goals 0、未完成・未測定0件。安定群313件および将来の非安定群497件は一括探索対象外。安定境界 $\pi_{14}^8=\mathbb Z/2\{\nu_8^2\}$ は別枠の観測で `generic-partial-proof`、Open Goals 8、対象 GIVEN 0。Phase 179 に持ち越す。全831座標または文献全命題の独立検証を認定しない。
+
+測定時 HEAD `c3e873b8c5fe5b69c895a48d0c55bad759b7f107` にて現行アクティブ `tests/` の全体 pytest を Phase 末尾に1回実行し、**3546 passed in 54.95s**（終了コード0）。別枠の限定 pytest は 189 件 PASS（訂正済み R4C 全6件を含む）。全体 stdout SHA-256：`4d8f2852c9ff59ea60ebe07f19fd3f86b0e112cd47c1b89b4a79adfe4bcda2bd`、stderr SHA-256：`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`、JUnit XML SHA-256：`c11f1f8b1d9f5aa754140be7719616c577ca9c902b49f8e590039e1848478af8`。測定 report SHA-256：`96a8e35ca5547b7d7b0bc29b6fbe52565deecfa5e5a28bab402858e35e1ce5f2`。最終文書 Gate は実測記録を再利用し、pytest・再探索を行わない。旧 R4C の出典条件を独立した Proposition 4.4 直前の Hopf 分解、Proposition 4.2、(5.1)、文献順序と証明木再検証に訂正し、全6テスト PASS を確認した。これとは別の Phase 174 履歴専用 Source Guard 4件は現行範囲外の既知失敗として維持し、再実行・解決・PASS 計上していない。
+
+Phase 179 は $k=7$ の非安定登録群の Source-first 監査から開始する。Lemma 5.14 による $\sigma_8$ の存在と (5.15) の分解を型付きの独立した出典・前提として監査し、$\pi_{14}^8=\mathbb Z/2\{\nu_8^2\}$ の証明への接続を検討する。後続の出典を先行目標に循環使用しない。R27 では (5.15) と Lemma 5.14 が archive に存在するが必要な型付き GIVEN が未接続であり、既存の Proposition 4.4 直前の分解の単射規則は n=4 に限定されていることを確認した。今回の Closeout では新規の数学規則や将来 Phase の機能を先取りしない。

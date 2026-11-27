@@ -1,8 +1,43 @@
 # EHP Proof Tracer
 
+<!-- PHASE178_FINAL_CLOSEOUT_20261127 -->
+
+## Current development status — Phase 178 formally closed (active scope)
+
+Phase 178 completes all six registered unstable 6-stem groups (free part and 2-primary component):
+
+$$
+\begin{aligned}
+\pi_8^2 &= \mathbb Z/2\{\eta_2\nu'\eta_6^2\},\\
+\pi_9^3 &= 0,\\
+\pi_{10}^4 &= \mathbb Z/8\{\nu_4^2\},\\
+\pi_{11}^5 &= \mathbb Z/2\{\nu_5^2\},\\
+\pi_{12}^6 &= \mathbb Z/2\{\nu_6^2\},\\
+\pi_{13}^7 &= \mathbb Z/2\{\nu_7^2\}.
+\end{aligned}
+$$
+
+All six results are `generic-complete-proof`: 83 root-ancestry steps, 56 INFERENCE steps, 27 GIVEN leaves, 27 model citations counted across proofs, zero open goals and zero direct target-group GIVENs.
+
+- n=2, k=6: 3 steps (INFERENCE 1, GIVEN 2), 2 model citations.
+- n=3, k=6: 20 steps (INFERENCE 15, GIVEN 5), 5 model citations.
+- n=4, k=6: 6 steps (INFERENCE 2, GIVEN 4), 4 model citations.
+- n=5, k=6: 18 steps (INFERENCE 12, GIVEN 6), 6 model citations.
+- n=6, k=6: 18 steps (INFERENCE 13, GIVEN 5), 5 model citations.
+- n=7, k=6: 18 steps (INFERENCE 13, GIVEN 5), 5 model citations.
+
+Source-first typed backward search, first successful proof, no uniqueness search and the common Verified Proof Tree → ProofNarrativeModel → Renderer → Web path remain the policy. Finite-group cardinality, zero-map, cyclic quotient and suspension-isomorphism transport rules and source-scoped (5.12), (5.13) connections support the 6-stem proofs. Display compression preserves the proof tree.
+
+The 831 distinct registered CSV coordinates (n >= 2, k >= 0) are partitioned by the existing stable-range predicate `is_in_toda_stable_range` into 21 active unstable groups through the 6-stem, 313 stable-range groups, and 497 future unstable groups. All 21 active groups are complete with zero open goals, incomplete groups or unmeasured groups. No bulk stable-range or future-stem search was performed. The stable boundary $\pi_{14}^8=\mathbb Z/2\{\nu_8^2\}$ alone was separately observed as `generic-partial-proof` with 8 open goals and zero target GIVENs; it is deferred to Phase 179. This is not a certification of all 831 coordinates or every literature assertion.
+
+The end-of-phase active `tests/` suite ran once on `c3e873b8c5fe5b69c895a48d0c55bad759b7f107`: **3546 passed in 54.95s** (exit 0). The separate focused suite passed 189 tests, including all six historical R4C tests. Full stdout SHA-256: `4d8f2852c9ff59ea60ebe07f19fd3f86b0e112cd47c1b89b4a79adfe4bcda2bd`; stderr SHA-256: `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`; JUnit XML SHA-256: `c11f1f8b1d9f5aa754140be7719616c577ca9c902b49f8e590039e1848478af8`. Measurement report SHA-256: `96a8e35ca5547b7d7b0bc29b6fbe52565deecfa5e5a28bab402858e35e1ce5f2`. The document gate reuses the measurement without running pytest or new proof searches. The R4C source contract now requires the independent pre-Proposition 4.4 Hopf splitting, Proposition 4.2, (5.1), source chronology and proof replay. Four distinct Phase 174 historical source-guard failures remain outside the active suite; they were not rerun or counted as passing.
+
+Next: Phase 179 audits the 7-stem, including Lemma 5.14, the sigma family and (5.15), before connecting the deferred stable 6-stem boundary. No future-phase rules are added by this closeout.
+
+
 <!-- PHASE177_FINAL_CLOSEOUT_20261126 -->
 
-## Current development status — Phase 177 formally closed (active scope)
+## Historical status — Phase 177 formally closed (active scope)
 
 Phase 177 completes $(n,k)=(5,5)$:
 

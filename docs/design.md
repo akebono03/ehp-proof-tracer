@@ -1,8 +1,34 @@
 # EHP Proof Tracer 設計
 
+<!-- PHASE178_FINAL_CLOSEOUT_20261127 -->
+
+## Phase 178 の現行設計と終了監査の境界
+
+$$
+\begin{aligned}
+\pi_8^2 &= \mathbb Z/2\{\eta_2\nu'\eta_6^2\},\\
+\pi_9^3 &= 0,\\
+\pi_{10}^4 &= \mathbb Z/8\{\nu_4^2\},\\
+\pi_{11}^5 &= \mathbb Z/2\{\nu_5^2\},\\
+\pi_{12}^6 &= \mathbb Z/2\{\nu_6^2\},\\
+\pi_{13}^7 &= \mathbb Z/2\{\nu_7^2\}.
+\end{aligned}
+$$
+
+非安定6-stem の6群はすべて `generic-complete-proof`。根祖先83段階（INFERENCE 56、GIVEN 27）、モデル出典延べ27件、Open Goals 0、対象群の直接 GIVEN 0。出典数は群間の重複を含む。
+
+Source-first（出典優先）、First Successful Proof Search（最初の成功で終了）、唯一性検査なしを維持する。先行 DB 結果は検証済みの順序条件を満たす場合に採用し、対象群の直接 GIVEN は追加しない。Δ 全射から懸垂零写像、有限群の位数一致と全射から単射、有限巡回群の生成元零像から零写像、有限巡回商群と懸垂同型による生成元輸送、一般の写像同型から型付き懸垂同型への接続を用いた。Toda (5.12) の適用範囲は n=4,5,6 に限定する。(5.13) の型付き関係を出典順序に従い使用し、η の表記を既存の型付き DB 表記と整合させた。群専用証明・専用 Narrative は追加しない。
+
+共通経路 Verified Proof Tree（検証済み証明木）→ `ProofNarrativeModel` → 共通 Renderer（表示器）→ Web を維持する。R12R2、R17R3/R17R4、R23 の表示整理は実際の根祖先・出典・型付き前提を確認したうえで、零合成の冗長な記述、有限巡回商群と部分群の表記、因子の懸垂等式および重複同型表示を整理する。内部 ProofStep、出典対応、完成・未完成状態は変更しない。旧 R4C はテストの出典契約だけを訂正し、数学的規則、Provider、Renderer は R30R1 で変更していない。
+
+CSV の重複除去後の831座標（$n\ge2,k\ge0$）について、現行安定判定 `is_in_toda_stable_range`（$n\ge k+2$）に従い、$k\le6$ の非安定群21件を測定した。各 stem の件数は1、2、3、4、5、6。全21件 complete、Open Goals 0、未完成・未測定0件。安定群313件および将来の非安定群497件は一括探索対象外。安定境界 $\pi_{14}^8=\mathbb Z/2\{\nu_8^2\}$ は別枠の観測で `generic-partial-proof`、Open Goals 8、対象 GIVEN 0。Phase 179 に持ち越す。全831座標または文献全命題の独立検証を認定しない。
+
+測定時 HEAD `c3e873b8c5fe5b69c895a48d0c55bad759b7f107` にて現行アクティブ `tests/` の全体 pytest を Phase 末尾に1回実行し、**3546 passed in 54.95s**（終了コード0）。別枠の限定 pytest は 189 件 PASS（訂正済み R4C 全6件を含む）。全体 stdout SHA-256：`4d8f2852c9ff59ea60ebe07f19fd3f86b0e112cd47c1b89b4a79adfe4bcda2bd`、stderr SHA-256：`e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`、JUnit XML SHA-256：`c11f1f8b1d9f5aa754140be7719616c577ca9c902b49f8e590039e1848478af8`。測定 report SHA-256：`96a8e35ca5547b7d7b0bc29b6fbe52565deecfa5e5a28bab402858e35e1ce5f2`。最終文書 Gate は実測記録を再利用し、pytest・再探索を行わない。旧 R4C の出典条件を独立した Proposition 4.4 直前の Hopf 分解、Proposition 4.2、(5.1)、文献順序と証明木再検証に訂正し、全6テスト PASS を確認した。これとは別の Phase 174 履歴専用 Source Guard 4件は現行範囲外の既知失敗として維持し、再実行・解決・PASS 計上していない。
+
+
 <!-- PHASE177_FINAL_CLOSEOUT_20261126 -->
 
-## Phase 177 の現行設計と終了監査の境界
+## Phase 177 の設計と終了監査の境界（履歴）
 
 選定目標 $(n,k)=(5,5)$：
 
